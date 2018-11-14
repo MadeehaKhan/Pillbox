@@ -1,0 +1,4 @@
+- poster
+- create documentation
+- figure out project management technique
+	- documenting iterations
