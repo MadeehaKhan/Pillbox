@@ -1,9 +1,24 @@
 - poster
 	-intro
 	-background
-	-mockups
-	-survey results
-	-business events diagram
+	-mockups --> no
+	-survey results --> yes
+	-business events diagram --> use case diagrams instead
 - create documentation
 - figure out project management technique
 	- documenting iterations
+	-WATERFALL
+
+Madeeha
+-send email
+	template for writing requirements
+	volaire template for business
+	IEEE template
+	ask his TA to give us one
+
+Cesar
+-look at technology
+-Flutter
+-other frameworks and things
+
+
