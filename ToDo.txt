@@ -1,4 +1,9 @@
 - poster
+	-intro
+	-background
+	-mockups
+	-survey results
+	-business events diagram
 - create documentation
 - figure out project management technique
 	- documenting iterations
