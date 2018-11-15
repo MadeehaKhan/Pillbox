@@ -8,17 +8,20 @@
 - figure out project management technique
 	- documenting iterations
 	-WATERFALL
-
-Madeeha
--send email
-	template for writing requirements
+-template for writing requirements
 	volaire template for business
 	IEEE template
 	ask his TA to give us one
 
-Cesar
+Madeeha
+-survey
+
+Carlos
 -look at technology
+-look at MVC
 -Flutter
 -other frameworks and things
 
+Cesar
+-look at specifications templates
 
