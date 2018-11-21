@@ -10,3 +10,28 @@ Noun: "Regular User"
 Noun: Pharmacist
 	Verbs
 	-Recieve notification
+
+
+
+
+
+
+
+
+
+Noun: "Regular User"
+	Verbs
+	- Requests
+	- Notifies
+	- Recieves
+	- Gives info
+	- Edit
+
+Noun: Pharmacist
+	Verbs
+	- Recieves
+
+Noun: Caregiver
+	Verbs
+	- Recieves
+	- Requests
