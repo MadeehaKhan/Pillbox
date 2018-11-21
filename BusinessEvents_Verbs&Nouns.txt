@@ -1,0 +1,12 @@
+PillBox: Verbs & Nouns from Business Events (https://docs.google.com/document/d/1jb19991qhWG7oMhdp-V1ORy8bOBZ-ZwAgTNo56RJoLM/edit)
+
+Noun: "Regular User"
+	Verbs
+	- Set up profile
+	- View medication for the day
+	- Take Medication
+	- Modify Medication
+
+Noun: Pharmacist
+	Verbs
+	-Recieve notification
