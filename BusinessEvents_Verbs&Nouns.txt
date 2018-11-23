@@ -14,7 +14,32 @@ Noun: Pharmacist
 
 
 
+Noun: 
+Regular User
+Verbs:
+Remove Medication
+Revieve Notification
+Acknowledge Notification
+Get Pharmacist Contact Info
+Call Pharmacist
+Add drug (From new pharmacy/pharmacist)
+Set Pharmacy Info
+Set Pharmacist Info
+Get Total Cost of Medication
 
+Noun:
+Caregiver
+Verbs:
+Revieve Notification
+Acknowledge Notification
+Get Total Cost of Medication
+
+Noun: 
+Pharmacist
+Verbs:
+Send Notification (to user)
+Detect Patients' medication
+Recieve Notifcation
 
 
 
@@ -35,3 +60,6 @@ Noun: Caregiver
 	Verbs
 	- Recieves
 	- Requests
+
+
+
