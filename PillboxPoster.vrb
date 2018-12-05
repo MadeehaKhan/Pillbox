@@ -35,8 +35,17 @@ The Medisafe and MyTherapy apps have over 1 million downloads each on the Play S
 
 \begin{block}{Need for Pillbox in Healthcare Areas}
 
-\end{block}
 
+\end{block}
+While the pharmacy end of the pharmaceutical system has advanced in leaps and bounds, the patient experience remains largely the same. Patients who fill their prescriptions often have a difficult time understanding prescription instructions, keeping track of their intake, and integrating their medication into their lives with the least amount of intrusion. However, patients who have a follow-up with their healthcare professional discontinue medication a little less that 50\% \cite{selmesmitchell2007} less often that patients who do not.\\
+Pillbox has integrated features to solve many of the problems that result in discontinuity of medication by the patient:
+\begin{itemize}
+\item Slips/lapses/external distractors from medication: The Pillbox app will send users notifications that will persist until the user has indicated that they have or have not taken their dose, which will prevent users from forgetting and will encourage them to take their dosage for the time.
+\item Therapeutic trust/ poor communication: Pillbox has an integrated messaging system which will allow the user to send and recieve messages from their pharmacist in real-time, which will help to build trust and allow them to voice any concerns as soon as possible, without having to make a call or be uncertain that their e-mail was delivered.
+\item Lack of support: Pillbox's Caregiver role allows the patient to have support from a loved one who can keep track of how their medication is going and whether or not they have any concerns.
+\item Intrusion into daily life: Pillbox tries to group medication by instructions, such as when to take it and what it interacts with, to create the least amount of readjustment any time a new medication is added.
+\end{itemize}
+Overall, Pillbox makes the patient experience much less intrusive, confusing, and impersonal.
 \end{textblock}
 
 
@@ -59,12 +68,12 @@ The above diagram illustrates the three actors and their role with interacting w
 
 
 \begin{block}{Conclusions \& Future Work}
-The design allows for medication users, the pharmacist, and caregivers to be involved in the medication process. Pillbox intends on sending out a survery to ensure that nothing was missed in during our requirements gathering. Pillbox is ready to start designing and implementing the solution. We intend on creating the mobile application and having it ready for testing by early 2019. There is always room to improve and adding more features is always up for discussion.
+The design allows for medication users, the pharmacist, and caregivers to be involved in the medication process. Pillbox intends on sending out a survery to ensure that nothing was missed in during our requirements gathering. Pillbox is ready to start designing and implementing the solution. We intend on creating the mobile application and having it ready for testing by early 2019. There is always room to improve and we always want to integrate features that would be beneficial for users.
 
 \end{block}
 
 \begin{block}{Acknowledgements}
-The Pillbox team would like to thank Dr. Kehdri for all the help and guidance he has done.
+The Pillbox team would like to thank Dr. Kehdri for all his help and guidance.
 \end{block}
 
 \begin{block}{References}
