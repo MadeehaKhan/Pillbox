@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6840 64-bit) (preloaded format=xelatex 2018.12.4)  4 DEC 2018 22:51
+This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6840 64-bit) (preloaded format=xelatex 2018.12.4)  5 DEC 2018 10:30
 entering extended mode
 **./PillboxPoster.tex
 (PillboxPoster.tex
@@ -1707,48 +1707,10 @@ l.17 \end{document}
 LaTeX Warning: Citation `aronson2002building' on page 1 undefined on input line
  24.
 
-File: UseCaseUML.png Graphic file (type bmp)
-<UseCaseUML.png>
-
-LaTeX Warning: Reference `barchart' on page 1 undefined on input line 49.
-
 File: CompetitiveAdvantage.png Graphic file (type bmp)
 <CompetitiveAdvantage.png>
-File: dh.png Graphic file (type bmp)
-<dh.png>
-
-Package caption Warning: Cannot determine current font size.
-(caption)                Try setting it with `size=' explicitly on input line 8
-0.
-See the caption package documentation for explanation.
-
-LaTeX Font Info:    Font shape `TU/lmss/m/it' in size <24.89> not available
-(Font)              Font shape `TU/lmss/m/sl' tried instead on input line 80.
-
-Package caption Warning: Cannot determine current font size.
-(caption)                Try setting it with `size=' explicitly on input line 8
-0.
-See the caption package documentation for explanation.
-
-File: dh.png Graphic file (type bmp)
-<dh.png>
-
-Overfull \hbox (10.099pt too wide) in paragraph at lines 85--86
- [][] 
- []
-
-
-Package caption Warning: Cannot determine current font size.
-(caption)                Try setting it with `size=' explicitly on input line 8
-6.
-See the caption package documentation for explanation.
-
-
-Package caption Warning: Cannot determine current font size.
-(caption)                Try setting it with `size=' explicitly on input line 8
-6.
-See the caption package documentation for explanation.
-
+File: UseCaseUML.png Graphic file (type bmp)
+<UseCaseUML.png>
 \bibstyle{ieeetr}
 \bibdata{bib}
 No file PillboxPoster.bbl.
@@ -1778,17 +1740,6 @@ File: dh.png Graphic file (type bmp)
 \@writefile{nav}{\headcommand {\beamer@framepages {1}{1}}}
 
 
-\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:TwoAngles}{{\caption@xref {fig:TwoAngles}{ on input line 81}}{1}{
-}{Doc-Start}{}}
-\@writefile{snm}{\beamer@slide {fig:TwoAngles}{1}}
-\newlabel{sub@fig:TwoAngles}{{}{1}{}{Doc-Start}{}}
-\@writefile{snm}{\beamer@slide {sub@fig:TwoAngles}{1}}
-\newlabel{fig:TwoAngles}{{\caption@xref {fig:TwoAngles}{ on input line 87}}{1}{
-}{Doc-Start}{}}
-\@writefile{snm}{\beamer@slide {fig:TwoAngles}{1}}
-\newlabel{sub@fig:TwoAngles}{{}{1}{}{Doc-Start}{}}
-\@writefile{snm}{\beamer@slide {sub@fig:TwoAngles}{1}}
 ]
 \@writefile{nav}{\headcommand {\beamer@partpages {1}{1}}}
 \@writefile{nav}{\headcommand {\beamer@subsectionpages {1}{1}}}
@@ -1807,18 +1758,18 @@ File: dh.png Graphic file (type bmp)
 ! TeX capacity exceeded, sorry [input stack size=5000].
 \clearpage ...Call@BeforeClearDocument \clearpage 
                                                   \Call@AfterLastShipout 
-l.200 \end{document}
+l.175 \end{document}
                     
 If you really absolutely need more capacity,
 you can ask a wizard to enlarge me.
 
  
 Here is how much of TeX's memory you used:
- 42616 strings out of 427796
- 977128 string characters out of 3147233
- 1238479 words of memory out of 3000000
- 45865 multiletter control sequences out of 15000+200000
- 12640 words of font info for 68 fonts, out of 3000000 for 9000
+ 42607 strings out of 427796
+ 976982 string characters out of 3147233
+ 1236479 words of memory out of 3000000
+ 45857 multiletter control sequences out of 15000+200000
+ 12632 words of font info for 67 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
- 5000i,15n,100p,897b,956s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 5000i,15n,100p,897b,820s stack positions out of 5000i,500n,10000p,200000b,50000s
 Output written on PillboxPoster.pdf (1 page).
