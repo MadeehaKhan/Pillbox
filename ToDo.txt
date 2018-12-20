@@ -25,3 +25,9 @@ Carlos
 Cesar
 -look at specifications templates
 
+-fix analysis class diagram
+-look at MVC
+-make the skeleton program
+-write report as we go
+
+
