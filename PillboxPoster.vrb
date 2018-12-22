@@ -15,7 +15,7 @@
 \vspace{2.5cm}
 \begin{block}{Introduction}
 The idea behind Pillbox is to build an application which will help patients and pharmacists better keep track of medication dispensary and usage. The application is mainly geared towards patients, and will serve a wide range of users, including the elderly and children. \\
-Nowadays, pharmacies have high-tech methods of dispensing, counting, and keeping track of medications and prescriptions. However, the user experience for patients has remained stagnant. Patients still need to count their own remaining medication, set various alarms, and set their own reminders to get prescriptions for important drugs refilled. The model of the traditional pill organizer was the inspiration for this project, and will be largely featured in the application, to make the app a familiar landscape and make it more intuitive for users.\\
+Nowadays, pharmacies have high-tech methods of dispensing, counting, and keeping track of medications and prescriptions. However, the user experience for patients has remained stagnant. Patients still need to count their own remaining medication, set various alarms, and communicating with healthcare professionals is more cumbersome than it should be.\\
 Pillbox will use the latest technology available to make the patient experience as secure, efficient, and user-friendly as possible.
 \end{block}
 
@@ -25,33 +25,18 @@ Pillbox will use the latest technology available to make the patient experience 
 The target audience of the application are people who use medication regularly. It is directed especially to those who experience chronic illnesses, the elderly and/or anyone who may need assistance taking medication. The goal for the application is to be easily accessible and effortless to use, as well as low in data, storage.
 \end{block}
 
-\begin{block}{Competitive Analysis for Pillbox}
-The Medisafe and MyTherapy apps have over 1 million downloads each on the Play Store. While these apps may be simple and easy to use they lack some key features that would be needed by many who use medication on a daily basis. The chart below illustrates some of these key features.
-
-\begin{center}
-\includegraphics[height=10.5cm]{CompetitiveAdvantage.png}
-\end{center}
-\end{block}
-
-\begin{block}{Need for Pillbox in Healthcare Areas}
 
 
-\end{block}
-While the pharmacy end of the pharmaceutical system has advanced in leaps and bounds, the patient experience remains largely the same. Patients who fill their prescriptions often have a difficult time understanding prescription instructions, keeping track of their intake, and integrating their medication into their lives with the least amount of intrusion. However, patients who have a follow-up with their healthcare professional discontinue medication a little less that 50\% \cite{selmesmitchell2007} less often that patients who do not.\\
-Pillbox has integrated features to solve many of the problems that result in discontinuity of medication by the patient:
-\begin{itemize}
-\item Slips/lapses/external distractors from medication: The Pillbox app will send users notifications that will persist until the user has indicated that they have or have not taken their dose, which will prevent users from forgetting and will encourage them to take their dosage for the time.
-\item Therapeutic trust/ poor communication: Pillbox has an integrated messaging system which will allow the user to send and recieve messages from their pharmacist in real-time, which will help to build trust and allow them to voice any concerns as soon as possible, without having to make a call or be uncertain that their e-mail was delivered.
-\item Lack of support: Pillbox's Caregiver role allows the patient to have support from a loved one who can keep track of how their medication is going and whether or not they have any concerns.
-\item Intrusion into daily life: Pillbox tries to group medication by instructions, such as when to take it and what it interacts with, to create the least amount of readjustment any time a new medication is added.
-\end{itemize}
-Overall, Pillbox makes the patient experience much less intrusive, confusing, and impersonal.
-\end{textblock}
+%\begin{block}{Need for Pillbox in Healthcare Areas}
 
 
-
-\begin{textblock}{7.25}(8.25,2.9)
-
+%\end{block}
+%While the pharmacy end of the pharmaceutical system has advanced in leaps and bounds, the patient experience remains largely the same. :
+%\begin{itemize}
+%\item Slips/lapses/external distractors from medication: The Pillbox app will send users notifications that will persist until the user has indicated that they have or have not taken their dose, which will prevent users from forgetting and will encourage them to take their dosage for the time.
+%\item Lack of support: Pillbox's Caregiver role allows the patient to have support from a loved one who can keep track of how their medication is going and whether or not they have any concerns.
+%\item Intrusion into daily life: Pillbox tries to group medication by instructions, such as when to take it and what it interacts with, to create the least amount of readjustment any time a new medication is added.
+%\end{itemize}
 \begin{block}{Use Case UML Diagram}
 
 \begin{figure}
@@ -60,11 +45,30 @@ Overall, Pillbox makes the patient experience much less intrusive, confusing, an
 \end{center}
 \caption{Use Case Diagram for the Pillbox system. }
 \end{figure}
-The above diagram illustrates the three actors and their role with interacting with the system. An actor is a role played by one of three users: the user, the caregiver, and the pharmacist. The different actors will interact with the system to conduct a number of operations. The user role is able to view their medication information, adding new prescriptions, receive reminders to take medication and add pharmacy information.
+The above diagram illustrates the three actors and their role with interacting with the system. An actor is a role played by one of three users: the user, the caregiver, and the pharmacist. The different actors will interact with the system to conduct a number of operations. The user role is able to view their medication information, adding new prescriptions, receive reminders to take medication and add pharmacy information. \\
+
+Pillbox aims to make the experience of taking regular medications, which patients can find isolating, confusing, and stigmatizing, and incorporate more guidance and support. The caregiver and pharmacist are new additions into the workflow of medication management. \\
+
+The messaging will make it so the user can build a trusting relationship with their pharmacist, and can easily ask any questions and bring up any concerns they may have. This, we think, is essential, as patients who have a follow-up with their healthcare professional discontinue medication a little less that 50\% \cite{selmesmitchell2007} less often that patients who do not.
 
 \end{block}
+\end{textblock}
 
 
+
+\begin{textblock}{7.25}(8.25,2.9)
+
+
+
+\begin{block}{Competitive Analysis for Pillbox}
+The Medisafe and MyTherapy apps have over 1 million downloads each on the Play Store. While these apps may be simple and easy to use they lack some key features that would be needed by many who use medication on a daily basis. The chart below illustrates some of these key features.
+
+\begin{center}
+\includegraphics[height=10.5cm]{CompetitiveAdvantage.png}
+\end{center}
+Patients who fill their prescriptions often have a difficult time understanding prescription instructions, keeping track of their intake, and integrating their medication into their lives with the least amount of intrusion.\\
+Pillbox has integrated features to solve many of the problems that result in discontinuity of medication by the patient.
+\end{block}
 
 
 \begin{block}{Conclusions \& Future Work}
