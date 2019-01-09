@@ -11,32 +11,19 @@
 \titlepage
 \end{textblock}
 
-\begin{textblock}{7.25}(0.5,2.45)
-\vspace{2.5cm}
+\begin{textblock}{7.25}(0.5,3.1)
+
+%this needs help
 \begin{block}{Introduction}
 The idea behind Pillbox is to build an application which will help patients and pharmacists better keep track of medication dispensary and usage. The application is mainly geared towards patients, and will serve a wide range of users, including the elderly and children. \\
 Nowadays, pharmacies have high-tech methods of dispensing, counting, and keeping track of medications and prescriptions. However, the user experience for patients has remained stagnant. Patients still need to count their own remaining medication, set various alarms, and communicating with healthcare professionals is more cumbersome than it should be.\\
 Pillbox will use the latest technology available to make the patient experience as secure, efficient, and user-friendly as possible.
 \end{block}
 
-
-
 \begin{block}{Target User Base}
 The target audience of the application are people who use medication regularly. It is directed especially to those who experience chronic illnesses, the elderly and/or anyone who may need assistance taking medication. The goal for the application is to be easily accessible and effortless to use, as well as low in data, storage.
 \end{block}
 
-
-
-%\begin{block}{Need for Pillbox in Healthcare Areas}
-
-
-%\end{block}
-%While the pharmacy end of the pharmaceutical system has advanced in leaps and bounds, the patient experience remains largely the same. :
-%\begin{itemize}
-%\item Slips/lapses/external distractors from medication: The Pillbox app will send users notifications that will persist until the user has indicated that they have or have not taken their dose, which will prevent users from forgetting and will encourage them to take their dosage for the time.
-%\item Lack of support: Pillbox's Caregiver role allows the patient to have support from a loved one who can keep track of how their medication is going and whether or not they have any concerns.
-%\item Intrusion into daily life: Pillbox tries to group medication by instructions, such as when to take it and what it interacts with, to create the least amount of readjustment any time a new medication is added.
-%\end{itemize}
 \begin{block}{Use Case UML Diagram}
 
 \begin{figure}
@@ -51,8 +38,10 @@ The above diagram illustrates the three actors and their role with interacting w
 \item the caregiver, whose role is to reduce the isolation that patients may feel
 \item the pharmacist,  so the user can build a trusting relationship with their pharmacist, and can easily ask any questions and bring up any concerns they may have.
 \begin{itemize}
-\item This, we think, is essential, as patients who have a follow-up with their healthcare professional discontinue medication a little less that 50\% \cite{selmesmitchell2007} less often that patients who do not.
+\item This, we think, is essential, as patients who have a follow-up with their healthcare professional discontinue medication a little less that 50\%  \cite{selmesmitchell2007} less often that patients who do not.
 \end{itemize}
+
+%\cite{selmesmitchell2007} ***********************************************
 
 \end{itemize}
 
@@ -63,10 +52,7 @@ Pillbox aims to make the experience of taking regular medications, which patient
 
 
 
-\begin{textblock}{7.25}(8.25,2.9)
-
-
-
+\begin{textblock}{7.25}(8.25,3.1)
 \begin{block}{Competitive Analysis for Pillbox}
 The Medisafe and MyTherapy apps have over 1 million downloads each on the Play Store. While these apps may be simple and easy to use they lack some key features that would be needed by many who use medication on a daily basis. The chart below illustrates some of these key features.
 
@@ -77,16 +63,16 @@ Patients who fill their prescriptions often have a difficult time understanding 
 Pillbox has integrated features to solve many of the problems that result in discontinuity of medication by the patient.
 \end{block}
 
-
 \begin{block}{Conclusions \& Future Work}
 The design allows for medication users, the pharmacist, and caregivers to be involved in the medication process. Pillbox intends on sending out a survery to ensure that nothing was missed in during our requirements gathering. Pillbox is ready to start designing and implementing the solution. We intend on creating the mobile application and having it ready for testing by early 2019. There is always room to improve and we always want to integrate features that would be beneficial for users.
-
 \end{block}
+
 
 \begin{block}{Acknowledgements}
 The Pillbox team would like to thank Dr. Kehdri for all his help and guidance.
 \end{block}
 
+
 \begin{block}{References}
 \setbeamertemplate{bibliography item}{\insertbiblabel}
 \bibliographystyle{ieeetr}
@@ -94,22 +80,7 @@ The Pillbox team would like to thank Dr. Kehdri for all his help and guidance.
 \bibliography{bib}}
 \end{block}
 
-\begin{comment}
-%these aren't in any particular style, it's just the basic idea
-\begin{block}{References}
-\setbeamertemplate{bibliography item}{\insertbiblabel}
-\bibliographystyle{ieeetr}
-{\scriptsize
-\bibliography{bib}}
-\end{block}
-\vspace{-1.8mm}
-%will need some more graphics to thank the various people
-\end{comment}
 
 \end{textblock}
 
-
-\begin{textblock}{2}(8.068571428571428,13.7)
-
-\end{textblock}
 
