@@ -1,0 +1,33 @@
+- poster
+	-intro
+	-background
+	-mockups --> no
+	-survey results --> yes
+	-business events diagram --> use case diagrams instead
+- create documentation
+- figure out project management technique
+	- documenting iterations
+	-WATERFALL
+-template for writing requirements
+	volaire template for business
+	IEEE template
+	ask his TA to give us one
+
+Madeeha
+-survey
+
+Carlos
+-look at technology
+-look at MVC
+-Flutter
+-other frameworks and things
+
+Cesar
+-look at specifications templates
+
+-fix analysis class diagram
+-look at MVC
+-make the skeleton program
+-write report as we go
+
+
