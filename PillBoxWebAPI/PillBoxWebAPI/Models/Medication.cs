@@ -12,7 +12,6 @@ namespace PillBoxWebAPI.Models
         private int din;
         private int personId;
         private int prescriptionId;
-        private int scheduleId;
         private string name;
         private double strength;
         private double remaining;
@@ -42,18 +41,10 @@ namespace PillBoxWebAPI.Models
             set { personId = value; }
         }
 
-        [Required]
         public int PrescriptionId
         {
             get { return prescriptionId; }
             set { prescriptionId = value; }
-        }
-
-        [Required]
-        public int ScheduleId
-        {
-            get { return scheduleId; }
-            set { scheduleId = value; }
         }
 
         [Required]
@@ -116,7 +107,7 @@ namespace PillBoxWebAPI.Models
 
         }
 
-        public Medication(int id, int din, int personId, int prescriptionId, int scheduleId, string name
+        public Medication(int id, int din, int personId, int prescriptionId, string name
             , double strength, double remainingpills, string pharmacyObtained, string image, bool takeAsNeeded
             , DateTime dateObtained, string sideEffects)
         {
@@ -124,7 +115,6 @@ namespace PillBoxWebAPI.Models
             DIN = din;
             PersonId = personId;
             PrescriptionId = prescriptionId;
-            ScheduleId = scheduleId;
             Name = name;
             Strength = strength;
             RemainingPills = remainingpills;

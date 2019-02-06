@@ -4,7 +4,6 @@
     [Din] INT NOT NULL, 
 	[PersonId] INT NOT NULL, 
     [PrescriptionId] INT NULL, 
-	[ScheduleId] INT NOT NULL, 
     [Name] NVARCHAR(255) NOT NULL, 
     [Strength] FLOAT NOT NULL, 
     [RemainingPills] FLOAT NOT NULL, 

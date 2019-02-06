@@ -14,7 +14,5 @@
     [Weight] FLOAT NOT NULL, 
     [HealthConditions] NVARCHAR(255) NOT NULL, 
     [PrimaryPhysician] NVARCHAR(255) NOT NULL, 
-    [PrescriptionList] NVARCHAR(255) NOT NULL, 
-    [MedicationList] NVARCHAR(255) NOT NULL, 
     [IsCaregiver] BIT NOT NULL, 	
 )
