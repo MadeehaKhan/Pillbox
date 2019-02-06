@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PillBoxWebAPI.Models;
 using PillBoxWebAPI.Utility;
@@ -148,7 +145,6 @@ namespace PillBoxWebAPI.Controllers
                 return BadRequest($"DeleteMedication({id}) Failed \n {ex.ToString()}");
             }
         }
-
 
         // GET: api/Medications/GetMedicationByPerson/personId
         [HttpGet("{personid}")]
