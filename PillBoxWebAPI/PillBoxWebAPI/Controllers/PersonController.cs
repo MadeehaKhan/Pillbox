@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PillBoxWebAPI.Models;
 
 namespace PillBoxWebAPI.Controllers
 {
@@ -11,11 +12,39 @@ namespace PillBoxWebAPI.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        // GET api/values/5
+        //TODO: Not implemented yet
+        // POST: api/Person/SignUp/
+        // Create Person
         [HttpPost]
-        public ActionResult<string> CreatePerson()
+        public ActionResult<int> SignUp([FromForm] Person person)
         {
-            return "Pillbox is the awesomest app ever!";
+            return 1;
+        }
+
+        //TODO: Not implemented yet
+        // POST: api/Person/EditPerson/
+        [HttpPost]
+        public ActionResult<int> EditPerson([FromForm] Person person)
+        {
+            return 1;
+        }
+
+        //TODO: Not implemented yet
+        // POST: api/Person/SharePersonInfo/
+        //TODO: Add list in CaregiverOf and CaregiverRecient of
+        [HttpPost]
+        public ActionResult<int> SharePersonInfo(int i)
+        {
+            return 1;
+        }
+
+        //TODO: Not implemented yet
+        // GET: api/Person/AuthenticateUser/
+        // Get User Info
+        [HttpGet]
+        public ActionResult<Person> AuthenticateUser()
+        {
+            return Ok(1);
         }
     }
 }
