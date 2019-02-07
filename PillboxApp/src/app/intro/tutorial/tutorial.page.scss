@@ -1,0 +1,116 @@
+
+ion-slides {
+    align-items: center;
+    justify-content: center;
+    --bullet-background: black; 
+    --bullet-background-active: #FFFFFF;
+}
+
+ion-slide {
+    height: 100vh;
+    flex-direction: column;
+    //font-family: var(--ion-font-family);
+}
+
+ion-img {
+    padding-top: 15vh;
+    padding-bottom: 15vh;
+    min-width: 50vw;
+    min-height: 50vh;
+    max-width: 50vw;
+    max-height: 50vh; 
+    //overflow: hidden; 
+}
+
+img{
+    padding-top: 15vh;
+    padding-bottom: 15vh;
+    min-width: 50vw;
+    min-height: 50vh;
+    max-width: 50vw;
+    max-height: 50vh; 
+}
+
+h2{
+    padding-top: 0vh;
+    margin-bottom: 2px;
+}
+
+p{
+    margin-top: 0px;
+    padding-top: 0px;
+    font-size: 1rem;
+}
+
+.myImage{
+    padding-top: 15vh;
+    padding-bottom: 5vh;
+    min-width: 60vw;
+    min-height: 60vh;
+    max-width: 60vw;
+    max-height: 60vh; 
+}
+
+#myImage_1{
+    background: url('/assets/img/smartphone.svg');
+    background-size: 100% 100%;
+}
+
+#myImage_2{
+    background: url('/assets/img/drugs.svg');
+    background-size: 100% 100%;
+}
+
+#myImage_3{
+    background: url('/assets/img/medical-history.svg');
+    background-size: 100% 100%;
+}
+
+.step-one {
+    background: #1F8CDF;
+    color: #FFFFFF;
+}
+
+.step-two {
+    background: #3FBA91;
+    color: #FFFFFF;
+}
+
+.step-three {
+    background: #F49D37;
+    color: #FFFFFF;
+}
+/*
+.diag {
+    position: absolute;
+    z-index: 1;
+    width:100%;
+    top: 0;
+    height:66%;
+  }
+  
+  ion-icon {
+      margin-top: 40%;
+      font-size:7em;
+  }
+  
+  h2 {
+      margin-top:80% !important;
+      font-weight:bold;
+      font-size:1em;
+  }
+  
+  p {
+      width:80%;
+      display:block;
+      margin: 0 auto;
+      font-size:.9em;
+  }
+  
+  .swiper-pagination-bullet-active {
+      background:#C400FF;
+  }
+  
+  .swiper-pagination {
+      bottom: 12% !important;
+  } */
