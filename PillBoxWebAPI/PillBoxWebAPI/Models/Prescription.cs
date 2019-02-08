@@ -16,7 +16,7 @@ namespace PillBoxWebAPI.Models
         private int numRefills;
         private double dosage;
         private string name;
-        private string medicationList;
+        private string medicationList; // get rid of list
         private DateTime dateObtained;
 
         public int Id

@@ -4,5 +4,6 @@
     [MedicationId] INT NOT NULL, 
     [StartDate] DATETIME NOT NULL, 
     [RepeatNumber] INT NOT NULL, 
-    [RepeatOn] NVARCHAR(255) NOT NULL
+	[TimeFrame] NVARCHAR(255) NOT NULL,
+    [RepeatOn] NVARCHAR(255) NOT NULL, 
 )

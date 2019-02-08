@@ -51,7 +51,7 @@ namespace PillBoxWebAPI.Models
 
         public string RepeatOn
         {
-            get { return repeatOn; }
+            get { return repeatOn ?? string.Empty; }
             set { repeatOn = value; }
         }
 

@@ -132,7 +132,7 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // GET: api/Medications/DeleteMedication/id
+        // POST: api/Medications/DeleteMedication/id
         [HttpPost("{id}")]
         public ActionResult<string> DeleteMedication(int id)
         {
@@ -318,7 +318,7 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // GET: api/Medications/DeletePrescription/id
+        // POST: api/Medications/DeletePrescription/id
         [HttpPost("{id}")]
         public ActionResult<string> DeletePrescription(int id)
         {
