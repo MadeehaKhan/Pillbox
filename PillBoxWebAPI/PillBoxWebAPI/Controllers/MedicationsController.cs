@@ -11,40 +11,49 @@ namespace PillBoxWebAPI.Controllers
     [ApiController]
     public class MedicationsController : ControllerBase
     {
-        // GET: api/Medications/GetMedications/id
+        // GET: api/Medications/GetMedication/id
         [HttpGet("{id}")]
         public ActionResult<Medication> GetMedication(int id)
         {
             try
             {
-                var command = new SqlCommand("SELECT * FROM Medication WHERE ID = @ID", Connections.pillboxDatabase);
+                var command = new SqlCommand("SELECT * FROM Medication WHERE ID=@ID", Connections.pillboxDatabase);
                 command.Parameters.AddWithValue("@ID", id);
 
                 Connections.pillboxDatabase.Open();
 
                 SqlDataReader reader = command.ExecuteReader();
 
-                var medication = new Medication(
-                    (int)reader["ID"],
-                    (int)reader["DIN"],
-                    (int)reader["PERSONID"],
-                    (int)reader["PRESCRIPTIONID"],
-                    (string)reader["NAME"],
-                    (double)reader["STRENGTH"],
-                    (double)reader["REMAININGPILLS"],
-                    (string)reader["PHARMACYOBTAINED"],
-                    null,                                   //Image
-                    (bool)reader["TAKEASNEEDED"],
-                    (DateTime)reader["DATEOBTAINED"],
-                    (string)reader["SIDEEFFECTS"]
-                    );
+                if (reader.Read())
+                {
+                    var medication = new Medication(
+                        (int)reader["ID"],
+                        (int)reader["DIN"],
+                        (int)reader["PERSONID"],
+                        (int)reader["PRESCRIPTIONID"],
+                        (string)reader["NAME"],
+                        (double)reader["STRENGTH"],
+                        (double)reader["REMAININGPILLS"],
+                        (string)reader["PHARMACYOBTAINED"],
+                        null,                                   //Image
+                        (bool)reader["TAKEASNEEDED"],
+                        (DateTime)reader["DATEOBTAINED"],
+                        (string)reader["SIDEEFFECTS"]
+                        );
+                    return medication;
+                }
 
                 Connections.pillboxDatabase.Close();
-                return medication;
+
+                throw new Exception($"Error. No data to read for Medication Id: {id}");
             }
             catch (Exception ex)
             {
-                return BadRequest("GetMedications() method. \n::::\n" + ex.ToString());
+                return BadRequest($"GetMedication({id}) method. \n::::\n" + ex.ToString());
+            }
+            finally
+            {
+                Connections.pillboxDatabase.Close();
             }
         }
 
@@ -81,6 +90,10 @@ namespace PillBoxWebAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest($"CreateMedication() error \n {ex.ToString()}");
+            }
+            finally
+            {
+                Connections.pillboxDatabase.Close();
             }
         }
 
@@ -119,6 +132,10 @@ namespace PillBoxWebAPI.Controllers
             {
                 return BadRequest($"CreateMedication() error \n {ex.ToString()}");
             }
+            finally
+            {
+                Connections.pillboxDatabase.Close();
+            }
         }
 
         // GET: api/Medications/DeleteMedication/id
@@ -127,7 +144,7 @@ namespace PillBoxWebAPI.Controllers
         {
             try
             {
-                var command = new SqlCommand("DELETE FROM Medication WHERE ID = @ID", Connections.pillboxDatabase);
+                var command = new SqlCommand("DELETE FROM Medication WHERE ID=@ID", Connections.pillboxDatabase);
                 command.Parameters.AddWithValue("@ID", id);
 
                 Connections.pillboxDatabase.Open();
@@ -143,6 +160,10 @@ namespace PillBoxWebAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest($"DeleteMedication({id}) Failed \n {ex.ToString()}");
+            }
+            finally
+            {
+                Connections.pillboxDatabase.Close();
             }
         }
 
@@ -186,6 +207,10 @@ namespace PillBoxWebAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest($"GetMedicationByPerson({personId}) Failed \n {ex.ToString()}");
+            }
+            finally
+            {
+                Connections.pillboxDatabase.Close();
             }
         }
 
@@ -335,7 +360,7 @@ namespace PillBoxWebAPI.Controllers
 
                 //Connections.pillboxDatabase.Close();
                 //return medications;
-                return new Prescription();
+                return Ok();
             }
             catch (Exception ex)
             {
