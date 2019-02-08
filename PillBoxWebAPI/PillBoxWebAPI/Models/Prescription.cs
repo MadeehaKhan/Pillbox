@@ -14,9 +14,9 @@ namespace PillBoxWebAPI.Models
         private string doctor;
         private string instructions;
         private int numRefills;
-        private int dosage;
+        private double dosage;
         private string name;
-        private List<int> medicationList;
+        private string medicationList;
         private DateTime dateObtained;
 
         public int Id
@@ -61,7 +61,7 @@ namespace PillBoxWebAPI.Models
         }
 
         [Required]
-        public int Dosage
+        public double Dosage
         {
             get { return dosage; }
             set { dosage = value; }
@@ -74,7 +74,7 @@ namespace PillBoxWebAPI.Models
             set { name = value; }
         }
 
-        public List<int> MedicationList
+        public string MedicationList
         {
             get { return medicationList; }
             set { medicationList = value; }
@@ -91,7 +91,7 @@ namespace PillBoxWebAPI.Models
                
         }
 
-        public Prescription(int id, int personId, int minc, string doctor, string instructions, int numRefills, int dosage, string name, List<int> medicationList
+        public Prescription(int id, int personId, int minc, string doctor, string instructions, int numRefills, double dosage, string name, string medicationList
             , DateTime dateObtained)
         {
             Id = id;
