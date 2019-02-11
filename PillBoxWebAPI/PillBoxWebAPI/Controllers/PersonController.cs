@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -41,10 +42,19 @@ namespace PillBoxWebAPI.Controllers
         //TODO: Not implemented yet
         // GET: api/Person/AuthenticateUser/
         // Get User Info
-        [HttpGet]
-        public ActionResult<Person> AuthenticateUser()
+        [HttpPost]
+        public ActionResult<Person> AuthenticateUser([FromForm] UserAuthentication userAuth)
         {
-            return Ok(1);
+
+            return Ok($"email:{userAuth.Email} , password:{userAuth.Password}");
+        }
+
+        public class UserAuthentication
+        {
+            [Required]
+            public string Email { get; set; }
+            [Required]
+            public string Password { get; set; }            
         }
     }
 }

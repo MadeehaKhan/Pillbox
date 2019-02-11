@@ -1,9 +1,9 @@
 ﻿CREATE TABLE [dbo].[Medication]
 (
-	[Id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY, 
-    [Din] INT NOT NULL, 
-	[PersonId] INT NOT NULL, 
-    [PrescriptionId] INT NULL, 
+	[Id] BIGINT NOT NULL IDENTITY(1,1) PRIMARY KEY, 
+    [Din] BIGINT NOT NULL, 
+	[PersonId] BIGINT NOT NULL, 
+    [PrescriptionId] BIGINT NULL, 
     [Name] NVARCHAR(255) NOT NULL, 
     [Strength] FLOAT NOT NULL, 
     [RemainingPills] FLOAT NOT NULL, 

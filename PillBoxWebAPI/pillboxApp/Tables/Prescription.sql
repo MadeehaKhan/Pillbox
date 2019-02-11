@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[Prescription]
 (
-	[Id] INT NOT NULL IDENTITY(1,1) PRIMARY KEY, 
-    [PersonId] INT NOT NULL, 
-    [MINC] INT NOT NULL, 
+	[Id] BIGINT NOT NULL IDENTITY(1,1) PRIMARY KEY, 
+    [PersonId] BIGINT NOT NULL, 
+    [MINC] BIGINT NOT NULL, 
     [Doctor] NVARCHAR(255) NOT NULL, 
     [Instructions] NVARCHAR(255) NOT NULL, 
     [NumRefills] INT NOT NULL, 
