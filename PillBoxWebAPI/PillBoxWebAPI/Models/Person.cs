@@ -12,8 +12,9 @@ namespace PillBoxWebAPI.Models
         private int age;
         private string email;
         private byte[] password;
+        private string passwordString;
         private Guid salt;
-        private int phoneNumber;
+        private Int64 phoneNumber;
         private string emergencyContact1;
         private string emergencyContact2;
         private double height;
@@ -63,13 +64,19 @@ namespace PillBoxWebAPI.Models
             set { password = value; }
         }
 
+        public string PasswordString
+        {
+            get { return passwordString; }
+            set { passwordString = value; }
+        }
+
         public Guid Salt
         {
             get { return salt; }
             set { salt = value; }
         }
 
-        public int PhoneNumber
+        public Int64 PhoneNumber
         {
             get { return phoneNumber; }
             set { phoneNumber = value; }
