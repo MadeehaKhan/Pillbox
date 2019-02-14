@@ -2,3 +2,45 @@
   max-height: 35vh;
   overflow: hidden;
 }
+/* id="myImage_Header"
+ionic-header {
+  height: 30vh;
+  width: 10vw;
+}
+
+ionic-title {
+  /*height: 50vh;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  //max-width: 60vw;
+  //max-height: 30vh; 
+
+}
+
+ionic-toolbar {
+  //background-image: url('/assets/img/pillbox_logo_black.svg')!important;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding: 0px;
+}
+
+div.toolbar-container{
+  padding: 0px;
+}
+
+.myImage{
+  min-width: 60vw;
+  min-height: 30vh;
+  max-width: 30vw;
+  max-height: 15vh; 
+}
+*/
+#myImage_Header{
+ background: url('/assets/img/pillbox_logo_blue.svg');
+ background-size: 100% 100%;
+ min-width: 58px;
+ min-height: 36px;
+}
