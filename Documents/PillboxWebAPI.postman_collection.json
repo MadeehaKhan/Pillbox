@@ -980,12 +980,12 @@
 									"formdata": [
 										{
 											"key": "email",
-											"value": "someemail@gmail.com",
+											"value": "bruce@wayne.com",
 											"type": "text"
 										},
 										{
-											"key": "password",
-											"value": "1234#VerySecure",
+											"key": "passwordstring",
+											"value": "apple123",
 											"type": "text"
 										}
 									]
@@ -1144,6 +1144,156 @@
 											"value": "password123",
 											"disabled": true
 										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "api/person/editperson/",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id",
+											"value": "22",
+											"type": "text"
+										},
+										{
+											"key": "givenname",
+											"value": "Bruce",
+											"type": "text"
+										},
+										{
+											"key": "lastname",
+											"value": "Wayne",
+											"type": "text"
+										},
+										{
+											"key": "age",
+											"value": "23",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "bruce@wayne.com",
+											"type": "text"
+										},
+										{
+											"key": "phonenumber",
+											"value": "9058074564",
+											"type": "text"
+										},
+										{
+											"key": "emergencycontact1",
+											"value": "e1",
+											"type": "text"
+										},
+										{
+											"key": "emergencycontact2",
+											"value": "e2",
+											"type": "text"
+										},
+										{
+											"key": "height",
+											"value": "5.9",
+											"type": "text"
+										},
+										{
+											"key": "weight",
+											"value": "200.0",
+											"type": "text"
+										},
+										{
+											"key": "healthconditions",
+											"value": "no health conditions",
+											"type": "text"
+										},
+										{
+											"key": "primaryphysician",
+											"value": "Dr.Phill",
+											"type": "text"
+										},
+										{
+											"key": "medicationlist",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "prescriptionlist",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "iscaregiver",
+											"value": "true",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/editperson/",
+									"protocol": "https",
+									"host": [
+										"pillboxwebapi20190129085319",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"api",
+										"person",
+										"editperson",
+										""
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "blah@email.com",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "password123",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "api/person/deleteperson/id",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/deleteperson/23",
+									"protocol": "https",
+									"host": [
+										"pillboxwebapi20190129085319",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"api",
+										"person",
+										"deleteperson",
+										"23"
 									]
 								}
 							},
