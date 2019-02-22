@@ -58,7 +58,7 @@ namespace PillBoxWebAPI.Controllers
 
         // POST: api/Medications/CreateMedication
         [HttpPost]
-        public ActionResult<int> CreateMedication([FromForm] Medication medication)
+        public ActionResult<int> CreateMedication([FromBody] Medication medication)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace PillBoxWebAPI.Controllers
 
         // POST: api/Medications/EditMedication
         [HttpPost]
-        public ActionResult<string> EditMedication([FromForm] Medication medication)
+        public ActionResult<string> EditMedication([FromBody] Medication medication)
         {
             try
             {
@@ -250,7 +250,7 @@ namespace PillBoxWebAPI.Controllers
 
         // POST: api/Medications/CreatePrescription/
         [HttpPost]
-        public ActionResult<int> CreatePrescription([FromForm] Prescription prescription)
+        public ActionResult<int> CreatePrescription([FromBody] Prescription prescription)
         {
             try
             {
@@ -285,7 +285,7 @@ namespace PillBoxWebAPI.Controllers
 
         // POST: api/Medications/EditPrescription/
         [HttpPost]
-        public ActionResult<string> EditPrescription([FromForm] Prescription prescription)
+        public ActionResult<string> EditPrescription([FromBody] Prescription prescription)
         {
             try
             {

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PillBoxWebAPI.Models;
 using PillBoxWebAPI.Utility;
@@ -55,7 +52,7 @@ namespace PillBoxWebAPI.Controllers
 
         // POST: api/MedicationSchedule/GetMedicationSchedule/
         [HttpPost]
-        public ActionResult<int> CreateMedicationSchedule([FromForm] MedicationSchedule medicationSchedule)
+        public ActionResult<int> CreateMedicationSchedule([FromBody] MedicationSchedule medicationSchedule)
         {
             //TODO: If the timeframe is week, then repeat on should not be empty
             try
@@ -87,7 +84,7 @@ namespace PillBoxWebAPI.Controllers
 
         // POST: api/MedicationSchedule/EditMedicationSchedule/
         [HttpPost]
-        public ActionResult<string> EditMedicationSchedule([FromForm] MedicationSchedule medicationSchedule)
+        public ActionResult<string> EditMedicationSchedule([FromBody] MedicationSchedule medicationSchedule)
         {
             try
             {

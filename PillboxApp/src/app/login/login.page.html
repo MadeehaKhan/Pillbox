@@ -1,0 +1,29 @@
+<ion-header >
+    <ion-toolbar>
+      <ion-title id="myImage_Header">
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+<ion-content padding>
+  <form id="login" #form="ngForm" (ngSubmit)="authenticate(form)">
+    <h2 text-center style="margin: 0;">Login</h2>
+    <h4 text-center style="color: red;">{{failedMsg}}</h4>
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input name="email" type="text" ngModel required pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Password</ion-label>
+      <ion-input name="password" type="password" ngModel required></ion-input>
+    </ion-item>
+    <!-- <ion-button color="primary" type="submit" [disabled]="!form.valid"></ion-button> -->
+  </form>
+</ion-content>
+
+<ion-footer>
+    <div class="toBottom">
+        <ion-button expand="full" color="primary" (click)="authenticate(form)" [disabled]="!form.valid">Login</ion-button>
+    </div>
+</ion-footer>

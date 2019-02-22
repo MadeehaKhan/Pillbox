@@ -1,0 +1,28 @@
+#myImage_Header {
+    background: url('/assets/img/pillbox_logo_blue.svg');
+    background-size: 100% 100%;
+    min-width: 58px;
+    min-height: 36px;
+}
+
+#login {
+    padding-top: 30px;
+}
+
+#logo{
+    background: url('/assets/img/pillbox_logo_blue.svg');
+    background-size: 100% 100%;
+    min-width: 87px;
+    min-height: 54px;
+    width: 310px;
+    height: 194px;
+    margin: auto;
+}
+
+.toBottom {
+    padding: 20px;
+}
+
+.footer-md::before{
+    background-image: none !important;
+}

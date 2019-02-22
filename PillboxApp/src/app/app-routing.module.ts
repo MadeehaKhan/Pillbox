@@ -4,7 +4,8 @@ import { TutorialGuard } from './guards/tutorial.guard';
 
 const routes: Routes = [
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' , canActivate: [TutorialGuard]},
-  { path: 'tutorial', loadChildren: './intro/tutorial/tutorial.module#TutorialPageModule' }
+  { path: 'tutorial', loadChildren: './intro/tutorial/tutorial.module#TutorialPageModule' },  { path: 'login', loadChildren: './login/login.module#LoginPageModule' }
+
 
 ];
 @NgModule({

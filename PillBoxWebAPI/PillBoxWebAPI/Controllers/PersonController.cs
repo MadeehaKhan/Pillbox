@@ -14,7 +14,7 @@ namespace PillBoxWebAPI.Controllers
         // POST: api/Person/SignUp/
         // Create Person
         [HttpPost]
-        public ActionResult<Person> SignUp([FromForm] Person person)
+        public ActionResult<Person> SignUp([FromBody] Person person)
         {            
             try
             {
@@ -58,7 +58,7 @@ namespace PillBoxWebAPI.Controllers
 
         // POST: api/Person/EditPerson/
         [HttpPost]
-        public ActionResult<int> EditPerson([FromForm] Person person)
+        public ActionResult<int> EditPerson([FromBody] Person person)
         {
             try
             {
@@ -132,10 +132,11 @@ namespace PillBoxWebAPI.Controllers
         // POST: api/Person/AuthenticateUser/
         // Authenticate User
         [HttpPost]
-        public ActionResult<bool> AuthenticateUser([FromForm] UserAuthentication userAuth)
+        public ActionResult<bool> AuthenticateUser([FromBody] UserAuthentication userAuth)
         {
             try
             {
+                //TODO: Check if email and password empty???
                 var command = new SqlCommand("SELECT COUNT(*) FROM Person WHERE email=@email AND [password] = HASHBYTES('SHA2_512', @password + CAST(salt AS NVARCHAR(36)))", Connections.pillboxDatabase);
                 command.Parameters.AddWithValue("@email", userAuth.Email);
                 command.Parameters.AddWithValue("@password", userAuth.PasswordString);
@@ -151,9 +152,10 @@ namespace PillBoxWebAPI.Controllers
                 else if (count == 0)
                 {
                     return false;
-                }else
+                }
+                else
                 {
-                    return BadRequest($"AuthenticateUser({userAuth.Email}), Count: {count}, \n Something went wrong");
+                    return false;
                 }
 
             }
