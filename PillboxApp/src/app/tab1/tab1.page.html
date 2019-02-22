@@ -7,15 +7,79 @@
 
 <ion-content>
     <ion-card class="welcome-card">
-      <ion-img src="/assets/shapes.svg"></ion-img>
-      <ion-card-header>
-        <ion-card-subtitle>Get Started</ion-card-subtitle>
-        <ion-card-title>Welcome to Ionic</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Now that your app has been created, you'll want to start building out features and components. Check out some of the resources below for next steps.</p>
-      </ion-card-content>
+      <div id="date"> {{ today | date}}</div>
+      <ion-card-title>AM</ion-card-title>
+      <ion-list class="list list-ios hydrated">
+          <ion-item class="in-list item ion-focusable item-label hydrated" (click)="buttonClick()" detail>
+            <h4 id="drug-time">9:30</h4>
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated" (click)="buttonClick()" detail>
+              <h2>Aspirin</h2>
+              <p>Some information about aspirin</p>
+            </ion-label>
+          </ion-item>
+          
+          <ion-item class="in-list item ion-focusable item-label hydrated" (click)="buttonClick()" detail>
+            <h4 id="drug-time">9:30</h4>
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+              <h2>Mega Man X</h2>
+              <p>Take with food</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      <ion-card-title>PM</ion-card-title>
+      <ion-list class="list list-ios hydrated">
+        <ion-item class="in-list item ion-focusable item-label hydrated" (click)="buttonClick()" detail>
+          <h4 id="drug-time">12:30</h4>
+          <!-- <ion-avatar slot="start" class="hydrated">
+            <img src="/assets/img/avatar-finn.png">
+          </ion-avatar> -->
+          <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+            <h2>The Legend of Zelda</h2>
+            <p>Take with food</p>
+          </ion-label>
+        </ion-item>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="buttonClick()" detail>
+          <h4 id="drug-time">6:00</h4>
+          <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+            <h2>Super Mario World</h2>
+            <p>Take 30 min before eating</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item *ngFor="let entry of form">
+          <h4 id="drug-time"> {{entry.time}}</h4>
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+              <h2> {{entry.val}} </h2>
+              <p>Take 30 min before eating</p>
+            </ion-label>
+            <div>
+                <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+            </div>
+            
+        </ion-item>
+
+        <ion-card-title>Taken Today</ion-card-title>
+
+      </ion-list>
     </ion-card>
+
+    <!-- NEED TO ADD A TAKE A NEEDED SECTION -->
+
+    <div id="centerButton">
+        <ion-button (click)="finish()">+ Add Medication </ion-button>
+    </div>
+
+    <!-- <ion-card class="welcome-card">
+        <ion-img src="/assets/shapes.svg"></ion-img>
+        <ion-card-header>
+          <ion-card-subtitle>Get Started</ion-card-subtitle>
+          <ion-card-title>Welcome to Ionic</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>Now that your app has been created, you'll want to start building out features and components. Check out some of the resources below for next steps.</p>
+        </ion-card-content>
+      </ion-card> -->
+
     <ion-list lines="none">
       <ion-list-header>
         <ion-label>Resources</ion-label>
