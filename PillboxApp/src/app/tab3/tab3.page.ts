@@ -29,6 +29,8 @@ export class Tab3Page {
     	let pharmObtained: string = ngForm.form.value.pharm;
     	let takeAsNeeded: boolean = ngForm.form.value.takeAsNeeded;
     	let dateObtained: string = ngForm.form.value.dobt;
+    	let sideEffects: string = "";
+    	let PersonId: number = 9;
 
 		var url = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/createmedication/";
 
@@ -40,8 +42,9 @@ export class Tab3Page {
 			"RemainingPills": remainingMed,
 			"PharmacyObtained": pharmObtained,
 			"TakeAsNeeded": takeAsNeeded,
-			"SideEffects": "",
-			"DateObtained": dateObtained
+			"SideEffects": sideEffects,
+			"DateObtained": dateObtained,
+			"PersonID": PersonId
 		};
 
 
