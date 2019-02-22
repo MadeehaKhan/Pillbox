@@ -15,19 +15,19 @@
         </ion-item>
         <ion-item>
           <label for="dob"> Date of Birth:  </label><br>
-          <ion-input type="date" placeholder="Date Of Birth" name="dob"></ion-input>
+          <ion-input type="date" name="dob"></ion-input>
         </ion-item>
         <br>
         <h5> Medical Information (optional) </h5>
         <form  >
           <ion-item>
-            <ion-input type="text" placeholder="Pre-existing conditions" #condition> <ion-button (click)="addCond(condition.value)">+</ion-button></ion-input>
+            <ion-input type="text" placeholder="Pre-existing conditions" #condition><ion-button (click)="addCond(condition.value)">+</ion-button></ion-input>
           </ion-item>
           <ion-item>
            <ion-list>
            <ion-item *ngFor="let condition of pxconds; let i = index">
-            {{i + 1}}: {{condition}} 
-            <button (click)="deleteCond(i)">X</button>
+            {{i + 1}}: {{condition }} 
+            <ion-button (click)="deleteCond(i)">-</ion-button>
             </ion-item>
             </ion-list> 
           </ion-item>

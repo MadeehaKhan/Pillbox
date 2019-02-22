@@ -1,9 +1,32 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Tab Three
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
+<ion-grid>
+  <ion-row justify-content-center>
+    <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+    	<div text-center>
+        <h4>Enter the following information for your medication</h4>
+      	</div>
+      	<div padding>
+			<form>
+				<ion-item> 
+					<ion-input type='text' placeholder="Name"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-input type='number' placeholder='Strength'></ion-input>
 
-<ion-content></ion-content>
+					<ion-radio-group allowEmptySelection>
+						<ion-item>
+							<ion-label>mg</ion-label>
+		      				<ion-radio slot="start" value="mg" name="mg"></ion-radio>
+		      			</ion-item>
+		      			<ion-item>
+		      				<ion-label>IU</ion-label>
+		      				<ion-radio slot="start" value="iu" name="iu"></ion-radio>
+		      			</ion-item>
+					</ion-radio-group>
+				</ion-item>
+			</form>
+		</div>
+	</ion-col>
+</ion-row>
+</ion-grid>
+</ion-content>
