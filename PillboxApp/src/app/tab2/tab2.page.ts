@@ -7,24 +7,4 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  name:string;
-  pxconds:string[];
-	
-  constructor() {}
-
-  ngOnInit() {
-  	this.name = "New User";
-  	this.pxconds= [];
-  }
-
-  addCond(condition){
-    console.log(condition);
-    this.pxconds.unshift(condition);
-    return false;
-  }
-
-  deleteCond(i){
-  	console.log(i);
-    this.pxconds.splice(i, 1);
-  }
 }

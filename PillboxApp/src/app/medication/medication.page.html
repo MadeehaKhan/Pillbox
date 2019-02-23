@@ -1,0 +1,75 @@
+<ion-content>
+<ion-grid>
+	<ion-row justify-content-center>
+	    <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+	    	<div text-center>
+	        <h4>Enter the following information for your medication</h4>
+	            <h4 text-center style="color: red;">{{failedMsg}}</h4>
+	      	</div>
+	      	<div padding>
+				<form id="addMed" #form="ngForm" (ngSubmit)="addMed(form)">
+					<ion-item> 
+						<ion-input type='text' name='name' ngModel required placeholder="Name"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-input type='number' name='strength' ngModel required placeholder='Strength'></ion-input>
+						<ion-radio-group ngModel name='units'>
+							<ion-item>
+								<ion-label>mg</ion-label>
+			      				<ion-radio slot="start" value="mg" name="mg"></ion-radio>
+			      			</ion-item>
+			      			<ion-item>
+			      				<ion-label>IU</ion-label>
+			      				<ion-radio slot="start" value="iu" name="iu"></ion-radio>
+			      			</ion-item>
+			      			<ion-item>
+								<ion-label>mL</ion-label>
+			      				<ion-radio slot="start" value="mL" name="mL"></ion-radio>
+			      			</ion-item>
+						</ion-radio-group>
+					</ion-item>
+					<h4>OR</h4>
+					<ion-item>
+						<ion-input type="number" name='din' ngModel min='00000000' required placeholder="DIN"></ion-input>
+					</ion-item>
+					<hr>
+					<ion-item> 
+						<ion-input type="number" name='medrem' ngModel required step='0.5' min='0' placeholder='Medication remaining'></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-input type="text" name='pharm' ngModel required placeholder='Pharmacy Obtained At'></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-label for="dobt">Date Obtained</ion-label>
+						<ion-input type="date" ngModel required name="dobt"></ion-input>
+					</ion-item>
+					<ion-item>
+						<ion-label for='takeAsNeeded'>Take as needed</ion-label>
+						<ion-checkbox name='takeAsNeeded' checked='false' ngModel></ion-checkbox>
+					</ion-item>
+					<ion-button (click)="toggleRX()">This is a prescription medication</ion-button>
+					<div *ngIf=isRX>
+						<h4>Prescription Information</h4>
+						<ion-item>
+							<ion-input type="number" name='rxid' ngModel required placeholder="Prescription ID"></ion-input>
+						</ion-item>
+						<ion-item>
+							<ion-input type="number" name='dosage' ngModel required step="0.1" min='0' placeholder="Dosage"></ion-input>
+						</ion-item>
+						<ion-item>
+							<ion-input type="text" name='instr' ngModel placeholder="Instructions"></ion-input>
+						</ion-item>
+						<ion-item>
+							<ion-input type="number" name='numrefills' ngModel min='0' placeholder="Number of Refills"></ion-input>
+						</ion-item>
+					</div>
+				</form>
+			</div>
+			<ion-footer>
+    			<ion-button expand="full" color="primary" (click)="addMed(form)">Done!</ion-button>
+
+			</ion-footer>
+		</ion-col>
+	</ion-row>
+</ion-grid>
+</ion-content>

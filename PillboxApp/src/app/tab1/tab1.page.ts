@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -8,6 +9,7 @@ import { Component } from '@angular/core';
 export class Tab1Page {
   today = Date.now();
 
+  constructor(private router: Router) {}
 
   buttonClick(){
     alert("Details!");
@@ -19,6 +21,8 @@ export class Tab1Page {
     { val: 'Mushroom', time: '6:00', isChecked: false }
   ];
 
-
+  addMedication() {
+    this.router.navigateByUrl('/medication');
+  }
 
 }
