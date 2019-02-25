@@ -9,16 +9,16 @@
     <ion-card class="welcome-card">
       <div id="date"> {{ today | date}}</div>
       <ion-card-title>AM</ion-card-title>
-      <ion-list class="list list-ios hydrated">
-          <ion-item class="in-list item ion-focusable item-label hydrated" (click)="buttonClick()" detail>
+      <ion-list class="list list-ios hydrated" (click)="updateDrugLists()">
+          <!-- <ion-item class="in-list item ion-focusable item-label hydrated" (click)="buttonClick()">
             <h4 id="drug-time">9:30</h4>
-            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated" (click)="buttonClick()" detail>
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated" (click)="buttonClick()">
               <h2>Aspirin</h2>
               <p>Some information about aspirin</p>
             </ion-label>
           </ion-item>
           
-          <ion-item class="in-list item ion-focusable item-label hydrated" (click)="buttonClick()" detail>
+          <ion-item class="in-list item ion-focusable item-label hydrated" (click)="buttonClick()">
             <h4 id="drug-time">9:30</h4>
             <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
               <h2>Mega Man X</h2>
@@ -28,25 +28,25 @@
         </ion-list>
       <ion-card-title>PM</ion-card-title>
       <ion-list class="list list-ios hydrated">
-        <ion-item class="in-list item ion-focusable item-label hydrated" (click)="buttonClick()" detail>
+        <ion-item class="in-list item ion-focusable item-label hydrated" (click)="buttonClick()">
           <h4 id="drug-time">12:30</h4>
-          <!-- <ion-avatar slot="start" class="hydrated">
+           <ion-avatar slot="start" class="hydrated">
             <img src="/assets/img/avatar-finn.png">
-          </ion-avatar> -->
+          </ion-avatar>
           <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
             <h2>The Legend of Zelda</h2>
             <p>Take with food</p>
           </ion-label>
         </ion-item>
-        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="buttonClick()" detail>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="buttonClick()">
           <h4 id="drug-time">6:00</h4>
           <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
             <h2>Super Mario World</h2>
             <p>Take 30 min before eating</p>
           </ion-label>
-        </ion-item>
+        </ion-item>  -->
 
-        <ion-item *ngFor="let entry of form">
+        <ion-item *ngFor="let entry of drugsList">
           <h4 id="drug-time"> {{entry.time}}</h4>
             <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
               <h2> {{entry.val}} </h2>
@@ -58,10 +58,41 @@
             
         </ion-item>
 
-        <ion-card-title>Taken Today</ion-card-title>
+        <!-- <ion-card-title>Taken Today</ion-card-title>
+        <ion-item *ngFor="let entry of takenDrugsList">
+            <h4 id="drug-time"> {{entry.time}}</h4>
+              <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                <h2> {{entry.val}} </h2>
+                <p>Take 30 min before eating</p>
+              </ion-label>
+              <div>
+                  <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+              </div>
+              
+          </ion-item> -->
+
 
       </ion-list>
     </ion-card>
+
+    <ion-card class="welcome-card">
+      <ion-list class="list list-ios hydrated" (click)="updateDrugLists()">
+          <ion-card-title>Taken Today</ion-card-title>
+          <ion-item *ngFor="let entry of takenDrugsList">
+              <h4 id="drug-time"> {{entry.time}}</h4>
+                <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                  <h2> {{entry.val}} </h2>
+                  <p>Take 30 min before eating</p>
+                </ion-label>
+                <div>
+                    <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+                </div>
+                
+            </ion-item>
+  
+  
+        </ion-list>
+      </ion-card>
 
     <!-- NEED TO ADD A TAKE A NEEDED SECTION -->
 
