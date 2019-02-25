@@ -44,12 +44,12 @@ export class MedicationModifyPage implements OnInit {
     let takeAsNeeded: boolean = false;
     let sideEffects: string = ngForm.form.value.sidefx;
 
-    let minc: number = 2738; 								//don't want this to be mutable
+    let minc: number = 2738; 								//don't want this to be mutable, might actually need to cut it because no public availability for minc --> doctor
     let doctor: string = "Doctor Doom";
     let medList: string = "none";							//don't understand the different between this and name
     let dObt: string = ngForm.form.value.dobt;				//kept this as the same for both but need to change that eventually
-    let instr: string = "some instructions";
-    //ngForm.form.value.instr;
+    let instr: string = ngForm.form.value.instr;
+    //
     let dosage: number = ngForm.form.value.dosage;
     let numrefills: number = ngForm.form.value.numrefills;
 
@@ -58,13 +58,14 @@ export class MedicationModifyPage implements OnInit {
 		"Doctor": doctor,
 		"Name": name,
 		"Dosage": dosage,
-		"RemainingPills": remainingMed,
 		"DateObtained": dObt,
 		"PersonID": PersonId,
 		"MedicationList": medList,
 		"NumRefills": numrefills,
 		"Instructions": instr,
 		};
+
+	console.log(datascript);
 
 	this.http.post(scripturl, datascript)
 	    .toPromise()
