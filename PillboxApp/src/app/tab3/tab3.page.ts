@@ -1,4 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-tab3',
@@ -7,9 +11,4 @@ import { Component } from '@angular/core';
 })
 export class Tab3Page {
 
-	constructor() {}
-
-	ngOnInit() {}
-
-	
 }
