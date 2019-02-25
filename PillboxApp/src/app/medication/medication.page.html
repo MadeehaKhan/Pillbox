@@ -47,7 +47,7 @@
 						<ion-label for='takeAsNeeded'>Take as needed</ion-label>
 						<ion-checkbox name='takeAsNeeded' checked='false' ngModel></ion-checkbox>
 					</ion-item>
-					<ion-button (click)="toggleRX()">This is a prescription medication</ion-button>
+					<ion-button expand="full" (click)="toggleRX()">This is a prescription medication</ion-button>
 					<div *ngIf=isRX>
 						<h4>Prescription Information</h4>
 						<ion-item>

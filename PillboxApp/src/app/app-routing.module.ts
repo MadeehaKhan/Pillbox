@@ -6,7 +6,8 @@ const routes: Routes = [
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' , canActivate: [TutorialGuard]},
   { path: 'tutorial', loadChildren: './intro/tutorial/tutorial.module#TutorialPageModule' },  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'medication', loadChildren: './medication/medication.module#MedicationPageModule' },
-  { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' }
+  { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
+  { path: 'medication-modify', loadChildren: './medication-modify/medication-modify.module#MedicationModifyPageModule' }
 
 
 ];

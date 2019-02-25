@@ -1,0 +1,82 @@
+<ion-content padding>
+	<ion-grid>
+	<ion-row justify-content-center>
+	    <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+	    	<div text-center>
+	        	<h4>Edit your information for {{rxInfo.name}}</h4>
+	      	</div>
+			<form id="editMed" #form="ngForm" (ngSubmit)="editMed(form)">
+
+				<ion-item>
+					<ion-label for="name">Name:</ion-label>
+					<ion-input type="text" value={{rxInfo.name}} name='name'></ion-input>
+				</ion-item>
+<!--
+				<ion-item>
+					<ion-label for="strength">Strength:</ion-label>
+					<ion-input type="number" value={{information.strength}} name='strength'></ion-input>
+				</ion-item>
+
+				<ion-item>
+					<ion-label for="din">DIN:</ion-label>
+					<ion-input type="number" name='din' value={{information.din}}></ion-input>
+				</ion-item>
+
+				<ion-item>
+					<ion-label for="pharmObt">Pharmacy:</ion-label>
+					<ion-input type="text" value={{information.pharmacyObtained}} name='pharmObt'></ion-input>
+				</ion-item>
+
+				<ion-item>
+					<ion-label for="remMed">Medication Remaining:</ion-label>
+					<ion-input type="number" value={{information.remainingPills}} name='remMed'></ion-input>
+				</ion-item>
+
+				<ion-item>
+					<ion-label for="sfx">Side Effects:</ion-label>
+					<ion-input type="text" #sfx value={{information.sideEffects}} name='sfx'><ion-button (click)="addSFX(sfx.value)">+</ion-button>
+		          </ion-input>
+		        </ion-item>
+		        <ion-item>
+		          <ion-list>
+		            <ion-item *ngFor="let sfx of sidefx; let i = index">
+		            {{sfx }} 
+		            <ion-button (click)="deleteSFX(i)">-</ion-button>
+		            </ion-item>
+		          </ion-list> 
+				</ion-item>
+-->
+				<ion-item>
+					<ion-label for="dobt">Date Obtained</ion-label>
+					<ion-input type="date" name="dobt"></ion-input>
+				</ion-item>
+
+				<div *ngIf=isRx>
+					<ion-item>
+						<ion-label for="doc">Doctor:</ion-label>
+						<ion-input type="text" value={{rxInfo.doctor}} name='doc'></ion-input>
+					</ion-item>
+
+					<ion-item>
+						<ion-label for="dosage">Dosage:</ion-label>
+						<ion-input type="text" value={{rxInfo.dosage}} name='dosage' equired step="0.1" min='0'></ion-input>
+					</ion-item>
+
+					<ion-item>
+						<ion-label for="instr">Instructions:</ion-label>
+						<ion-input type="text" name='instr' value={{rxInfo.instructions}}></ion-input>
+					</ion-item>
+					
+					<ion-item>
+						<ion-label for="numrefills">Number of Refills:</ion-label>
+						<ion-input type="number" name='numrefills' min='0' value={{rxInfo.numRefills}}></ion-input>
+					</ion-item>
+				</div>
+			</form>
+			<ion-footer>
+    			<ion-button expand="full" color="primary" (click)="editMed(form)">Done!</ion-button>
+			</ion-footer>
+		</ion-col>
+	</ion-row>
+</ion-grid>
+</ion-content>

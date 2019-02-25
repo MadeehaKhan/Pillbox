@@ -21,21 +21,31 @@ export class MedicationPage implements OnInit {
 	addMed(ngForm: NgForm){
 		console.log('addMed()');
 
+		let PersonId: number = 9;
+    	let name: string = ngForm.form.value.name;
+
 		let din: number = ngForm.form.value.din;
     	let prescriptionID: number = ngForm.form.value.rxid;
-    	let name: string = ngForm.form.value.name;
     	let strength: number = ngForm.form.value.strength;
     	let remainingMed: number = ngForm.form.value.medrem;
     	let pharmObtained: string = ngForm.form.value.pharm;
-    	let takeAsNeeded: boolean = ngForm.form.value.takeAsNeeded;
+    	let takeAsNeeded: boolean = false;
     	let dateObtained: string = ngForm.form.value.dobt;
-    	let sideEffects: string = "";
-    	let PersonId: number = 9;
-    	let medsched: string = ""
+    	let sideEffects: string = "none";
+    	let medsched: string = "empty"
 
-		var url = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/CreateMedication";
+    	let minc: number = 2738;
+    	let doctor: string = "Doctor Doom";
+    	let medList: string = "none";
+    	let dObt: string = ngForm.form.value.dobt;
+    	let instr: string = ngForm.form.value.instr;
+    	let dosage: number = ngForm.form.value.dosage;
+    	let numrefills: number = ngForm.form.value.numrefills;
 
-		const data: any = {
+		var urlmed = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/CreateMedication";
+		var urlscript = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/createprescription/";
+
+		const datamed: any = {
 			"Din": din,
 			"PrescriptionId": prescriptionID,
 			"Name": name,
@@ -49,16 +59,44 @@ export class MedicationPage implements OnInit {
 			"MedicationSchedule": medsched,
 		};
 
+		const datascript: any = {
+			"Minc": minc,
+			"Doctor": doctor,
+			"Name": name,
+			"Dosage": dosage,
+			"RemainingPills": remainingMed,
+			"DateObtained": dObt,
+			"PersonID": PersonId,
+			"MedicationList": medList,
+			"NumRefills": numrefills,
+			"Instructions": ngForm.form.value.instr,
+		};
 
-	    this.http.post(url, data)
+	    this.http.post(urlmed, datamed)
 	    .toPromise()
 	    .then(response => {
 	      console.log('Post Success!');
 	      console.log('Reponse: ' + response);
 	      if (response == true){
-	        this.router.navigateByUrl('/tabs/tab3');
+	        this.router.navigateByUrl('/medication');
 	      }else{
-	        this.failedMsg = "There was an error in submitting your data";
+	        this.failedMsg = "There was an error in submitting your medication data";
+	      }
+	    })
+	    .catch(error => {
+	      console.log('Post Error!');
+	      console.log('Reponse: ' + error);
+	    });
+
+	    this.http.post(urlscript, datascript)
+	    .toPromise()
+	    .then(response => {
+	      console.log('Post Success!');
+	      console.log('Reponse: ' + response);
+	      if (response == true){
+	        this.router.navigateByUrl('/medication');
+	      }else{
+	        this.failedMsg = "There was an error in submitting your prescription data";
 	      }
 	    })
 	    .catch(error => {
