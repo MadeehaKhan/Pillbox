@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-tab1',
@@ -8,8 +9,9 @@ import { Router } from '@angular/router';
 })
 export class Tab1Page {
   today = Date.now();
+  isLoggedIn = this.storage.get("isLoggedIn");
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private storage: Storage) {}
 
   buttonClick(){
     alert("Details!");
@@ -45,6 +47,13 @@ export class Tab1Page {
 
   public addMedication() {
     this.router.navigateByUrl('/medication');
+  }
+
+  public logout(){
+    console.log('logout()');
+    this.storage.set('isLoggedIn', false);
+    this.isLoggedIn = this.storage.get("isLoggedIn");
+    this.router.navigateByUrl('/login');
   }
 
 }

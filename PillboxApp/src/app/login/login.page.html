@@ -8,7 +8,10 @@
 <ion-content padding>
   <form id="login" #form="ngForm" (ngSubmit)="authenticate(form)">
     <h2 text-center style="margin: 0;">Login</h2>
-    <h4 text-center style="color: red;">{{failedMsg}}</h4>
+    <h5 [hidden]="failedMsg === ''" class="isa_error">
+        <!-- <i class="fa fa-times-circle"></i> -->
+        {{failedMsg}}
+    </h5>
     <ion-item>
       <ion-label position="floating">Email</ion-label>
       <ion-input name="email" type="text" ngModel required pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"></ion-input>
