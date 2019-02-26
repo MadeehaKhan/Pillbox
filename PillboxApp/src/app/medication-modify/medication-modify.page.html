@@ -11,30 +11,30 @@
 					<ion-label for="name">Name:</ion-label>
 					<ion-input type="text" required [(ngModel)]="rxInfo.name" name='name'></ion-input>
 				</ion-item>
-<!--
+
 				<ion-item>
 					<ion-label for="strength">Strength:</ion-label>
-					<ion-input type="number" value={{information.strength}} name='strength'></ion-input>
+					<ion-input type="number" required [(ngModel)]="information.strength" name='strength'></ion-input>
 				</ion-item>
 
 				<ion-item>
 					<ion-label for="din">DIN:</ion-label>
-					<ion-input type="number" name='din' value={{information.din}}></ion-input>
+					<ion-input type="number" name='din' required [(ngModel)]="information.din"></ion-input>
 				</ion-item>
 
 				<ion-item>
 					<ion-label for="pharmObt">Pharmacy:</ion-label>
-					<ion-input type="text" value={{information.pharmacyObtained}} name='pharmObt'></ion-input>
+					<ion-input type="text" required [(ngModel)]="information.pharmacyObtained" name='pharmObt'></ion-input>
 				</ion-item>
 
 				<ion-item>
 					<ion-label for="remMed">Medication Remaining:</ion-label>
-					<ion-input type="number" value={{information.remainingPills}} name='remMed'></ion-input>
+					<ion-input type="number" required [(ngModel)]="information.remainingPills" name='remMed'></ion-input>
 				</ion-item>
 
 				<ion-item>
 					<ion-label for="sfx">Side Effects:</ion-label>
-					<ion-input type="text" #sfx value={{information.sideEffects}} name='sfx'><ion-button (click)="addSFX(sfx.value)">+</ion-button>
+					<ion-input type="text" #sfx required [(ngModel)]="information.sideEffects" name='sfx'><ion-button (click)="addSFX(sfx.value)">+</ion-button>
 		          </ion-input>
 		        </ion-item>
 		        <ion-item>
@@ -45,7 +45,7 @@
 		            </ion-item>
 		          </ion-list> 
 				</ion-item>
--->
+
 				<ion-item>
 					<ion-label for="dobt">Date Obtained</ion-label>
 					<ion-input type="date" required name="dobt" ngModel></ion-input>

@@ -31,19 +31,19 @@ export class MedicationPage implements OnInit {
     	let pharmObtained: string = ngForm.form.value.pharm;
     	let takeAsNeeded: boolean = false;
     	let dateObtained: string = ngForm.form.value.dobt;
-    	let sideEffects: string = "none";
-    	let medsched: string = "empty"
+    	let sideEffects: string = "none";											//change to be user-input
+    	let medsched: string = "empty"												//gotta figure this out
 
-    	let minc: number = 2738;
-    	let doctor: string = "Doctor Doom";
-    	let medList: string = "none";
+    	let minc: number = 2738;													//getting rid of this
+    	let doctor: string = "Doctor Doom";											//change to be user-input
+    	let medList: string = "none";												//gotta figure this out
     	let dObt: string = ngForm.form.value.dobt;
     	let instr: string = ngForm.form.value.instr;
     	let dosage: number = ngForm.form.value.dosage;
     	let numrefills: number = ngForm.form.value.numrefills;
 
-		var urlmed = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/CreateMedication";
 		var urlscript = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/createprescription/";
+		var urlmed = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/CreateMedication";
 
 		const datascript: any = {
 			"Minc": minc,
@@ -57,56 +57,76 @@ export class MedicationPage implements OnInit {
 			"Instructions": ngForm.form.value.instr,
 		};
 
-		 this.http.post(urlscript, datascript)
-	    .toPromise()
-	    .then(response => {
-	      console.log('Post Success!');
-	      console.log('Reponse: ' + response);
-	      if (response != null){
-	      	this.rxId = response;
-	        this.router.navigateByUrl('/medication');
-	      }else{
-	        this.failedMsg = "There was an error in submitting your prescription data";
-	      }
-	    })
-	    .catch(error => {
-	      console.log('Post Error!');
-	      console.log('Reponse: ' + error);
-	    });
+		if(this.isRX) {
 
-	    let prescriptionID: number = this.rxId as number;
+			 this.http.post(urlscript, datascript)
+		    .toPromise()
+		    .then(response => {
 
-	    const datamed: any = {
-			"Din": din,
-			"PrescriptionId": prescriptionID,
-			"Name": name,
-			"Strength": strength,
-			"RemainingPills": remainingMed,
-			"PharmacyObtained": pharmObtained,
-			"TakeAsNeeded": takeAsNeeded,
-			"SideEffects": sideEffects,
-			"DateObtained": dateObtained,
-			"PersonID": PersonId,
-			"MedicationSchedule": medsched,
-		};
+		      console.log('Post Success!');
+		      console.log('Reponse: ' + response);
 
-	    this.http.post(urlmed, datamed)
-	    .toPromise()
-	    .then(response => {
-	      console.log('Post Success!');
-	      console.log('Reponse: ' + response);
-	      if (response == true){
-	        this.router.navigateByUrl('/medication');
-	      }else{
-	        this.failedMsg = "There was an error in submitting your medication data";
-	      }
-	    })
-	    .catch(error => {
-	      console.log('Post Error!');
-	      console.log('Reponse: ' + error);
-	    });
+		      let prescriptionID: number = this.rxId as number;   
+			  console.log("prescription id is " + this.rxId);
 
-	}
+			  const datamed: any = {
+					"Din": din,
+					"PrescriptionId": prescriptionID,
+					"Name": name,
+					"Strength": strength,
+					"RemainingPills": remainingMed,
+					"PharmacyObtained": pharmObtained,
+					"TakeAsNeeded": takeAsNeeded,
+					"SideEffects": sideEffects,
+					"DateObtained": dateObtained,
+					"PersonID": PersonId,
+					"MedicationSchedule": medsched,
+				};
+
+		      this.http.post(urlmed, datamed)
+		    	.toPromise()
+		    	.then(response => {
+		      	console.log('Post Success!');
+		      	console.log('Reponse: ' + response);
+		    	})
+		    	.catch(error => {
+		      	console.log('Post Error!');
+		      	console.log('Reponse: ' + error);
+		    	});
+		    })
+
+		    .catch(error => {
+		      console.log('Post Error!');
+		      console.log('Reponse: ' + error);
+		    });
+	    }
+
+	    else {
+		  const datamed: any = {
+				"Din": din,
+				"Name": name,
+				"Strength": strength,
+				"RemainingPills": remainingMed,
+				"PharmacyObtained": pharmObtained,
+				"TakeAsNeeded": takeAsNeeded,
+				"SideEffects": sideEffects,
+				"DateObtained": dateObtained,
+				"PersonID": PersonId,
+				"MedicationSchedule": medsched,
+			};
+
+	      this.http.post(urlmed, datamed)
+	    	.toPromise()
+	    	.then(response => {
+	      	console.log('Post Success!');
+	      	console.log('Reponse: ' + response);
+	    	})
+	    	.catch(error => {
+	      	console.log('Post Error!');
+	      	console.log('Reponse: ' + error);
+	    	});
+	    }
+	}   
 
 	toggleRX() {
 		this.isRX = !this.isRX;
