@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { MedicationService } from '../services/medication.service';
+import { Medication } from '../models/Medication';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-tab1',
@@ -9,38 +14,54 @@ import { Router } from '@angular/router';
 export class Tab1Page {
   today = Date.now();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,  public http: HttpClient, private medicationService: MedicationService) {}
 
   buttonClick(){
     alert("Details!");
   }
 
-  public drugsList = [
-    { val: 'Pepperoni', time: '9:30', isChecked: false },
-    { val: 'Sausage', time: '11:00' , isChecked: false },
-    { val: 'Mushroom', time: '6:00', isChecked: false }
-  ];
+  ngOnInit() {
+    this.populateMedicationLists();
+  }
 
-  public takenDrugsList = [
-    { val: 'Dog', time: '9:30', isChecked: true },
-  ];
+  public drugsList: any[];//Medication[];
+  //  { id: 'Pepperoni', time: '9:30', isChecked: false }
+  // //   // { val: 'Sausage', time: '11:00' , isChecked: false },
+  // //   // { val: 'Mushroom', time: '6:00', isChecked: false }
+  // ];
+
+  results: Observable<any>;
+
+  public takenDrugsList: any[];
+  //   { val: 'Dog', time: '9:30', isChecked: true },
+  // ];
+
+  public populateMedicationLists(){
+    console.log('My result: ');
+    this.medicationService.getMedicationsByPerson().subscribe(
+      res => {
+        console.log(res)
+        this.drugsList = res.map(drug => drug); 
+        this.drugsList.forEach(drug => {
+        drug.isChecked = false;
+        });
+        let arr = new Array(1,2,4)
+        console.log('Type: ', typeof(arr));    
+      });
+      
+  }
 
   public updateDrugLists(){
-      this.drugsList.forEach(drug => {
-        if(drug.isChecked === true){
-          var index = this.drugsList.findIndex( i=> i.val == drug.val && i.time == drug.time);
-          this.drugsList.splice(index, 1);
-          this.takenDrugsList.push(drug);
-        }
-      });
+    console.log('Type Check : ', typeof(this.drugsList)); 
+    console.log('List : ', this.drugsList); 
 
-      this.takenDrugsList.forEach(drug => {
-        if(drug.isChecked === false){
-          var index = this.takenDrugsList.findIndex( i=> i.val == drug.val && i.time == drug.time);
-          this.takenDrugsList.splice(index, 1);
-          this.drugsList.push(drug);
-        }
-      });
+    if(typeof(this.takenDrugsList) == 'undefined'){
+      this.takenDrugsList = new Array();
+    }   
+
+    var allDrugs = this.takenDrugsList.concat(this.drugsList);
+    this.takenDrugsList = allDrugs.filter(drug => drug.isChecked);
+    this.drugsList = allDrugs.filter(drug => !drug.isChecked);
   }
 
   public addMedication() {

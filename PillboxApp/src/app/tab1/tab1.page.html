@@ -5,7 +5,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content onload="populateMedicationLists()">
     <ion-card class="welcome-card">
       <div id="date"> {{ today | date}}</div>
       <ion-card-title>AM</ion-card-title>
@@ -47,9 +47,9 @@
         </ion-item>  -->
 
         <ion-item *ngFor="let entry of drugsList">
-          <h4 id="drug-time"> {{entry.time}}</h4>
+          <h4 id="drug-time"> {{entry.id}}</h4>
             <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
-              <h2> {{entry.val}} </h2>
+              <h2> {{entry.name}} </h2>
               <p>Take 30 min before eating</p>
             </ion-label>
             <div>
@@ -79,9 +79,9 @@
       <ion-list class="list list-ios hydrated" (click)="updateDrugLists()">
           <ion-card-title>Taken Today</ion-card-title>
           <ion-item *ngFor="let entry of takenDrugsList">
-              <h4 id="drug-time"> {{entry.time}}</h4>
+              <h4 id="drug-time"> {{entry.id}}</h4>
                 <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
-                  <h2> {{entry.val}} </h2>
+                  <h2> {{entry.name}} </h2>
                   <p>Take 30 min before eating</p>
                 </ion-label>
                 <div>
