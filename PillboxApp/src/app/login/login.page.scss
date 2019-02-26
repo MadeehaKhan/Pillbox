@@ -26,3 +26,14 @@
 .footer-md::before{
     background-image: none !important;
 }
+
+.isa_info, .isa_success, .isa_warning, .isa_error {
+    margin: 10px 0px;
+    padding:12px;
+    text-align: center;
+}
+
+.isa_error {
+    color: #D8000C;
+    background-color: #FFD2D2;
+}

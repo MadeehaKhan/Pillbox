@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -12,12 +14,17 @@ export class LoginPage implements OnInit {
 
   failedMsg: string = "";
 
-  constructor(private router: Router, public http: HttpClient) { }
+  constructor(private router: Router, public http: HttpClient, private storage: Storage, private loadingController: LoadingController) { }
 
   ngOnInit() {
   }
 
-  authenticate(ngForm: NgForm){
+  async authenticate(ngForm: NgForm){
+    const loading = await this.loadingController.create({
+      message: "Please wait..."
+    });
+    await loading.present();
+    
     console.log('authenticate()');
     let email: string = ngForm.form.value.email;
     let password: string = ngForm.form.value.password;
@@ -34,20 +41,20 @@ export class LoginPage implements OnInit {
     .then(response => {
       console.log('Post Success!');
       console.log('Reponse: ' + response);
+      loading.dismiss();
+
       if (response == true){
+        this.storage.set('isLoggedIn', true);
+        this.failedMsg = "";
         this.router.navigateByUrl('/tabs/tab1');
       }else{
-        this.failedMsg = "Incorrect Username and/or password";
+        this.failedMsg = "Incorrect Email and/or Password. Please try again.";
       }
     })
     .catch(error => {
       console.log('Post Error!');
       console.log('Reponse: ' + error);
     });
-  }
-
-  submitForm(){
-
   }
 
 }
