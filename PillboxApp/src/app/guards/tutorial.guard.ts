@@ -19,6 +19,11 @@ export class TutorialGuard implements CanActivate {
         this.router.navigateByUrl('/tutorial');
       }
 
-      return isComplete;
+      const isLoggedIn = await this.storage.get("isLoggedIn");
+      if(!isLoggedIn){
+        this.router.navigateByUrl('/login');
+      }
+
+      return isComplete && isLoggedIn;
   }
 }

@@ -16,40 +16,39 @@ export class MedicationModifyPage implements OnInit {
 	sidefx: string[];
 
   constructor(private router: Router, public http: HttpClient) {
- // 	this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/4").subscribe((response) => 
- // 		{ console.log(response); this.information = response;
- // 		});
   	this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getprescription/4").subscribe((response) =>
   		{ console.log(response); this.rxInfo = response;
   		}); 
   }
 
   ngOnInit() {
+ 	this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/4").subscribe((response) => 
+  		{ console.log(response); this.information = response;
+  		});
   }
 
   editMed(ngForm: NgForm) {
-  	var medurl = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/editmedication/";
+  	
   	var scripturl = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/editprescription/";
+  	var medurl = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/editmedication/";
 
   	let PersonId: number = 9;
-    let name: string = "Acetaminophen";
-    //ngForm.form.value.name;
+    let name: string = ngForm.form.value.name;
     let dateObtained: string = ngForm.form.value.dobt;
 
   	let din: number = ngForm.form.value.din;
-    let prescriptionID: number = ngForm.form.value.rxid;
     let strength: number = ngForm.form.value.strength;
     let remainingMed: number = ngForm.form.value.medrem;
     let pharmObtained: string = ngForm.form.value.pharm;
     let takeAsNeeded: boolean = false;
     let sideEffects: string = ngForm.form.value.sidefx;
+    let medsched: string = "none";
 
-    let minc: number = 2738; 								//don't want this to be mutable, might actually need to cut it because no public availability for minc --> doctor
+    let minc: number = 2738; 								
     let doctor: string = "Doctor Doom";
-    let medList: string = "none";							//don't understand the different between this and name
+    let medList: string = "none";							
     let dObt: string = ngForm.form.value.dobt;				//kept this as the same for both but need to change that eventually
     let instr: string = ngForm.form.value.instr;
-    //
     let dosage: number = ngForm.form.value.dosage;
     let numrefills: number = ngForm.form.value.numrefills;
 
@@ -65,16 +64,37 @@ export class MedicationModifyPage implements OnInit {
 		"Instructions": instr,
 		};
 
-	console.log(datascript);
+	const datamed: any = {
+		"Din": din,
+		"Name": name,
+		"Strength": strength,
+		"RemainingPills": remainingMed,
+		"PharmacyObtained": pharmObtained,
+		"TakeAsNeeded": takeAsNeeded,
+		"SideEffects": sideEffects,
+		"DateObtained": dateObtained,
+		"PersonID": PersonId,
+		"MedicationSchedule": medsched,
+	}
 
 	this.http.post(scripturl, datascript)
 	    .toPromise()
 	    .then(response => {
 	      console.log('Post Success!');
 	      console.log('Reponse: ' + response);
-	      if (response == true){
-	        this.router.navigateByUrl('/medication-modify');
-	      }
+	      
+	      if (response != null){
+	      	this.http.post(medurl, datamed)
+		    	.toPromise()
+		    	.then(response => {
+		      	console.log('Post Success!');
+		      	console.log('Reponse: ' + response);
+		    	})
+		    	.catch(error => {
+		      	console.log('Post Error!');
+		      	console.log('Reponse: ' + error);
+		    	});
+		    }
 	    })
 	    .catch(error => {
 	      console.log('Post Error!');
@@ -93,10 +113,5 @@ export class MedicationModifyPage implements OnInit {
   	console.log(i);
     this.sidefx.splice(i, 1);
   }
-
-  //make sideEffects NULLable
-  //add isPrecription field to createMedication
-  //made prescriptionID NULLable
-
 
 }

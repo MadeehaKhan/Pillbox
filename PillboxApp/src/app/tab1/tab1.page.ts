@@ -4,7 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MedicationService } from '../services/medication.service';
 import { Medication } from '../models/Medication';
-import { IfStmt } from '@angular/compiler';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-tab1',
@@ -13,8 +14,11 @@ import { IfStmt } from '@angular/compiler';
 })
 export class Tab1Page {
   today = Date.now();
+  isLoggedIn = this.storage.get("isLoggedIn");
 
-  constructor(private router: Router,  public http: HttpClient, private medicationService: MedicationService) {}
+
+  constructor(private router: Router,  public http: HttpClient, private medicationService: MedicationService, private storage: Storage) {}
+
 
   buttonClick(){
     alert("Details!");
@@ -66,6 +70,13 @@ export class Tab1Page {
 
   public addMedication() {
     this.router.navigateByUrl('/medication');
+  }
+
+  public logout(){
+    console.log('logout()');
+    this.storage.set('isLoggedIn', false);
+    this.isLoggedIn = this.storage.get("isLoggedIn");
+    this.router.navigateByUrl('/login');
   }
 
 }
