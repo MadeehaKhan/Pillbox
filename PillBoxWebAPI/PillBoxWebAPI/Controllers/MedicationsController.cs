@@ -205,6 +205,52 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
+        // GET: api/Medications/GetMedicationByPrescriptionId/prescriptionId
+        [HttpGet("{prescriptionId}")]
+        public ActionResult<List<Medication>> GetMedicationByPrescriptionId(int prescriptionId)
+        {
+            try
+            {
+                var command = new SqlCommand("SELECT * FROM Medication WHERE prescriptionId=@prescriptionId", Connections.pillboxDatabase);
+                command.Parameters.AddWithValue("@prescriptionId", prescriptionId);
+
+                Connections.pillboxDatabase.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                var medications = new List<Medication>();
+
+                while (reader.Read())
+                {
+                    var medication = new Medication(
+                        (int)reader["ID"],
+                        (int)reader["DIN"],
+                        (int)reader["PERSONID"],
+                        (int)reader["PRESCRIPTIONID"],
+                        (string)reader["NAME"],
+                        (double)reader["STRENGTH"],
+                        (double)reader["REMAININGPILLS"],
+                        (string)reader["PHARMACYOBTAINED"],
+                        null,                                   //Image
+                        (bool)reader["TAKEASNEEDED"],
+                        (DateTime)reader["DATEOBTAINED"],
+                        (string)reader["SIDEEFFECTS"]
+                        );
+                    medications.Add(medication);
+                }
+
+                return medications;
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"GetMedicationByPrescriptionId({prescriptionId}) Failed \n {ex.ToString()}");
+            }
+            finally
+            {
+                Connections.pillboxDatabase.Close();
+            }
+        }
+
         // GET: api/Medications/GetPrescription/id
         [HttpGet("{id}")]
         public ActionResult<Prescription> GetPrescription(int id)
@@ -297,10 +343,10 @@ namespace PillBoxWebAPI.Controllers
                 command.Parameters.AddWithValue("@PERSONID", prescription.PersonId);
                 command.Parameters.AddWithValue("@MINC", prescription.MINC);
                 command.Parameters.AddWithValue("@DOCTOR", prescription.Doctor);
-                command.Parameters.AddWithValue("@INSTRUCTIONS", prescription.Instructions);
+                command.Parameters.AddWithValue("@INSTRUCTIONS", prescription.Instructions ?? string.Empty);
                 command.Parameters.AddWithValue("@NUMREFILLS", prescription.NumRefills);
                 command.Parameters.AddWithValue("@DOSAGE", prescription.Dosage);
-                command.Parameters.AddWithValue("@NAME", prescription.Name);
+                command.Parameters.AddWithValue("@NAME", prescription.Name ?? string.Empty);
                 command.Parameters.AddWithValue("@MEDICATIONLIST", prescription.MedicationList);
                 command.Parameters.AddWithValue("@DATEOBTAINED", prescription.DateObtained);
 

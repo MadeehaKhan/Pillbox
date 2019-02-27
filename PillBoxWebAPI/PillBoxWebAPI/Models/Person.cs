@@ -6,7 +6,7 @@ namespace PillBoxWebAPI.Models
 {
     public class Person
     {
-        private int id;
+        private Int64 id;
         private string givenName;
         private string lastName;
         private int age;
@@ -25,7 +25,7 @@ namespace PillBoxWebAPI.Models
         private List<string> prescriptionList;
         private bool isCaregiver;
 
-        public int Id
+        public Int64 Id
         {
             get { return id; }
             set { id = value; }
@@ -141,9 +141,9 @@ namespace PillBoxWebAPI.Models
 
         }
 
-        public Person(int id, string givenName, string lastName, int age, string email, byte[] password, Guid salt, int phoneNumber
+        public Person(Int64 id, string givenName, string lastName, int age, string email, Int64 phoneNumber
             , string emergencyContact1, string emergencyContact2, double height, double weight, string healthConditions, string primaryPhysician
-            , List<Medication> medicationList, List<string> prescriptionList, bool isCaregiver)
+            , bool isCaregiver)
         {
             Id = id;
             GivenName = givenName;

@@ -46,7 +46,6 @@ namespace PillBoxWebAPI.Models
             set { doctor = value; }
         }
 
-        [Required]
         public string Instructions
         {
             get { return instructions; }
@@ -67,7 +66,6 @@ namespace PillBoxWebAPI.Models
             set { dosage = value; }
         }
 
-        [Required]
         public string Name
         {
             get { return name; }
