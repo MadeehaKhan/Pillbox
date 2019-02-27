@@ -6,14 +6,14 @@
         <ion-title>
             Profile & Settings
         </ion-title>  
-    </ion-toolbar>   -->
+    </ion-toolbar> routerDirection="forward"  -->
 </ion-header>
       
 <ion-content onload="">
     <h2 id="name"> Cesar Santana </h2>
     <ion-list class="list list-ios hydrated">
         <h6>PROFILE</h6>
-        <ion-item class="in-list item ion-focusable item-label hydrated" (click)="navToChangeName()"href='/change-name' routerDirection="forward" detail>
+        <ion-item class="in-list item ion-focusable item-label hydrated" (click)="navToChangeName()" detail>
             <div id="greenCircle" slot="start" class="hydrated">
                 <ion-icon name="person"></ion-icon>
             </div>

@@ -18,6 +18,6 @@ export class Tab3Page {
   }
 
   navToChangeName(){
-    this.router.navigateByUrl('change-name');
+    this.router.navigateByUrl('/change-name');
   }
 }
