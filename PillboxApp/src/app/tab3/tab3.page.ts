@@ -11,4 +11,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class Tab3Page {
 
+  constructor(private router: Router) { }
+
+  buttonClick(){
+    alert("Details!");
+  }
+
+  navToChangeName(){
+    this.router.navigateByUrl('change-name');
+  }
 }

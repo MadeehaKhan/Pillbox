@@ -1,0 +1,108 @@
+<ion-header >
+
+    <!-- <ion-toolbar>
+         <ion-title id="myImage_Header">
+        </ion-title>
+        <ion-title>
+            Profile & Settings
+        </ion-title>  
+    </ion-toolbar>   -->
+</ion-header>
+      
+<ion-content onload="">
+    <h2 id="name"> Cesar Santana </h2>
+    <ion-list class="list list-ios hydrated">
+        <h6>PROFILE</h6>
+        <ion-item class="in-list item ion-focusable item-label hydrated" (click)="navToChangeName()"href='/change-name' routerDirection="forward" detail>
+            <div id="greenCircle" slot="start" class="hydrated">
+                <ion-icon name="person"></ion-icon>
+            </div>
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                <h2>Cesar Santana</h2>
+            </ion-label>
+        </ion-item>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" href='/change-email' detail>
+            <div id="orangeCircle" slot="start" class="hydrated">
+                <ion-icon name="at" id="atIcon"></ion-icon>
+            </div>
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                <h2>Email</h2>
+            </ion-label>
+            </ion-item>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" href="/change-phone" detail>
+            <div id="blueCircle" slot="start" class="hydrated">
+                <ion-icon name="call"></ion-icon>
+            </div>
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                <h2>Phone</h2>
+            </ion-label>
+        </ion-item>
+        <h6>HEALTHCARE INFORMATION</h6>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="buttonClick()" detail>
+            <div id="aquaCircle" slot="start" class="hydrated">
+                    <ion-icon name="pulse"></ion-icon>
+            </div>    
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                <h2>Health Conditions</h2>
+            </ion-label>
+        </ion-item>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="buttonClick()" detail>
+                <div id="softPinkCircle" slot="start" class="hydrated">
+                    <ion-icon name="body"></ion-icon>
+                </div>    
+                <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                    <h2>Physician Information</h2>
+                </ion-label>
+        </ion-item>  
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="buttonClick()" detail>
+            <div id="redCircle" slot="start" class="hydrated">
+                <ion-icon name="medkit"></ion-icon>
+            </div>    
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                <h2>View All Medication</h2>
+            </ion-label>
+        </ion-item>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="buttonClick()" detail>
+            <div id="softBlueCircle" slot="start" class="hydrated">
+                    <ion-icon name="clipboard"></ion-icon>
+            </div>    
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                <h2>View All Prescriptions</h2>
+            </ion-label>
+        </ion-item>  
+        <h6>PREFERENCES</h6>
+        <ion-item class="in-list item ion-focusable item-label hydrated" (click)="buttonClick()" detail>
+            <div id="purpleCircle" slot="start" class="hydrated">
+                <ion-icon name="notifications"></ion-icon>
+            </div>  
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                <h2>Notifications</h2>
+            </ion-label>
+        </ion-item>
+        <h6>ACCOUNT AND SUPPORT</h6>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="buttonClick()" detail>
+            <div id="grayCircle" slot="start" class="hydrated">
+                <ion-icon name="settings"></ion-icon>
+            </div> 
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                <h2>Account Settings</h2>
+            </ion-label>
+        </ion-item>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="buttonClick()" detail>
+            <div id="softOrangeCircle" slot="start" class="hydrated">
+                <ion-icon name="alert"></ion-icon>
+            </div> 
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                <h2>Report a Problem</h2>
+            </ion-label>
+        </ion-item>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="buttonClick()" detail>
+                <div id="softBlueCircle" slot="start" class="hydrated">
+                    <ion-icon name="help"></ion-icon>
+                </div>  
+                <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                    <h2>Help</h2>
+                </ion-label>
+            </ion-item>
+    </ion-list>
+</ion-content>

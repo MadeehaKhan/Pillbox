@@ -66,6 +66,7 @@ export class Tab1Page {
     var allDrugs = this.takenDrugsList.concat(this.drugsList);
     this.takenDrugsList = allDrugs.filter(drug => drug.isChecked);
     this.drugsList = allDrugs.filter(drug => !drug.isChecked);
+    
   }
 
   public addMedication() {
