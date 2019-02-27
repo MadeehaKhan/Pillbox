@@ -15,7 +15,7 @@ namespace PillBoxWebAPI.Controllers
         // Create Person
         [HttpPost]
         public ActionResult<Person> SignUp([FromBody] Person person)
-        {            
+        {
             try
             {
                 //TODO: Check if email already exists
@@ -23,8 +23,8 @@ namespace PillBoxWebAPI.Controllers
                 //command = new SqlCommand("INSERT INTO Person (givenname, lastname, age, email, [password], salt, phonenumber, emergencycontact1, emergencycontact2, height, [weight], healthconditions, primaryphysician, iscaregiver) " +
                 //             " VALUES ('Bruce', 'Wayne', 34, 'bruce@wayen.com', HASHBYTES('SHA2_512', 'apple123' + CAST(@salt AS NVARCHAR(36))), @salt, 9058074564, 'e1', 'e2', 5.9, 200.0, 'hc', 'Dr.Who', 1); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
 
-               var command = new SqlCommand("INSERT INTO Person (givenname, lastname, age, email, [password], salt, phonenumber, emergencycontact1, emergencycontact2, height, [weight], healthconditions, primaryphysician, iscaregiver) " +
-                            " VALUES (@givenname, @lastname, @age, @email, HASHBYTES('SHA2_512', @password + CAST(@salt AS NVARCHAR(36))), @salt, @phonenumber, @emergencycontact1, @emergencycontact2, @height, @weight, @healthconditions, @primaryphysician, @iscaregiver); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
+                var command = new SqlCommand("INSERT INTO Person (givenname, lastname, age, email, [password], salt, phonenumber, emergencycontact1, emergencycontact2, height, [weight], healthconditions, primaryphysician, iscaregiver) " +
+                             " VALUES (@givenname, @lastname, @age, @email, HASHBYTES('SHA2_512', @password + CAST(@salt AS NVARCHAR(36))), @salt, @phonenumber, @emergencycontact1, @emergencycontact2, @height, @weight, @healthconditions, @primaryphysician, @iscaregiver); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@givenname", person.GivenName);
                 command.Parameters.AddWithValue("@lastname", person.LastName);
@@ -122,6 +122,51 @@ namespace PillBoxWebAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest($"DeletePerson({id}) Failed \n {ex.ToString()}");
+            }
+            finally
+            {
+                Connections.pillboxDatabase.Close();
+            }
+        }
+
+        // GET: api/Person/GetPerson/email
+        [HttpGet]
+        public ActionResult<Person> GetPerson(string email)
+        {
+            try
+            {
+                //TODO: Check if id is null
+                var command = new SqlCommand("SELECT * FROM Person WHERE email = @email ", Connections.pillboxDatabase);
+
+                command.Parameters.AddWithValue("@email", email);
+                Connections.pillboxDatabase.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    var person = new Person(
+                        (Int64)reader["ID"],
+                        (string)reader["givenname"],
+                        (string)reader["lastname"],
+                        (int)reader["age"],
+                        (string)reader["email"],
+                        (Int64)reader["phonenumber"],
+                        (string)reader["emergencycontact1"],
+                        (string)reader["emergencycontact2"],
+                        (double)reader["height"],
+                        (double)reader["weight"],
+                        (string)reader["healthconditions"],
+                        (string)reader["primaryphysician"],
+                        (bool)reader["iscaregiver"]
+                        );
+                    return person;
+                }
+                throw new Exception($"Error. No data to read for Person Email: {email}");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"GetPerson() \n {ex.ToString()}");
             }
             finally
             {

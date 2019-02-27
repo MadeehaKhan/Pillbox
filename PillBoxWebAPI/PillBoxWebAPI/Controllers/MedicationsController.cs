@@ -297,10 +297,10 @@ namespace PillBoxWebAPI.Controllers
                 command.Parameters.AddWithValue("@PERSONID", prescription.PersonId);
                 command.Parameters.AddWithValue("@MINC", prescription.MINC);
                 command.Parameters.AddWithValue("@DOCTOR", prescription.Doctor);
-                command.Parameters.AddWithValue("@INSTRUCTIONS", prescription.Instructions);
+                command.Parameters.AddWithValue("@INSTRUCTIONS", prescription.Instructions ?? string.Empty);
                 command.Parameters.AddWithValue("@NUMREFILLS", prescription.NumRefills);
                 command.Parameters.AddWithValue("@DOSAGE", prescription.Dosage);
-                command.Parameters.AddWithValue("@NAME", prescription.Name);
+                command.Parameters.AddWithValue("@NAME", prescription.Name ?? string.Empty);
                 command.Parameters.AddWithValue("@MEDICATIONLIST", prescription.MedicationList);
                 command.Parameters.AddWithValue("@DATEOBTAINED", prescription.DateObtained);
 
