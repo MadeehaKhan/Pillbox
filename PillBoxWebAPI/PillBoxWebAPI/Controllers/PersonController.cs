@@ -64,7 +64,7 @@ namespace PillBoxWebAPI.Controllers
             {
                 //TODO: Check if id is null
                 var command = new SqlCommand("UPDATE Person SET " +
-                    "givenname=@givenname, lastname=@lastname, age=@age, email=@email, " +
+                    "givenname=@givenname, lastname=@lastname, age=@age, " +
                     "phonenumber=@phonenumber, emergencycontact1=@emergencycontact1, emergencycontact2=@emergencycontact2, " +
                     "height=@height, [weight]=@weight, healthconditions=@healthconditions, primaryphysician=@primaryphysician, iscaregiver=@iscaregiver " +
                     " WHERE ID=@id", Connections.pillboxDatabase);
@@ -73,7 +73,6 @@ namespace PillBoxWebAPI.Controllers
                 command.Parameters.AddWithValue("@givenname", person.GivenName);
                 command.Parameters.AddWithValue("@lastname", person.LastName);
                 command.Parameters.AddWithValue("@age", person.Age);
-                command.Parameters.AddWithValue("@email", person.Email);
                 command.Parameters.AddWithValue("@phonenumber", person.PhoneNumber);
                 command.Parameters.AddWithValue("@emergencycontact1", person.EmergencyContact1);
                 command.Parameters.AddWithValue("@emergencycontact2", person.EmergencyContact2);
