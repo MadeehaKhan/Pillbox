@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import { LoadingController } from '@ionic/angular';
+import { Person } from '../models/Person';
 
 @Component({
   selector: 'app-login',
@@ -46,6 +47,7 @@ export class LoginPage implements OnInit {
       if (response == true){
         this.storage.set('isLoggedIn', true);
         this.failedMsg = "";
+        this.getPersonInfo(email, password);
         this.router.navigateByUrl('/tabs/tab1');
       }else{
         this.failedMsg = "Incorrect Email and/or Password. Please try again.";
@@ -57,4 +59,31 @@ export class LoginPage implements OnInit {
     });
   }
 
+  getPersonInfo(email: string, password: string){
+    let url = "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/getperson/";
+
+    this.http.get<Person>(url, {
+      params: {
+        email: email
+      }
+    })
+    .toPromise()
+    .then(response => {
+      let user = new Person();
+      user = response;
+      user.password = password;
+      console.log(user);
+
+      this.storage.set('user', user);
+      //How to get the user data
+      //let testUser = new Person();
+      // this.storage.get('user')
+      // .then(val => testUser = val)
+      // .then(() => {
+      //   console.log(testUser);
+      //   console.log(testUser.email);
+      //   console.log(testUser.givenName + ' ' + testUser.lastName);
+      // });
+    })
+  }
 }

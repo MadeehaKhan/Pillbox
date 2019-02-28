@@ -76,7 +76,8 @@ export class Tab1Page {
   public logout(){
     console.log('logout()');
     this.storage.set('isLoggedIn', false);
-    this.isLoggedIn = this.storage.get("isLoggedIn");
+    this.storage.set('user', null);
+    this.isLoggedIn = this.storage.get("isLoggedIn");   //for the view
     this.router.navigateByUrl('/login');
   }
 
