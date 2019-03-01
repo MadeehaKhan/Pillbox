@@ -34,13 +34,14 @@ export class MedicationPage implements OnInit {
     	let sideEffects: string = "none";											//change to be user-input
     	let medsched: string = "empty"												//gotta figure this out
 
-    	let minc: number = 2738;													//getting rid of this
+    	let minc: number = 0;														//getting rid of this
     	let doctor: string = "Doctor Doom";											//change to be user-input
-    	let medList: string = "none";												//gotta figure this out
+    	let medList: string = ngForm.form.value.name;								//gotta figure this out, how to add more medications
     	let dObt: string = ngForm.form.value.dobt;
     	let instr: string = ngForm.form.value.instr;
     	let dosage: number = ngForm.form.value.dosage;
     	let numrefills: number = ngForm.form.value.numrefills;
+    	let scriptname: string = "none";
 
 		var urlscript = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/createprescription/";
 		var urlmed = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/CreateMedication";
@@ -48,7 +49,7 @@ export class MedicationPage implements OnInit {
 		const datascript: any = {
 			"Minc": minc,
 			"Doctor": doctor,
-			"Name": name,
+			"Name": scriptname,
 			"Dosage": dosage,
 			"DateObtained": dObt,
 			"PersonID": PersonId,
@@ -65,6 +66,8 @@ export class MedicationPage implements OnInit {
 
 		      console.log('Post Success!');
 		      console.log('Reponse: ' + response);
+
+		      this.rxId = response;
 
 		      let prescriptionID: number = this.rxId as number;   
 			  console.log("prescription id is " + this.rxId);

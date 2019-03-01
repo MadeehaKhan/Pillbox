@@ -9,7 +9,7 @@
 
 				<ion-item>
 					<ion-label for="name">Name:</ion-label>
-					<ion-input type="text" required [(ngModel)]="rxInfo.name" name='name'></ion-input>
+					<ion-input type="text" required [(ngModel)]="information.name" name='name'></ion-input>
 				</ion-item>
 
 				<ion-item>
@@ -34,7 +34,7 @@
 
 				<ion-item>
 					<ion-label for="sfx">Side Effects:</ion-label>
-					<ion-input type="text" #sfx required [(ngModel)]="information.sideEffects" name='sfx'><ion-button (click)="addSFX(sfx.value)">+</ion-button>
+					<ion-input type="text" #sfx required ngModel name='sfx'><ion-button (click)="addSFX(sfx.value)">+</ion-button>
 		          </ion-input>
 		        </ion-item>
 		        <ion-item>
@@ -48,7 +48,7 @@
 
 				<ion-item>
 					<ion-label for="dobt">Date Obtained</ion-label>
-					<ion-input type="date" required name="dobt" ngModel></ion-input>
+					<ion-input type="date" required name="dobt" [(ngModel)]="information.dobt"></ion-input>
 				</ion-item>
 
 				<div *ngIf=isRx>
