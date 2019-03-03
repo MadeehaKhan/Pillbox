@@ -16,20 +16,23 @@ export class MedicationModifyPage implements OnInit {
 	sidefx: string[] = [];
 	medId: string = "22";
 	pId: number = 9;
+	date: string;
 
   constructor(private router: Router, public http: HttpClient) {
+
   	this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/".concat(this.medId))
   	.toPromise()
   	.then((response) => {
   		this.information = response;
+  		console.log(response);
 		if (this.information['sideEffects'] != "none") {
 		  	var sfxArr = this.information['sideEffects'].split(',');
 		  	for (let s of sfxArr) {
 	  			this.sidefx.unshift(s);
 	  		}
 	  	}
-	  	console.log(this.information);
-	  	var num = new Number(this.information['prescriptionId'])
+	  	this.date = this.information['dateObtained'].substring(0,10);
+
 		this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getprescription/".concat(this.information['prescriptionId'].toString(10)+"/"))
   		.toPromise()
   		.then((response) => {
@@ -40,32 +43,12 @@ export class MedicationModifyPage implements OnInit {
 		    console.log('Reponse: ' + error);
 		}); 
 	})
+
 	.catch(error => {
 		console.log('Post Error!');
 		console.log('Reponse: ' + error);
 	});
-  	/*this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getprescription/".concat(this.rxId))
-  		.toPromise()
-  		.then((response) => {
-  	//.subscribe((response) =>
-	  		//console.log(response); 
-	  		this.rxInfo = response;
-	  		this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/".concat(this.medId))
-	  			.subscribe((response) => { 
-		  			//console.log(response); 
-		  			this.information = response;
-		  			if (this.information['sideEffects'] != "none") {
-		  				var sfxArr = this.information['sideEffects'].split(',');
-		  				for (let s of sfxArr) {
-	  						this.sidefx.unshift(s);
-	  					}
-	  				}
-	  			})
-	  	})
-  		.catch(error => {
-		    console.log('Post Error!');
-		    console.log('Reponse: ' + error);
-		}); */
+
   }
 
  
@@ -79,6 +62,7 @@ export class MedicationModifyPage implements OnInit {
   	
   	var scripturl = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/editprescription/";
   	var medurl = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/editmedication/";
+  	const options = {responseType: 'text' as 'text'};
 
   	let PersonId: number = this.pId;
     let name: string = ngForm.form.value.name;
@@ -132,14 +116,14 @@ export class MedicationModifyPage implements OnInit {
 	}
 
 	//this.http.post(scripturl, datascript)
-	this.http.post(medurl, datamed)
+	this.http.post(medurl, datamed, options)
 	    .toPromise()
 	    .then(response => {
 	      console.log('Post Success!');
 	      console.log('Reponse: ' + response);
 
 	      if (response != null){
-	      	this.http.post(scripturl, datascript)
+	      	this.http.post(scripturl, datascript, options)
 	      	//this.http.post(medurl, datamed)
 		    	.toPromise()
 		    	.then(response => {
@@ -148,27 +132,54 @@ export class MedicationModifyPage implements OnInit {
 		    	})
 		    	.catch(error => {
 		      	console.log('Post Error!');
-		      	console.log('Reponse: ' + typeof(error));
+		      	console.log('Reponse: ' + error);
 		    	});
 		   }
 
 	    })
 	    .catch(error => {
 	      console.log('Post Error!');
-	      console.log('Reponse: ' + typeof(error));
+	      console.log('Reponse: ' + error);
 	    });
 	//console.log(datascript);
 
   }
 
+  deleteMed() {													//why doesn't the script delete too
+
+  	var delUrl = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/deletemedication/".concat(this.medId);
+
+  	var retVal = confirm("Are you sure you want to delete this medication?");
+    if( retVal == true ) {
+	   	var deldata: any = {}
+
+	  	this.http.post(delUrl, deldata)
+		    .toPromise()
+		    .then(response => {
+		    	console.log('Post Success!');
+			      	console.log('Reponse: ' + response);
+			    	})
+	    	.catch(error => {
+	      	console.log('Post Error!');
+	      	console.log('Reponse: ' + typeof(error));
+	    	});
+	}
+
+   }
+																																	
+
    addSFX(sfx){
+
     //console.log(sfx);
     this.sidefx.unshift(sfx);
     return false;
+
   }
 
   deleteSFX(i){
+
     this.sidefx.splice(i, 1);
+
   }
 
 }

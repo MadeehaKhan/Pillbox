@@ -48,7 +48,7 @@
 
 				<ion-item>
 					<ion-label for="dobt">Date Obtained</ion-label>
-					<ion-input type="date" required name="dobt" [(ngModel)]="information.dobt"></ion-input>
+					<ion-input type="date" required name="dobt" [(ngModel)]="this.date"></ion-input>
 				</ion-item>
 
 				<div *ngIf=isRx>
@@ -75,6 +75,10 @@
 			</form>
 			<ion-footer>
     			<ion-button expand="full" color="primary" (click)="editMed(form)">Done!</ion-button>
+    			<br>
+    			<br>
+    			<br>
+    			<ion-button expand="full" color="danger" (click)="deleteMed()">Delete this Medication</ion-button>
 			</ion-footer>
 		</ion-col>
 	</ion-row>
