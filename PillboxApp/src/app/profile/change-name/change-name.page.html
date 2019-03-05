@@ -11,12 +11,12 @@
         </h5>
         <ion-item>
           <ion-label position="stacked">First Name</ion-label>
-          <ion-input name="firstName" type="text" ngModel></ion-input>
+          <ion-input name="givenName" type="text" ngModel="{{user.givenName}}"></ion-input>
         </ion-item>
     
         <ion-item>
           <ion-label position="stacked">Last Name</ion-label>
-          <ion-input name="lastName" type="text" ngModel></ion-input>
+          <ion-input name="lastName" type="text" ngModel="{{user.lastName}}"></ion-input>
         </ion-item>
         <div id="center">
             <ion-button color="primary" type="submit" [disabled]="!form.valid">Update</ion-button>
@@ -24,3 +24,9 @@
       </form>
 
 </ion-content>
+
+<!-- <ion-footer>
+  <div class="toBottom">
+      <ion-button expand="full" color="primary" (click)="authenticate(form)" [disabled]="!form.valid">Update</ion-button>
+  </div>
+</ion-footer> -->

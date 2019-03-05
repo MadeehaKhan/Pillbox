@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { Person } from '../models/Person';
+import { Storage } from '@ionic/storage';
+import { MedicationService } from '../services/medication.service';
 
 @Component({
   selector: 'app-tab3',
@@ -11,7 +13,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class Tab3Page {
 
-  constructor(private router: Router) { }
+  user: Person = new Person();
+  constructor(private router: Router, private storage: Storage, private medicationService: MedicationService) {
+  }
+
+  ngOnInit() {
+    //automatically updates the user object when it's been updated in the service.
+    this.medicationService.user.subscribe(data => this.user = data);  
+  }
 
   buttonClick(){
     alert("Details!");

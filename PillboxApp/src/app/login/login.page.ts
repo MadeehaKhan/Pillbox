@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import { LoadingController } from '@ionic/angular';
 import { Person } from '../models/Person';
+import { MedicationService } from '../services/medication.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,11 @@ export class LoginPage implements OnInit {
 
   failedMsg: string = "";
 
-  constructor(private router: Router, public http: HttpClient, private storage: Storage, private loadingController: LoadingController) { }
+  constructor(private router: Router,
+     public http: HttpClient, 
+     private storage: Storage, 
+     private loadingController: LoadingController, 
+     private medicationService: MedicationService) { }
 
   ngOnInit() {
   }
@@ -75,6 +80,9 @@ export class LoginPage implements OnInit {
       console.log(user);
 
       this.storage.set('user', user);
+
+      this.medicationService.setPerson(user);
+
       //How to get the user data
       //let testUser = new Person();
       // this.storage.get('user')

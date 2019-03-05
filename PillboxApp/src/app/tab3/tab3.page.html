@@ -10,7 +10,7 @@
 </ion-header>
       
 <ion-content onload="">
-    <h2 id="name"> Cesar Santana </h2>
+    <h2 id="name"> {{ user.givenName + ' ' + user.lastName }} </h2>
     <ion-list class="list list-ios hydrated">
         <h6>PROFILE</h6>
         <ion-item class="in-list item ion-focusable item-label hydrated" (click)="navToChangeName()" detail>
@@ -18,7 +18,7 @@
                 <ion-icon name="person"></ion-icon>
             </div>
             <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
-                <h2>Cesar Santana</h2>
+                <h2>{{ user.givenName + ' ' + user.lastName }}</h2>
             </ion-label>
         </ion-item>
         <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" href='/change-email' detail>
@@ -26,7 +26,7 @@
                 <ion-icon name="at" id="atIcon"></ion-icon>
             </div>
             <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
-                <h2>Email</h2>
+                <h2>{{user.email}}</h2>
             </ion-label>
             </ion-item>
         <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" href="/change-phone" detail>
@@ -34,7 +34,7 @@
                 <ion-icon name="call"></ion-icon>
             </div>
             <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
-                <h2>Phone</h2>
+                <h2>{{user.phoneNumber}}</h2>
             </ion-label>
         </ion-item>
         <h6>HEALTHCARE INFORMATION</h6>
