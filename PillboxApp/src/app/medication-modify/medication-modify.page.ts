@@ -12,11 +12,12 @@ export class MedicationModifyPage implements OnInit {
 
 	information: any = {}
 	rxInfo: any = {}
-	isRx: boolean = true;
+	isRx: boolean = false;
 	sidefx: string[] = [];
-	medId: string = "22";
+	medId: string = "26";
 	pId: number = 9;
 	date: string;
+	medList: number[] = [];
 
   constructor(private router: Router, public http: HttpClient) {
 
@@ -33,6 +34,7 @@ export class MedicationModifyPage implements OnInit {
 	  	}
 	  	this.date = this.information['dateObtained'].substring(0,10);
 
+	  	if (this.isRx) {
 		this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getprescription/".concat(this.information['prescriptionId'].toString(10)+"/"))
   		.toPromise()
   		.then((response) => {
@@ -42,7 +44,9 @@ export class MedicationModifyPage implements OnInit {
 		    console.log('Post Error!');
 		    console.log('Reponse: ' + error);
 		}); 
+	  }
 	})
+  
 
 	.catch(error => {
 		console.log('Post Error!');
@@ -79,7 +83,7 @@ export class MedicationModifyPage implements OnInit {
 
     let minc: number = 2738; 								
     let doctor: string = ngForm.form.value.doc;
-    let medList: string = "none";							
+    let medList: string = this.medList.toString();							
     let dObt: string = ngForm.form.value.dobt;				//kept this as the same for both but need to change that eventually
     let instr: string = ngForm.form.value.instr;
     let dosage: number = ngForm.form.value.dosage;
@@ -115,37 +119,54 @@ export class MedicationModifyPage implements OnInit {
 		"PrescriptionId": id,
 	}
 
-	//this.http.post(scripturl, datascript)
-	this.http.post(medurl, datamed, options)
-	    .toPromise()
-	    .then(response => {
-	      console.log('Post Success!');
-	      console.log('Reponse: ' + response);
+	
+	if (this.isRx) {
+		//this.http.post(scripturl, datascript)
+		this.http.post(medurl, datamed, options)
+		    .toPromise()
+		    .then(response => {
+		      console.log('Post Success!');
+		      console.log('Reponse: ' + response);
 
-	      if (response != null){
-	      	this.http.post(scripturl, datascript, options)
-	      	//this.http.post(medurl, datamed)
-		    	.toPromise()
-		    	.then(response => {
-		      	console.log('Post Success!');
-		      	console.log('Reponse: ' + response);
-		    	})
-		    	.catch(error => {
-		      	console.log('Post Error!');
-		      	console.log('Reponse: ' + error);
-		    	});
-		   }
+		      if (response != null){
+		      	this.http.post(scripturl, datascript, options)
+		      	//this.http.post(medurl, datamed)
+			    	.toPromise()
+			    	.then(response => {
+			      	console.log('Post Success!');
+			      	console.log('Reponse: ' + response);
+			    	})
+			    	.catch(error => {
+			      	console.log('Post Error!');
+			      	console.log('Reponse: ' + error);
+			    	});
+			   }
 
-	    })
-	    .catch(error => {
-	      console.log('Post Error!');
-	      console.log('Reponse: ' + error);
-	    });
-	//console.log(datascript);
+		    })
+		    .catch(error => {
+		      console.log('Post Error!');
+		      console.log('Reponse: ' + error);
+		    });
+		//console.log(datascript);
 
-  }
+	  }
+	  
+	else {
+		this.http.post(medurl, datamed, options)
+		    .toPromise()
+		    .then(response => {
+		      console.log('Post Success!');
+		      console.log('Reponse: ' + response);
+			})
+			.catch(error => {
+		      console.log('Post Error!');
+		      console.log('Reponse: ' + error);
+		    });
+	}
 
-  deleteMed() {													//why doesn't the script delete too
+}
+
+  deleteMed() {												
 
   	var delUrl = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/deletemedication/".concat(this.medId);
 
