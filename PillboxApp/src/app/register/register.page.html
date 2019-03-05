@@ -1,0 +1,10 @@
+<ion-content padding >
+  <div id="center">
+      <img id="logo" src="/assets/img/pillbox_logo_blue.svg">
+  </div>
+  <form id="login" #form="ngForm" (ngSubmit)="authenticate(form)">
+    <ion-button expand="full" shape="round" color="medium" (click)="goToSignUp()" [disabled]="!form.valid">Sign Up</ion-button>
+    <hr class="hr-text" data-content="OR">
+    <ion-button expand="full" shape="round" color="primary" (click)="goToLogin()" [disabled]="!form.valid">Login</ion-button>
+  </form>
+</ion-content>

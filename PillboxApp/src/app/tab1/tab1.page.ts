@@ -78,7 +78,7 @@ export class Tab1Page {
     this.storage.set('isLoggedIn', false);
     this.storage.set('user', null);
     this.isLoggedIn = this.storage.get("isLoggedIn");   //for the view
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/register');
   }
 
 }

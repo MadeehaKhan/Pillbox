@@ -18,6 +18,8 @@ export class Tab3Page {
   }
 
   ngOnInit() {
+    this.storage.get('user').then(val => this.user = val);
+    this.medicationService.setPerson(this.user);
     //automatically updates the user object when it's been updated in the service.
     this.medicationService.user.subscribe(data => this.user = data);  
   }
