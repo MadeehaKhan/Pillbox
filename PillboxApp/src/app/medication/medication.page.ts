@@ -14,6 +14,8 @@ export class MedicationPage implements OnInit {
 	isRX:boolean = false;
 	failedMsg: string = "";
 	rxId: any;
+	medList: number[] = [];
+	pID: number = 9;
 
 	constructor(private router: Router, public http: HttpClient) {}
 
@@ -22,7 +24,7 @@ export class MedicationPage implements OnInit {
 	addMed(ngForm: NgForm){
 		console.log('addMed()');
 
-		let PersonId: number = 9;
+		let PersonId: number = this.pID;
     	let name: string = ngForm.form.value.name;
 
 		let din: number = ngForm.form.value.din;
@@ -31,12 +33,14 @@ export class MedicationPage implements OnInit {
     	let pharmObtained: string = ngForm.form.value.pharm;
     	let takeAsNeeded: boolean = false;
     	let dateObtained: string = ngForm.form.value.dobt;
-    	let sideEffects: string = "none";											//change to be user-input
+    	let sideEffects: string = "none";											
     	let medsched: string = "empty"												//gotta figure this out
+
+    	this.medList.push(ngForm.form.value.din);
 
     	let minc: number = 0;														//getting rid of this
     	let doctor: string = "Doctor Doom";											//change to be user-input
-    	let medList: string = ngForm.form.value.name;								//gotta figure this out, how to add more medications
+    	let medList: string = this.medList.toString();								//gotta figure this out, how to add more medications
     	let dObt: string = ngForm.form.value.dobt;
     	let instr: string = ngForm.form.value.instr;
     	let dosage: number = ngForm.form.value.dosage;
@@ -60,7 +64,7 @@ export class MedicationPage implements OnInit {
 
 		if(this.isRX) {
 
-			 this.http.post(urlscript, datascript)
+			this.http.post(urlscript, datascript)
 		    .toPromise()
 		    .then(response => {
 
