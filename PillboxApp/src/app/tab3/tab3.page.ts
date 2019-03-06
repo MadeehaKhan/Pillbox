@@ -44,4 +44,8 @@ export class Tab3Page {
     this.router.navigateByUrl('/view-all-medications');
   }
 
+  navToTutorial(){
+    this.router.navigateByUrl('/tutorial');
+  }
+
 }

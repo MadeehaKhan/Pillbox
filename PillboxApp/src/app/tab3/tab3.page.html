@@ -104,13 +104,21 @@
                 <h2>Report a Problem</h2>
             </ion-label>
         </ion-item>
-        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="buttonClick()" detail>
-                <div id="softBlueCircle" slot="start" class="hydrated">
-                    <ion-icon name="help"></ion-icon>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="navToTutorial()" detail>
+                <div id="forestGreenCircle" slot="start" class="hydrated">
+                    <ion-icon name="school"></ion-icon>
                 </div>  
                 <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
-                    <h2>Help</h2>
+                    <h2>Tutorial</h2>
                 </ion-label>
             </ion-item>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="buttonClick()" detail>
+            <div id="softBlueCircle" slot="start" class="hydrated">
+                <ion-icon name="help"></ion-icon>
+            </div>  
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                <h2>Help</h2>
+            </ion-label>
+        </ion-item>
     </ion-list>
 </ion-content>
