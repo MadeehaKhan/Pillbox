@@ -6,10 +6,10 @@
 </ion-header>
 
 <ion-content onload="populateMedicationLists()">
+    <div id="date"> {{ today | date}} </div>
     <ion-card class="welcome-card">
-      <div id="date"> {{ today | date}}</div>
       <ion-card-title>AM</ion-card-title>
-      <ion-list class="list list-ios hydrated">
+      <ion-list *ngFor="let entry of drugsList" class="list list-ios hydrated">
           <!-- <ion-item class="in-list item ion-focusable item-label hydrated" (click)="buttonClick()">
             <h4 id="drug-time">9:30</h4>
             <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated" (click)="buttonClick()">
@@ -19,16 +19,15 @@
           </ion-item>
           -->
 
-        <ion-item *ngFor="let entry of drugsList">
-          <h4 id="drug-time"> {{entry.id}}</h4>
+        <ion-item>
+            <h4 id="drug-time" (click)="goToMedication()"> {{entry.id}}</h4>
             <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
               <h2 (click)="goToMedication()"> {{entry.name}} </h2>
               <p (click)="goToMedication()">Take 30 min before eating</p>
             </ion-label>
-            <div>
-                <ion-checkbox slot="end" [(ngModel)]="entry.isChecked" (click)="updateDrugLists()"></ion-checkbox>
-            </div>
-            
+            <ion-item lines="none" id="checkBoxItem" (click)="updateDrugLists()">
+                    <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+            </ion-item>    
         </ion-item>
 
         <!-- <ion-card-title>Taken Today</ion-card-title>
@@ -51,16 +50,15 @@
     <ion-card class="welcome-card">
       <ion-list class="list list-ios hydrated">
           <ion-card-title>Taken Today</ion-card-title>
-          <ion-item *ngFor="let entry of takenDrugsList">
-              <h4 id="drug-time" > {{entry.id}}</h4> 
+          <ion-item *ngFor="let entry of takenDrugsList" id="lineThrough">
+              <h4 id="drug-time" (click)="goToMedication()"> {{entry.id}}</h4> 
                 <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
-                  <h2 (click)="goToMedication()"> {{entry.name}} </h2>
-                  <p  (click)="goToMedication()"> Take 30 min before eating</p>
+                  <h2 (click)="goToMedication()" *ngIf="entry.isChecked"> {{entry.name}} </h2>
+                  <p (click)="goToMedication()"> Take 30 min before eating</p>
                 </ion-label>
-                <div>
-                    <ion-checkbox slot="end" [(ngModel)]="entry.isChecked" (click)="updateDrugLists()"></ion-checkbox>
-                </div>
-                
+                <ion-item lines="none" id="checkBoxItem" (click)="updateDrugLists()">
+                  <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
+                </ion-item>
             </ion-item>
   
   

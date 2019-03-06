@@ -72,7 +72,7 @@ export class Tab1Page {
   }
 
   public goToMedication(){
-    alert("Go to Medication");
+    this.router.navigateByUrl('/medication-modify');
   }
 
   public logout(){
