@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MedicationService } from '../services/medication.service';
-import { Medication } from '../models/Medication';
 import { Storage } from '@ionic/storage';
 
 
@@ -34,7 +33,6 @@ export class Tab1Page {
   // //   // { val: 'Mushroom', time: '6:00', isChecked: false }
   // ];
 
-  results: Observable<any>;
 
   public takenDrugsList: any[];
   //   { val: 'Dog', time: '9:30', isChecked: true },
@@ -71,6 +69,10 @@ export class Tab1Page {
 
   public addMedication() {
     this.router.navigateByUrl('/medication');
+  }
+
+  public goToMedication(){
+    alert("Go to Medication");
   }
 
   public logout(){

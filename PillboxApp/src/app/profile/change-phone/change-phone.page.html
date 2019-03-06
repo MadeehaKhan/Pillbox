@@ -1,9 +1,22 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>change-phone</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content padding>
+    <h6 (click)="back()" id="backButton" detail>Back</h6>
+    <div id='center'>
+        <h4>Update Phone</h4>
+    </div>
+
+    <form id="login" #form="ngForm" (ngSubmit)="authenticatePhone(form)">
+        <h5 [hidden]="failedMsg === ''" class="isa_error">
+            <!-- <i class="fa fa-times-circle"></i> -->
+            {{failedMsg}}
+        </h5>
+        <ion-item>
+          <ion-label position="stacked">Phone Number</ion-label>
+          <ion-input name="phoneNumber" type="tel" ngModel="{{user.phoneNumber}}"></ion-input>
+        </ion-item>
+    
+        <div id="center">
+            <ion-button color="primary" type="submit" [disabled]="!form.valid">Update</ion-button>
+        </div>
+      </form>
 
 </ion-content>

@@ -1,0 +1,51 @@
+h4{
+    margin:0px;
+}
+
+h2{
+    display:inline;
+}
+
+#backButton{
+    padding-left: 6px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    display:inline-block;
+    color: #3880FF;
+}
+
+#center{
+    padding-top: 15px;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+#center2{
+    padding-top: 5px;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 3px;
+}
+
+.hidden{
+    display: none;
+}
+
+ion-icon{
+    position: absolute;
+    right: 10px;
+    font-size: 20px;
+}
+
+ion-item{
+    --padding-top:0px;
+    --padding-bottom : 0px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    --inner-padding-top: 0px;
+    --inner-padding-bottom: 0px;
+
+} 

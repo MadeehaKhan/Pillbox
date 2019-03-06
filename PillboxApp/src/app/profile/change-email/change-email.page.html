@@ -1,9 +1,29 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>change-email</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content padding>
+    <h6 (click)="back()" id="backButton" detail>Back</h6>
+    <div id='center'>
+        <h4>Update Email</h4>
+    </div>
+
+    <form id="login" #form="ngForm" (ngSubmit)="authenticateEmail(form)">
+        <h5 [hidden]="failedMsg === ''" class="isa_error">
+            <!-- <i class="fa fa-times-circle"></i> -->
+            {{failedMsg}}
+        </h5>
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input name="email" type="email" ngModel="{{user.email}}"></ion-input>
+        </ion-item>
+    
+        <div id="center">
+            <ion-button color="primary" type="submit" [disabled]="!form.valid">Update</ion-button>
+        </div>
+      </form>
 
 </ion-content>
+
+<!-- <ion-footer>
+  <div class="toBottom">
+      <ion-button expand="full" color="primary" (click)="authenticate(form)" [disabled]="!form.valid">Update</ion-button>
+  </div>
+</ion-footer> -->
+

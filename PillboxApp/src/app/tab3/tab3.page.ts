@@ -31,4 +31,17 @@ export class Tab3Page {
   navToChangeName(){
     this.router.navigateByUrl('/change-name');
   }
+
+  navToChangeEmail(){
+    this.router.navigateByUrl('/change-email');
+  }
+
+  navToChangePhone(){
+    this.router.navigateByUrl('/change-phone');
+  }
+
+  navToChangeViewAllMedications(){
+    this.router.navigateByUrl('/view-all-medications');
+  }
+
 }

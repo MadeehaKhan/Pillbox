@@ -21,7 +21,7 @@
                 <h2>{{ user.givenName + ' ' + user.lastName }}</h2>
             </ion-label>
         </ion-item>
-        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" href='/change-email' detail>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="navToChangeEmail()" detail>
             <div id="orangeCircle" slot="start" class="hydrated">
                 <ion-icon name="at" id="atIcon"></ion-icon>
             </div>
@@ -29,7 +29,7 @@
                 <h2>{{user.email}}</h2>
             </ion-label>
             </ion-item>
-        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" href="/change-phone" detail>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="navToChangePhone()" detail>
             <div id="blueCircle" slot="start" class="hydrated">
                 <ion-icon name="call"></ion-icon>
             </div>
@@ -54,7 +54,7 @@
                     <h2>Physician Information</h2>
                 </ion-label>
         </ion-item>  
-        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="buttonClick()" detail>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="navToChangeViewAllMedications()" detail>
             <div id="redCircle" slot="start" class="hydrated">
                 <ion-icon name="medkit"></ion-icon>
             </div>    
@@ -80,6 +80,14 @@
             </ion-label>
         </ion-item>
         <h6>ACCOUNT AND SUPPORT</h6>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="buttonClick()" detail>
+                <div id="lightBlueCircle" slot="start" class="hydrated">
+                    <ion-icon name="log-out"></ion-icon>
+                </div> 
+                <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                    <h2>Log out</h2>
+                </ion-label>
+            </ion-item>
         <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="buttonClick()" detail>
             <div id="grayCircle" slot="start" class="hydrated">
                 <ion-icon name="settings"></ion-icon>

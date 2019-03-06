@@ -15,7 +15,7 @@ export class ChangeNamePage implements OnInit {
   user: Person = new Person();
   constructor(private router: Router, private storage: Storage, private medicationService: MedicationService, private loadingController: LoadingController) {
     this.storage.get('user').then(val => this.user = val);
-   }
+  }
 
   ngOnInit() {
   }
