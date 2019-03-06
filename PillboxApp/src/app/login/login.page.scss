@@ -1,8 +1,12 @@
 #myImage_Header {
     background: url('/assets/img/pillbox_logo_blue.svg');
-    background-size: 100% 100%;
-    min-width: 58px;
-    min-height: 36px;
+    background-size: 100% 100%; 
+    min-width: 20px;
+}
+
+#center {
+    align-content: center;
+    text-align: center; 
 }
 
 #login {
@@ -17,6 +21,13 @@
     width: 310px;
     height: 194px;
     margin: auto;
+}
+
+#backButton{
+    padding-left: 6px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    color: #3880FF;
 }
 
 .toBottom {

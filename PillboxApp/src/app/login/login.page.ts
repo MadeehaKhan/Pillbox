@@ -64,6 +64,10 @@ export class LoginPage implements OnInit {
     });
   }
 
+  back(){
+    this.router.navigateByUrl('/register');
+  }
+
   getPersonInfo(email: string, password: string){
     let url = "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/getperson/";
 
