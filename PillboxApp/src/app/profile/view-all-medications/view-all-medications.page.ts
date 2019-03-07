@@ -39,7 +39,7 @@ export class ViewAllMedicationsPage implements OnInit {
   }
 
   editMedication(){
-    alert("Edit Medication");
+    this.router.navigateByUrl('/medication-modify');
   }
 
   
