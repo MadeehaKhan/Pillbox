@@ -89,19 +89,15 @@
       <ion-list-header>
         <ion-label>Resources</ion-label>
       </ion-list-header>
-      <ion-item href="/tutorial">
-        <ion-icon slot="start" color="medium" name="book"></ion-icon>
-        <ion-label>GO TO TUTORIAL</ion-label>
-      </ion-item>
       <!-- <div *ngIf="isLoggedIn; then logout else login"></div> -->
-      <ion-item [hidden]="isLoggedIn" href="/login">
+      <!-- <ion-item [hidden]="isLoggedIn" href="/login">
         <ion-icon slot="start" color="medium" name="book"></ion-icon>
         <ion-label>GO TO LOGIN</ion-label>
       </ion-item>
       <ion-item [hidden]="!isLoggedIn" (click)="logout()">
         <ion-icon slot="start" color="medium" name="book"></ion-icon>
         <ion-label>LOGOUT</ion-label>
-      </ion-item>
+      </ion-item> -->
       <ion-item href="/signup">
         <ion-icon slot="start" color="medium" name="grid"></ion-icon>
         <ion-label>GO TO SIGNUP</ion-label>

@@ -44,6 +44,13 @@ export class Tab3Page {
     this.router.navigateByUrl('/view-all-medications');
   }
 
+  public logout(){
+    console.log('logout()');
+    this.storage.set('isLoggedIn', false);
+    this.storage.set('user', null);
+    this.router.navigateByUrl('/register');
+  }
+
   navToTutorial(){
     this.router.navigateByUrl('/tutorial');
   }
