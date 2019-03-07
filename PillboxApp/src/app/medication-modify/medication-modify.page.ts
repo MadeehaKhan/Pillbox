@@ -14,7 +14,7 @@ export class MedicationModifyPage implements OnInit {
 	rxInfo: any = {}
 	isRx: boolean = false;
 	sidefx: string[] = [];
-	medId: string = "26";
+	medId: string = "2";
 	pId: number = 9;
 	date: string;
 	medList: number[] = [];
@@ -201,6 +201,10 @@ export class MedicationModifyPage implements OnInit {
 
     this.sidefx.splice(i, 1);
 
+	}
+	
+	back(){
+    this.router.navigateByUrl('/tabs/tab1');
   }
 
 }

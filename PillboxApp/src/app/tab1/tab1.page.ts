@@ -71,7 +71,7 @@ export class Tab1Page {
     this.router.navigateByUrl('/medication');
   }
 
-  public goToMedication(){
+  public goToMedication(entry){
     this.router.navigateByUrl('/medication-modify');
   }
 

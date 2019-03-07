@@ -23,6 +23,14 @@ ion-button {
     font-weight: 300;
 }
 
+#backButton{
+    padding-left: 6px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    display:inline-block;
+    color: #3880FF;
+}
+
 @media (min-width: 240px) and (max-width: 768px) {
     ion-grid {
         background: $white-color;

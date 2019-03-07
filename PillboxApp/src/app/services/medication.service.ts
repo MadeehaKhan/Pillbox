@@ -9,7 +9,7 @@ import { Storage } from '@ionic/storage';
   providedIn: 'root'
 })
 export class MedicationService {
-  urlMedsByPerson = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedicationbyperson/2';
+  urlMedsByPerson = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedicationbyperson/22';
   urlEditPerson = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/person/editperson/';
 
   private userSource = new Subject<Person>();
