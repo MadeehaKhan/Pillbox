@@ -27,7 +27,10 @@
             </ion-label>
             <ion-item lines="none" id="checkBoxItem" (click)="updateDrugLists()">
                     <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
-            </ion-item>    
+            </ion-item>
+            <!-- <ion-item *ngIf="drugsList==null || drugsList.length==0">
+                <ion-label>None</ion-label>
+              </ion-item>     -->
         </ion-item>
 
         <!-- <ion-card-title>Taken Today</ion-card-title>
@@ -62,8 +65,8 @@
             </ion-item>
   
             <ion-item *ngIf="takenDrugsList==null || takenDrugsList.length==0">
-                <ion-label>None</ion-label>
-              </ion-item>
+              <ion-label>None</ion-label>
+            </ion-item>
   
         </ion-list>
       </ion-card>
