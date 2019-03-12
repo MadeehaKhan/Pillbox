@@ -15,9 +15,9 @@
                 Remaining Pills: {{entry.remainingPills}} <br>
                 Side Effects: {{entry.sideEffects}}
               </p>
-                  <ion-button [hidden]="entry.isHidden" text-center expand="block" size="default" [hidden]="entry.isHidden" (click)="editMedication()">
-                      <h6>Edit</h6>
-                  </ion-button>
+                <ion-button [hidden]="entry.isHidden" text-center expand="block" size="default" [hidden]="entry.isHidden" (click)="editMedication(entry['id'])">
+                    <h6>Edit</h6>
+                </ion-button>
               
               <!-- <h6 (click)="back()" id="backButton" detail>Edit</h6> -->
             </ion-label>

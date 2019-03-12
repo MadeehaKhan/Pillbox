@@ -36,8 +36,6 @@ export class ViewAllMedicationsPage implements OnInit {
 
   buttonClick(entry){
     entry.isHidden = !entry.isHidden;
-    //alert("Details!");
-    //console.log(label);
   }
 
   editMedication(id){

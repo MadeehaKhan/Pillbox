@@ -17,6 +17,7 @@ export class MedicationModifyPage implements OnInit {
 	rxInfo: any = {}
 	isRx: boolean = false;
 	sidefx: string[] = [];
+	medId: string;
 	pId: number;
 	date: string;
 	medList: number[] = [];
@@ -78,7 +79,7 @@ export class MedicationModifyPage implements OnInit {
     let name: string = ngForm.form.value.name;
     let dateObtained: string = ngForm.form.value.dobt;
 
-  	let mId: number = parseInt(this.medId,10);
+  	let mId: number = parseInt(this.route.snapshot.paramMap.get('id'),10);
   	let din: number = ngForm.form.value.din;
     let strength: number = ngForm.form.value.strength;
     let remainingMed: number = ngForm.form.value.medrem;
@@ -174,7 +175,7 @@ export class MedicationModifyPage implements OnInit {
 
   deleteMed() {												
 
-  	var delUrl = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/deletemedication/".concat(this.medId);
+  	var delUrl = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/deletemedication/".concat(this.route.snapshot.paramMap.get('id'));
 
   	var retVal = confirm("Are you sure you want to delete this medication?");
     if( retVal == true ) {

@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { TutorialGuard } from './guards/tutorial.guard';
@@ -15,7 +16,12 @@ const routes: Routes = [
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
   { path: 'view-all-medications', loadChildren: './profile/view-all-medications/view-all-medications.module#ViewAllMedicationsPageModule' },
   { path: 'change-healthconditions', loadChildren: './profile/change-healthconditions/change-healthconditions.module#ChangeHealthconditionsPageModule' },
-  { path: 'change-physicianinformation', loadChildren: './profile/change-physicianinformation/change-physicianinformation.module#ChangePhysicianinformationPageModule' }
+  { path: 'change-physicianinformation', loadChildren: './profile/change-physicianinformation/change-physicianinformation.module#ChangePhysicianinformationPageModule' },
+  { path: 'med-view/:id', loadChildren: './med-view/med-view.module#MedViewPageModule' }
+
+
+
+
 ];
 @NgModule({
   imports: [

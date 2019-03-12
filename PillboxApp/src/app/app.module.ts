@@ -11,9 +11,10 @@ import { AppComponent } from './app.component';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { HttpClientModule } from '@angular/common/http';
+import { MedViewPipe } from './med-view.pipe';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, MedViewPipe],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot(), HttpClientModule],
   providers: [

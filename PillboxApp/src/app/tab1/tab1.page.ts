@@ -71,9 +71,10 @@ export class Tab1Page {
     this.router.navigateByUrl('/medication');
   }
 
-  public goToMedication(entry){
-    this.router.navigateByUrl('/medication-modify');
+  public goToMedication(entry) {
+     this.router.navigateByUrl('/med-view/' + entry['id']);
   }
+
 
   public logout(){
     console.log('logout()');

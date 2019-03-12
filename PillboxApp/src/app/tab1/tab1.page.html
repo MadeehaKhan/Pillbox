@@ -20,7 +20,7 @@
           -->
           <!-- *ngIf="(entry.dateObtained | date:a)=='AM'" -->
         <ion-item>
-            <h4 id="drug-time" (click)="goToMedication(entry)"> {{entry.dateObtained | date:'H:mm'}}</h4>
+            <h4 id="drug-time" (click)="goToMedication(entry['id'])"> {{entry.dateObtained | date:'H:mm'}}</h4>
             <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
               <h2 (click)="goToMedication(entry)"> {{entry.name}} </h2>
               <p (click)="goToMedication(entry)">Take 30 min before eating</p>
@@ -54,7 +54,7 @@
       <ion-list class="list list-ios hydrated">
           <ion-card-title text-center>Taken Today</ion-card-title>
           <ion-item *ngFor="let entry of takenDrugsList" id="lineThrough">
-              <h4 id="drug-time" (click)="goToMedication()">{{entry.dateObtained | date:'H:mm'}}</h4> 
+              <h4 id="drug-time" >{{entry.dateObtained | date:'H:mm'}}</h4> 
                 <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
                   <h2 (click)="goToMedication()" *ngIf="entry.isChecked"> {{entry.name}} </h2>
                   <p (click)="goToMedication()"> Take 30 min before eating</p>
@@ -104,10 +104,6 @@
       <ion-item href="/signup">
         <ion-icon slot="start" color="medium" name="grid"></ion-icon>
         <ion-label>GO TO SIGNUP</ion-label>
-      </ion-item>
-      <ion-item href="/medication-modify">
-        <ion-icon slot="start" color="medium" name="color-fill"></ion-icon>
-        <ion-label>GO TO MODIFY MEDICATION</ion-label>
       </ion-item>
     </ion-list>
 </ion-content>
