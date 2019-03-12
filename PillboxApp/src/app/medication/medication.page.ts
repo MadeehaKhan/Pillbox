@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
+import { Person } from '../models/Person';
 
 
 @Component({
@@ -15,11 +17,21 @@ export class MedicationPage implements OnInit {
 	failedMsg: string = "";
 	rxId: any;
 	medList: number[] = [];
-	pID: number = 9;
+	pID: number;
 
-	constructor(private router: Router, public http: HttpClient) {}
+	constructor(private router: Router,
+     public http: HttpClient, 
+     private storage: Storage) {
+	}
 
-	ngOnInit() {}
+	ngOnInit() {
+		let testUser = new Person();
+        this.storage.get('user')
+       .then(val => testUser = val)
+       .then(() => {
+       	 this.pID= testUser.id as number; 
+       });
+	}
 
 	addMed(ngForm: NgForm){
 		console.log('addMed()');

@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Storage } from '@ionic/storage';
+import { Person } from '../models/Person';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-medication-modify',
@@ -14,14 +17,14 @@ export class MedicationModifyPage implements OnInit {
 	rxInfo: any = {}
 	isRx: boolean = false;
 	sidefx: string[] = [];
-	medId: string = "2";
-	pId: number = 9;
+	pId: number;
 	date: string;
 	medList: number[] = [];
 
-  constructor(private router: Router, public http: HttpClient) {
+  constructor(private router: Router, public http: HttpClient, 
+     private storage: Storage, private route: ActivatedRoute) {
 
-  	this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/".concat(this.medId))
+  	this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/".concat(this.route.snapshot.paramMap.get('id')))
   	.toPromise()
   	.then((response) => {
   		this.information = response;
@@ -56,10 +59,13 @@ export class MedicationModifyPage implements OnInit {
   }
 
  
-
-
   ngOnInit() {
-
+  		let testUser = new Person();
+        this.storage.get('user')
+       .then(val => testUser = val)
+       .then(() => {
+       	 this.pId= testUser.id as number; 
+       });
   }
 
   editMed(ngForm: NgForm) {
