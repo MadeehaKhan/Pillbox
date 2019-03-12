@@ -5,21 +5,20 @@
     </div>
 
     <ion-list >
-        <ion-item *ngFor="let entry of drugsList">
+        <ion-item *ngFor="let entry of drugsList" (click)="buttonClick(entry)">
             <ion-label>
-              <h2 slot="start" (click)="buttonClick(entry)"> {{entry.name}} </h2>
-              <ion-icon slot="end" name="arrow-down" [hidden]="entry.isHidden" (click)="buttonClick(entry)"></ion-icon>
-              <ion-icon slot="end" name="arrow-forward" [hidden]="!entry.isHidden" (click)="buttonClick(entry)"></ion-icon>
+              <h2 slot="start"> {{entry.name}} </h2>
+              <ion-icon slot="end" name="arrow-down" [hidden]="entry.isHidden"></ion-icon>
+              <ion-icon slot="end" name="arrow-forward" [hidden]="!entry.isHidden"></ion-icon>
               <p [hidden]="entry.isHidden" class="medicationInfo">
                 Date obtained: {{entry.dateObtained}} <br>
                 Remaining Pills: {{entry.remainingPills}} <br>
                 Side Effects: {{entry.sideEffects}}
               </p>
-              <div [hidden]="entry.isHidden" id='center2'>  
-                <ion-button [hidden]="entry.isHidden" (click)="editMedication(entry['id'])">
-                    <h6>Edit</h6>
-                </ion-button>
-              </div>
+                  <ion-button [hidden]="entry.isHidden" text-center expand="block" size="default" [hidden]="entry.isHidden" (click)="editMedication()">
+                      <h6>Edit</h6>
+                  </ion-button>
+              
               <!-- <h6 (click)="back()" id="backButton" detail>Edit</h6> -->
             </ion-label>
         </ion-item>
