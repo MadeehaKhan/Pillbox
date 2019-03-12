@@ -17,6 +17,7 @@ export class MedicationModifyPage implements OnInit {
 	rxInfo: any = {}
 	isRx: boolean = false;
 	sidefx: string[] = [];
+	medId: string;
 	pId: number;
 	date: string;
 	medList: number[] = [];
