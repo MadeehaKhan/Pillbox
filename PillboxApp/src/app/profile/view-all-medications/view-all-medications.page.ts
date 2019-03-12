@@ -12,6 +12,7 @@ import { MedicationService } from 'src/app/services/medication.service';
 })
 export class ViewAllMedicationsPage implements OnInit {
 
+
   constructor(private router: Router,  public http: HttpClient, private medicationService: MedicationService, private storage: Storage) { }
 
   ngOnInit() {
@@ -28,6 +29,7 @@ export class ViewAllMedicationsPage implements OnInit {
         this.drugsList = res.map(drug => drug);
         this.drugsList.forEach(drug => {
           drug.isHidden = true;
+          //console.log(this.drug);
         }); 
       }); 
   }
@@ -38,8 +40,9 @@ export class ViewAllMedicationsPage implements OnInit {
     //console.log(label);
   }
 
-  editMedication(){
-    this.router.navigateByUrl('/medication-modify');
+  editMedication(id){
+    console.log(id);
+    this.router.navigateByUrl('/medication-modify/' + id);
   }
 
   

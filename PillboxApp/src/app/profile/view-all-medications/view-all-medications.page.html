@@ -16,7 +16,7 @@
                 Side Effects: {{entry.sideEffects}}
               </p>
               <div [hidden]="entry.isHidden" id='center2'>  
-                <ion-button [hidden]="entry.isHidden" (click)="editMedication()">
+                <ion-button [hidden]="entry.isHidden" (click)="editMedication(entry['id'])">
                     <h6>Edit</h6>
                 </ion-button>
               </div>
