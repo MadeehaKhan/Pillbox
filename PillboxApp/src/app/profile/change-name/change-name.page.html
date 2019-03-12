@@ -18,6 +18,11 @@
           <ion-label position="stacked">Last Name</ion-label>
           <ion-input name="lastName" type="text" ngModel="{{user.lastName}}"></ion-input>
         </ion-item>
+
+        <ion-item>
+          <ion-label position="stacked">Age</ion-label>
+          <ion-input name="age" type="number" ngModel="{{user.age}}"></ion-input>
+        </ion-item>
         <div id="center">
             <ion-button color="primary" type="submit" [disabled]="!form.valid">Update</ion-button>
         </div>
