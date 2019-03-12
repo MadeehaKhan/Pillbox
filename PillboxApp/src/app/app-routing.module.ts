@@ -13,7 +13,9 @@ const routes: Routes = [
   { path: 'change-phone', loadChildren: './profile/change-phone/change-phone.module#ChangePhonePageModule' },
   { path: 'change-email', loadChildren: './profile/change-email/change-email.module#ChangeEmailPageModule' },
   { path: 'register', loadChildren: './register/register.module#RegisterPageModule' },
-  { path: 'view-all-medications', loadChildren: './profile/view-all-medications/view-all-medications.module#ViewAllMedicationsPageModule' }
+  { path: 'view-all-medications', loadChildren: './profile/view-all-medications/view-all-medications.module#ViewAllMedicationsPageModule' },
+  { path: 'med-view/:id', loadChildren: './med-view/med-view.module#MedViewPageModule' }
+
 
 
 
