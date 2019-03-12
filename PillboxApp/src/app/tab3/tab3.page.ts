@@ -40,6 +40,14 @@ export class Tab3Page {
     this.router.navigateByUrl('/change-phone');
   }
 
+  navToChangeHealthConditions(){
+    this.router.navigateByUrl('/change-healthconditions');
+  }
+
+  navToChangePhysicianInformation(){
+    this.router.navigateByUrl('/change-physicianinformation');
+  }
+
   navToChangeViewAllMedications(){
     this.router.navigateByUrl('/view-all-medications');
   }

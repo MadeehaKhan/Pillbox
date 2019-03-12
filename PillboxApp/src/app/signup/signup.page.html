@@ -1,27 +1,47 @@
-<ion-content>
-<ion-grid>
-  <ion-row justify-content-center>
-    <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-      <div text-center>
-        <h4>Hello, {{name}}</h4>
-      </div>
+<ion-header >
+  <ion-toolbar>
+    <ion-buttons>
+        <ion-back-button defaultHref="/register" color="primary" text="Back" routerDirection="back"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-      <div padding>
-      <form>
+<ion-content padding>
+
+    <h5 [hidden]="failedMsg === ''" class="isa_error">
+        <!-- <i class="fa fa-times-circle"></i> -->
+        {{failedMsg}}
+    </h5>
+      <form #form="ngForm" (ngSubmit)="signUp(form)">
       	<ion-item>
-          <ion-input type="text" placeholder="Full Name" [(ngModel)] = "name" name="name"></ion-input>
+          <ion-label position="floating">Given Name *</ion-label>
+          <!-- <ion-input type="text" placeholder="Given Name" [(ngModel)]="name" name="givenname"></ion-input> -->
+          <ion-input type="text" ngModel name="givenname" required></ion-input>
+        </ion-item>
+      	<ion-item>
+            <ion-label position="floating">Last Name *</ion-label>
+            <ion-input type="text" ngModel name="lastname" required></ion-input>
+          </ion-item>
+        <ion-item>
+            <ion-label position="floating">E-mail Address *</ion-label>
+          <ion-input type="email" ngModel name="email" required></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="email" placeholder="E-mail Address"></ion-input>
+            <ion-label position="floating">Password *</ion-label>
+          <ion-input type="password" ngModel name="password" required></ion-input>
         </ion-item>
         <ion-item>
-          <label for="dob"> Date of Birth:  </label><br>
-          <ion-input type="date" name="dob"></ion-input>
+            <ion-label position="floating">Confirm Password *</ion-label>
+          <ion-input type="password" ngModel name="confirmpassword" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label  position="floating">Date of Birth</ion-label>
+          <ion-datetime ngModel name="dob" display-format="MMM DD, YYYY"></ion-datetime>
         </ion-item>
         
         <h5> Medical Information (optional) </h5>
         <ion-item>
-          <ion-input type="text" placeholder="Pre-existing conditions" #condition>
+          <ion-input id="condition" type="text" placeholder="Pre-existing conditions" #condition>
             <ion-button (click)="addCond(condition.value)">+</ion-button>
           </ion-input>
         </ion-item>
@@ -34,24 +54,23 @@
           </ion-list> 
         </ion-item>
         <ion-item>
-          <ion-input type="text" placeholder="Primary Physician Name"></ion-input>
+          <ion-label position="floating">Primary Physician Name</ion-label>
+          <ion-input type="text" ngModel name="ppname"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="tel" placeholder="Primary Physician Number"></ion-input>
+          <ion-label position="floating">Primary Physician Number</ion-label>
+          <ion-input type="tel" ngModel name="ppnumber"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="text" placeholder="Emergency Contact Name"></ion-input>
+          <ion-label position="floating">Emergency Contact Name</ion-label>
+          <ion-input type="text" ngModel name="econtactname"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="tel" placeholder="Emergency Contact Number"></ion-input>
+          <ion-label position="floating">Emergency Contact Number</ion-label>
+          <ion-input type="tel" ngModel name="econtactnumber"></ion-input>
         </ion-item>
+        <div padding>
+            <ion-button size="large" color="primary" expand="block" type="submit" [disabled]="!form.valid">DONE</ion-button>
+          </div>
       </form>
-      </div>
-
-      <div padding>
-        <ion-button size="large" href="/" expand="block">Done</ion-button>
-      </div>
-    </ion-col>
-  </ion-row>
-</ion-grid>
 </ion-content>

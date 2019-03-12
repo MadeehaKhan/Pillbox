@@ -15,12 +15,12 @@ namespace PillBoxWebAPI.Models
         private string passwordString;
         private Guid salt;
         private Int64 phoneNumber;
-        private string emergencyContact1;
-        private string emergencyContact2;
+        private string emergencyContact1 = string.Empty;
+        private string emergencyContact2 = string.Empty;
         private double height;
         private double weight;
-        private string healthConditions;
-        private string primaryPhysician;
+        private string healthConditions = string.Empty;
+        private string primaryPhysician = string.Empty;
         private List<Medication> medicationList;
         private List<string> prescriptionList;
         private bool isCaregiver;

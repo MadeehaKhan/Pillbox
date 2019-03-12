@@ -6,11 +6,11 @@ import { MedicationService } from 'src/app/services/medication.service';
 import { LoadingController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-change-name',
-  templateUrl: './change-name.page.html',
-  styleUrls: ['./change-name.page.scss'],
+  selector: 'app-change-healthconditions',
+  templateUrl: './change-healthconditions.page.html',
+  styleUrls: ['./change-healthconditions.page.scss'],
 })
-export class ChangeNamePage implements OnInit {
+export class ChangeHealthconditionsPage implements OnInit {
 
   user: Person = new Person();
   constructor(private router: Router, private storage: Storage, private medicationService: MedicationService, private loadingController: LoadingController) {
@@ -28,9 +28,7 @@ export class ChangeNamePage implements OnInit {
     console.log(ngForm);
     // TODO: authenticate form
     
-    this.user.givenName = ngForm.form.value.givenName;
-    this.user.lastName = ngForm.form.value.lastName;
-    this.user.age = ngForm.form.value.age;
+    this.user.healthConditions = ngForm.form.value.healthconditions;
 
     const loading = await this.loadingController.create({
       message: "Please wait..."
@@ -45,4 +43,5 @@ export class ChangeNamePage implements OnInit {
         this.router.navigateByUrl('/tabs/tab3');
       })
   }
+
 }

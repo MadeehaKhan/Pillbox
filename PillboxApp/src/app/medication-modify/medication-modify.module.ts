@@ -6,11 +6,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { MedicationModifyPage } from './medication-modify.page';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
     path: '',
     component: MedicationModifyPage
+  },
+  {
+    path: 'id',
+    component: ProfileComponent
   }
 ];
 
@@ -21,6 +26,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MedicationModifyPage]
+  declarations: [MedicationModifyPage, ProfileComponent]
 })
 export class MedicationModifyPageModule {}

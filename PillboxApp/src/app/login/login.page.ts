@@ -53,6 +53,7 @@ export class LoginPage implements OnInit {
         this.storage.set('isLoggedIn', true);
         this.failedMsg = "";
         this.getPersonInfo(email, password);
+        ngForm.reset();
         this.router.navigateByUrl('/tabs/tab1');
       }else{
         this.failedMsg = "Incorrect Email and/or Password. Please try again.";
