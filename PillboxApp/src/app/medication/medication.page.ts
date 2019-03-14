@@ -18,6 +18,7 @@ export class MedicationPage implements OnInit {
 	rxId: any;
 	medList: number[] = [];
 	pID: number;
+	addToRx: boolean = false;
 
 	constructor(private router: Router,
      public http: HttpClient, 
@@ -31,6 +32,14 @@ export class MedicationPage implements OnInit {
        .then(() => {
        	 this.pID= testUser.id as number; 
        });
+	}
+
+	adding(ngForm: NgForm) {
+		if (this.addToRx) {
+			this.addRxMed(ngForm);
+		}
+		else {this.addMed(ngForm);
+		}
 	}
 
 	addMed(ngForm: NgForm){
@@ -51,7 +60,7 @@ export class MedicationPage implements OnInit {
     	this.medList.push(ngForm.form.value.din);
 
     	let minc: number = 0;														//getting rid of this
-    	let doctor: string = "Doctor Doom";											//change to be user-input
+    	let doctor: string = ngForm.form.value.doc;											//change to be user-input
     	let medList: string = this.medList.toString();								//gotta figure this out, how to add more medications
     	let dObt: string = ngForm.form.value.dobt;
     	let instr: string = ngForm.form.value.instr;
@@ -72,6 +81,19 @@ export class MedicationPage implements OnInit {
 			"MedicationList": medList,
 			"NumRefills": numrefills,
 			"Instructions": ngForm.form.value.instr,
+		};
+
+		const datamed: any = {
+			"Din": din,
+			"Name": name,
+			"Strength": strength,
+			"RemainingPills": remainingMed,
+			"PharmacyObtained": pharmObtained,
+			"TakeAsNeeded": takeAsNeeded,
+			"SideEffects": sideEffects,
+			"DateObtained": dateObtained,
+			"PersonID": PersonId,
+			"MedicationSchedule": medsched,
 		};
 
 		if(this.isRX) {
@@ -107,6 +129,8 @@ export class MedicationPage implements OnInit {
 		    	.then(response => {
 		      	console.log('Post Success!');
 		      	console.log('Reponse: ' + response);
+		      	var doc = <HTMLFormElement>document.getElementById("addMed");
+		      	doc.reset();
 		    	})
 		    	.catch(error => {
 		      	console.log('Post Error!');
@@ -121,33 +145,78 @@ export class MedicationPage implements OnInit {
 	    }
 
 	    else {
-		  const datamed: any = {
-				"Din": din,
-				"Name": name,
-				"Strength": strength,
-				"RemainingPills": remainingMed,
-				"PharmacyObtained": pharmObtained,
-				"TakeAsNeeded": takeAsNeeded,
-				"SideEffects": sideEffects,
-				"DateObtained": dateObtained,
-				"PersonID": PersonId,
-				"MedicationSchedule": medsched,
-			};
 
 	      this.http.post(urlmed, datamed)
 	    	.toPromise()
 	    	.then(response => {
 	      	console.log('Post Success!');
 	      	console.log('Reponse: ' + response);
+	      	var doc = <HTMLFormElement>document.getElementById("addMed");
+		    doc.reset();
 	    	})
 	    	.catch(error => {
 	      	console.log('Post Error!');
 	      	console.log('Reponse: ' + error);
 	    	});
 	    }
+	    var button = <HTMLButtonElement>document.getElementById("addToScript")
+	    button.disabled = false;
 	}   
 
 	toggleRX() {
 		this.isRX = !this.isRX;
 	}
+
+	addToScript() {
+		this.addToRx = true;
+	}
+
+	addRxMed(ngForm: NgForm) {
+		if (this.addToRx) {
+
+		var urlmed = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/CreateMedication";
+
+	    let PersonId: number = this.pID;
+    	let name: string = ngForm.form.value.name;
+    	this.medList.push(ngForm.form.value.din);
+
+		let din: number = ngForm.form.value.din;
+    	let strength: number = ngForm.form.value.strength;
+    	let remainingMed: number = ngForm.form.value.medrem;
+    	let pharmObtained: string = ngForm.form.value.pharm;
+    	let takeAsNeeded: boolean = false;
+    	let dateObtained: string = ngForm.form.value.dobt;
+    	let sideEffects: string = "none";											
+    	let medsched: string = "empty"	
+    	let prescriptionID: number = this.rxId as number;   
+		
+		const datamed: any = {
+			"Din": din,
+			"PrescriptionId": prescriptionID,
+			"Name": name,
+			"Strength": strength,
+			"RemainingPills": remainingMed,
+			"PharmacyObtained": pharmObtained,
+			"TakeAsNeeded": takeAsNeeded,
+			"SideEffects": sideEffects,
+			"DateObtained": dateObtained,
+			"PersonID": PersonId,
+			"MedicationSchedule": medsched,
+		};
+
+        this.http.post(urlmed, datamed)
+    	.toPromise()
+    	.then(response => {
+      	console.log('Post Success!');
+      	console.log('Reponse: ' + response);
+      	var doc = <HTMLFormElement>document.getElementById("addMed");
+      	doc.reset();
+    	})
+    	.catch(error => {
+      	console.log('Post Error!');
+      	console.log('Reponse: ' + error);
+    	});
+}
+	}
+
 }
