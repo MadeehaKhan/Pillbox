@@ -18,9 +18,12 @@ export class MedViewPage implements OnInit {
 	pId: number;
 	date: string;
 	medList: number[] = [];
+	medId;
 
   constructor(private router: Router, public http: HttpClient, private route: ActivatedRoute)  { 
-  	this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/".concat(this.route.snapshot.paramMap.get('id')))
+  	this.medId = this.route.snapshot.paramMap.get('id');
+  	this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/"
+  		.concat(this.medId))
   	.toPromise()
   	.then((response) => {
   		this.information = response;
@@ -34,7 +37,8 @@ export class MedViewPage implements OnInit {
 	  	this.date = this.information['dateObtained'].substring(0,10);
 
 	  	if (this.isRx) {
-		this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getprescription/".concat(this.information['prescriptionId'].toString(10)+"/"))
+		this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getprescription/"
+			.concat(this.information['prescriptionId'].toString(10)+"/"))
   		.toPromise()
   		.then((response) => {
 	  		this.rxInfo = response;
@@ -56,6 +60,10 @@ export class MedViewPage implements OnInit {
   ngOnInit() {
   
 
+  }
+
+  editMed() {
+  	this.router.navigateByUrl('/medication-modify/' + this.medId);
   }
 
 }
