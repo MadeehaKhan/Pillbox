@@ -46,7 +46,11 @@ export class Tab1Page {
         this.drugsList = res.map(drug => drug); 
         this.drugsList.forEach(drug => {
         drug.isChecked = false;
+        console.log(drug);
+        //call a get for the prescription info
+        console.log("this is the id" + drug["id"]);
         });
+
         let arr = new Array(1,2,4)
         console.log('Type: ', typeof(arr));    
       });
