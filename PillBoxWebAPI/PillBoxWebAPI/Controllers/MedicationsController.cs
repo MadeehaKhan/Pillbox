@@ -13,7 +13,7 @@ namespace PillBoxWebAPI.Controllers
     {
         // GET: api/Medications/GetMedication/id
         [HttpGet("{id}")]
-        public ActionResult<Medication> GetMedication(int id)
+        public ActionResult<Medication> GetMedication(long id)
         {
             try
             {
@@ -28,10 +28,10 @@ namespace PillBoxWebAPI.Controllers
                 {
                     reader.Read();
                     var medication = new Medication(
-                        (int)reader["ID"],
-                        (int)reader["DIN"],
-                        (int)reader["PERSONID"],
-                        (int)reader["PRESCRIPTIONID"],
+                        (long)reader["ID"],
+                        (long)reader["DIN"],
+                        (long)reader["PERSONID"],
+                        (long)reader["PRESCRIPTIONID"],
                         (string)reader["NAME"],
                         (double)reader["STRENGTH"],
                         (double)reader["REMAININGPILLS"],
@@ -135,7 +135,7 @@ namespace PillBoxWebAPI.Controllers
 
         // POST: api/Medications/DeleteMedication/id
         [HttpPost("{id}")]
-        public ActionResult<string> DeleteMedication(int id)
+        public ActionResult<string> DeleteMedication(long id)
         {
             try
             {
@@ -161,7 +161,7 @@ namespace PillBoxWebAPI.Controllers
 
         // GET: api/Medications/GetMedicationByPerson/personId
         [HttpGet("{personid}")]
-        public ActionResult<List<Medication>> GetMedicationByPerson(int personId)
+        public ActionResult<List<Medication>> GetMedicationByPerson(long personId)
         {
             try
             {
@@ -177,10 +177,10 @@ namespace PillBoxWebAPI.Controllers
                 while (reader.Read())
                 {
                     var medication = new Medication(
-                        (int)reader["ID"],
-                        (int)reader["DIN"],
-                        (int)reader["PERSONID"],
-                        (int)reader["PRESCRIPTIONID"],
+                        (long)reader["ID"],
+                        (long)reader["DIN"],
+                        (long)reader["PERSONID"],
+                        (long)reader["PRESCRIPTIONID"],
                         (string)reader["NAME"],
                         (double)reader["STRENGTH"],
                         (double)reader["REMAININGPILLS"],
@@ -207,7 +207,7 @@ namespace PillBoxWebAPI.Controllers
 
         // GET: api/Medications/GetMedicationByPrescriptionId/prescriptionId
         [HttpGet("{prescriptionId}")]
-        public ActionResult<List<Medication>> GetMedicationByPrescriptionId(int prescriptionId)
+        public ActionResult<List<Medication>> GetMedicationByPrescriptionId(long prescriptionId)
         {
             try
             {
@@ -223,10 +223,10 @@ namespace PillBoxWebAPI.Controllers
                 while (reader.Read())
                 {
                     var medication = new Medication(
-                        (int)reader["ID"],
-                        (int)reader["DIN"],
-                        (int)reader["PERSONID"],
-                        (int)reader["PRESCRIPTIONID"],
+                        (long)reader["ID"],
+                        (long)reader["DIN"],
+                        (long)reader["PERSONID"],
+                        (long)reader["PRESCRIPTIONID"],
                         (string)reader["NAME"],
                         (double)reader["STRENGTH"],
                         (double)reader["REMAININGPILLS"],
@@ -253,7 +253,7 @@ namespace PillBoxWebAPI.Controllers
 
         // GET: api/Medications/GetPrescription/id
         [HttpGet("{id}")]
-        public ActionResult<Prescription> GetPrescription(int id)
+        public ActionResult<Prescription> GetPrescription(long id)
         {
             try
             {
@@ -268,9 +268,9 @@ namespace PillBoxWebAPI.Controllers
                 {
                     reader.Read();
                     var prescription = new Prescription(
-                        (int)reader["ID"],
-                        (int)reader["PERSONID"],
-                        (int)reader["MINC"],
+                        (long)reader["ID"],
+                        (long)reader["PERSONID"],
+                        (long)reader["MINC"],
                         (string)reader["DOCTOR"],
                         (string)reader["INSTRUCTIONS"],
                         (int)reader["NUMREFILLS"],
@@ -367,7 +367,7 @@ namespace PillBoxWebAPI.Controllers
 
         // POST: api/Medications/DeletePrescription/id
         [HttpPost("{id}")]
-        public ActionResult<string> DeletePrescription(int id)
+        public ActionResult<string> DeletePrescription(long id)
         {
             try
             {
@@ -393,7 +393,7 @@ namespace PillBoxWebAPI.Controllers
 
         // GET: api/Medications/GetPrescriptionByPerson/personId
         [HttpGet("{personid}")]
-        public ActionResult<List<Prescription>> GetPrescriptionByPerson(int personId)
+        public ActionResult<List<Prescription>> GetPrescriptionByPerson(long personId)
         {
             try
             {
@@ -409,9 +409,9 @@ namespace PillBoxWebAPI.Controllers
                 while (reader.Read())
                 {
                     var prescription = new Prescription(
-                        (int)reader["ID"],
-                        (int)reader["PERSONID"],
-                        (int)reader["MINC"],
+                        (long)reader["ID"],
+                        (long)reader["PERSONID"],
+                        (long)reader["MINC"],
                         (string)reader["DOCTOR"],
                         (string)reader["INSTRUCTIONS"],
                         (int)reader["NUMREFILLS"],
