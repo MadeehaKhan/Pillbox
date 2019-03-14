@@ -47,5 +47,14 @@ namespace PillBoxWebAPI.Controllers
         public void Delete(int id)
         {
         }
+
+        [HttpPost]
+        public ActionResult<string> PostImage(IFormFile image)
+        {
+            if (image == null){
+                return BadRequest();
+            }
+            return image.ToString();
+        }
     }
 }

@@ -1,44 +1,45 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace PillBoxWebAPI.Models
 {
     public class Medication
     {
-        private int id;
-        private int din;
-        private int personId;
-        private int prescriptionId;
+        private Int64 id;
+        private Int64 din;
+        private Int64 personId;
+        private Int64 prescriptionId;
         private string name;
         private double strength;
         private double remaining;
         private string pharmacyObtained;
-        private string image;
+        private IFormFile image;
         private bool takeAsNeeded;
         private string sideEffects;
         private DateTime dateObtained;
 
-        public int Id
+        public Int64 Id
         {
             get { return id; }
             set { id = value; }
         }
 
         [Required]
-        public int DIN
+        public Int64 DIN
         {
             get { return din; }
             set { din = value; }
         }
 
         [Required]
-        public int PersonId
+        public Int64 PersonId
         {
             get { return personId; }
             set { personId = value; }
         }
 
-        public int PrescriptionId
+        public Int64 PrescriptionId
         {
             get { return prescriptionId; }
             set { prescriptionId = value; }
@@ -72,7 +73,7 @@ namespace PillBoxWebAPI.Models
             set { pharmacyObtained = value; }
         }
 
-        public string Image
+        public IFormFile Image
         {
             get { return image; }
             set { image = value; }
@@ -104,8 +105,8 @@ namespace PillBoxWebAPI.Models
 
         }
 
-        public Medication(int id, int din, int personId, int prescriptionId, string name
-            , double strength, double remainingpills, string pharmacyObtained, string image, bool takeAsNeeded
+        public Medication(Int64 id, Int64 din, Int64 personId, Int64 prescriptionId, string name
+            , double strength, double remainingpills, string pharmacyObtained, IFormFile image, bool takeAsNeeded
             , DateTime dateObtained, string sideEffects)
         {
             Id = id;
