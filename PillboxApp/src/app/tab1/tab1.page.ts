@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MedicationService } from '../services/medication.service';
 import { Storage } from '@ionic/storage';
+import { Person } from '../models/Person';
 
 
 @Component({
@@ -15,8 +16,10 @@ export class Tab1Page {
   today = Date.now();
   isLoggedIn = this.storage.get("isLoggedIn");
 
-
-  constructor(private router: Router,  public http: HttpClient, private medicationService: MedicationService, private storage: Storage) {}
+  user: Person = new Person();
+  constructor(private router: Router,  public http: HttpClient, private medicationService: MedicationService, private storage: Storage) {
+    
+  }
 
 
   buttonClick(){
@@ -24,7 +27,10 @@ export class Tab1Page {
   }
 
   ngOnInit() {
-    this.populateMedicationLists();
+    this.storage.get('user').then(val => this.user = val).then(() => {
+      this.populateMedicationLists()
+    });
+    
   }
 
   public drugsList: any[];//Medication[];
@@ -37,15 +43,16 @@ export class Tab1Page {
   public takenDrugsList: any[];
   //   { val: 'Dog', time: '9:30', isChecked: true },
   // ];
-
+ 
   public populateMedicationLists(){
     console.log('My result: ');
-    this.medicationService.getMedicationsByPerson().subscribe(
+    var user_id: String = this.user.id.toString();
+    this.medicationService.getMedicationsByPerson(user_id).subscribe(
       res => {
         console.log(res)
         this.drugsList = res.map(drug => drug); 
         this.drugsList.forEach(drug => {
-        drug.isChecked = false;
+        drug.isChecked = false; 
         });
         let arr = new Array(1,2,4)
         console.log('Type: ', typeof(arr));    
@@ -63,7 +70,7 @@ export class Tab1Page {
 
     var allDrugs = this.takenDrugsList.concat(this.drugsList);
     this.takenDrugsList = allDrugs.filter(drug => drug.isChecked);
-    this.drugsList = allDrugs.filter(drug => !drug.isChecked);
+    this.drugsList = allDrugs.filter(drug => !drug.isChecked); 
     
   }
 

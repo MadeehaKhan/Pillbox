@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Storage } from '@ionic/storage';
 import { MedicationService } from 'src/app/services/medication.service';
+import { Person } from 'src/app/models/Person';
 
 @Component({
   selector: 'app-view-all-medications',
@@ -12,18 +13,24 @@ import { MedicationService } from 'src/app/services/medication.service';
 })
 export class ViewAllMedicationsPage implements OnInit {
 
-
-  constructor(private router: Router,  public http: HttpClient, private medicationService: MedicationService, private storage: Storage) { }
+  user: Person = new Person();
+  constructor(private router: Router, private storage: Storage,  public http: HttpClient, private medicationService: MedicationService) 
+  {
+    this.storage.get('user').then(val => this.user = val).then(() => {
+      this.populateMedicationLists()
+    });;
+  }
 
   ngOnInit() {
-    this.populateMedicationLists();
+    //this.populateMedicationLists();
   }
 
   public drugsList: any[];
 
 
   public populateMedicationLists(){
-    this.medicationService.getMedicationsByPerson().subscribe(
+    var user_id: String = this.user.id.toString();
+    this.medicationService.getMedicationsByPerson(user_id).subscribe(
       res => {
         console.log(res)
         this.drugsList = res.map(drug => drug);
