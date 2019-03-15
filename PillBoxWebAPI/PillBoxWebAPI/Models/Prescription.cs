@@ -8,9 +8,9 @@ namespace PillBoxWebAPI.Models
 {
     public class Prescription
     {
-        private int id;
-        private int personId;
-        private int minc;
+        private Int64 id;
+        private Int64 personId;
+        private Int64 minc;
         private string doctor;
         private string instructions;
         private int numRefills;
@@ -19,21 +19,21 @@ namespace PillBoxWebAPI.Models
         private string medicationList; // get rid of list
         private DateTime dateObtained;
 
-        public int Id
+        public Int64 Id
         {
             get { return id; }
             set { id = value; }
         }
 
         [Required]
-        public int PersonId
+        public Int64 PersonId
         {
             get { return personId; }
             set { personId = value; }
         }
 
         [Required]
-        public int MINC
+        public Int64 MINC
         {
             get { return minc; }
             set { minc = value; }
@@ -89,7 +89,7 @@ namespace PillBoxWebAPI.Models
                
         }
 
-        public Prescription(int id, int personId, int minc, string doctor, string instructions, int numRefills, double dosage, string name, string medicationList
+        public Prescription(Int64 id, Int64 personId, Int64 minc, string doctor, string instructions, int numRefills, double dosage, string name, string medicationList
             , DateTime dateObtained)
         {
             Id = id;

@@ -50,6 +50,9 @@
 					<div *ngIf=isRX>
 						<h4>Prescription Information</h4>
 						<ion-item>
+							<ion-input type="text" name='doc' ngModel placeholder="Prescribing Doctor"></ion-input>
+						</ion-item>
+						<ion-item>
 							<ion-input type="number" name='dosage' ngModel required step="0.1" min='0' placeholder="Dosage"></ion-input>
 						</ion-item>
 						<ion-item>
@@ -58,11 +61,12 @@
 						<ion-item>
 							<ion-input type="number" name='numrefills' ngModel min='0' placeholder="Number of Refills"></ion-input>
 						</ion-item>
+						<ion-button expand="full" id="addToScript" disabled="true" color="primary" (click)="addToScript()">Add to this prescription</ion-button>
 					</div>
 				</form>
 			</div>
 			<ion-footer>
-    			<ion-button expand="full" color="primary" (click)="addMed(form)">Done!</ion-button>
+    			<ion-button expand="full" color="primary" (click)="adding(form)">Done!</ion-button>
 
 			</ion-footer>
 		</ion-col>

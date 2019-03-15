@@ -1,9 +1,21 @@
 <ion-content padding>
 
-	{{information.id}}
-	<br>
-	{{information.name}}
-	<br>
-	{{rxInfo.dosage}}
+	<div class="basicInfo">
+		<ion-item>
+			<h1> Name: </h1>
+			<h1> {{information.name}} </h1>
+		</ion-item>
+		<ion-item>
+			<h1> DIN: </h1>
+			<h1> {{information.din}} </h1>
+		</ion-item>
+	</div>
+
+	<div class="button">
+		<ion-item> 
+			<ion-button (click)="editMed()"> Edit </ion-button>		
+		</ion-item>
+	</div>
+
 
 </ion-content>
