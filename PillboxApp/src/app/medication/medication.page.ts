@@ -178,7 +178,6 @@ export class MedicationPage implements OnInit {
 
 	    let PersonId: number = this.pID;
     	let name: string = ngForm.form.value.name;
-    	this.medList.push(ngForm.form.value.din);
 
 		let din: number = ngForm.form.value.din;
     	let strength: number = ngForm.form.value.strength;

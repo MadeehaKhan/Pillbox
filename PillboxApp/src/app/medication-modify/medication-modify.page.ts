@@ -38,11 +38,13 @@ export class MedicationModifyPage implements OnInit {
 	  	}
 	  	this.date = this.information['dateObtained'].substring(0,10);
 
-	  	if (this.isRx) {
+
+	  	if (!(this.information['prescriptionId'] == 0)) {
 		this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getprescription/".concat(this.information['prescriptionId'].toString(10)+"/"))
   		.toPromise()
   		.then((response) => {
 	  		this.rxInfo = response;
+	  		this.isRx = true;
 	  	})
 	  	.catch(error => {
 		    console.log('Post Error!');
