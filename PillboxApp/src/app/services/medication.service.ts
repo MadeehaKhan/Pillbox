@@ -9,7 +9,7 @@ import { Storage } from '@ionic/storage';
   providedIn: 'root'
 })
 export class MedicationService {
-  urlMedsByPerson = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedicationbyperson/22';
+  urlMedsByPerson = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedicationbyperson/';
   urlEditPerson = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/person/editperson/';
 
   private userSource = new Subject<Person>();
@@ -19,8 +19,8 @@ export class MedicationService {
     this.storage.get('user').then(val => this.setPerson(val));
   }
 
-  getMedicationsByPerson(): Observable<any> {
-    return this.http.get(this.urlMedsByPerson).pipe(
+  getMedicationsByPerson(id: String): Observable<any> {
+    return this.http.get(this.urlMedsByPerson +id).pipe(
       map(results => {
         console.log('RAW ', results)
         return results
