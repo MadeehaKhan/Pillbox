@@ -1,6 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using System.Web;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PillBoxWebAPI.Models;
 using PillBoxWebAPI.Utility;
@@ -435,5 +441,60 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult<JsonResult>> Medicationocr(IFormFile file)
+        {
+            byte[] imageBytes;
+
+            using (var ms = new MemoryStream())
+            {
+                file.CopyTo(ms);
+                imageBytes = ms.ToArray();
+                //string s = Convert.ToBase64String(fileBytes);
+                // act on the Base64 data
+            }
+
+            var client = new HttpClient();
+            var queryString = HttpUtility.ParseQueryString(string.Empty);
+
+            // Request headers
+            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", Connections.OcrKey);
+
+            // Request parameters
+            queryString["language"] = "en";
+            queryString["detectOrientation"] = "true";
+            var uri = "https://centralus.api.cognitive.microsoft.com/vision/v2.0/ocr?" + queryString;
+
+            //byte[] byteData = Encoding.UTF8.GetBytes("{body}");
+            HttpResponseMessage response;
+
+            var content = new MultipartFormDataContent();
+
+            using (var imageContent = new ByteArrayContent(imageBytes))
+            {
+                imageContent.Headers.ContentType = new MediaTypeHeaderValue("multipart/form-data");
+                imageContent.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data") { Name = file.Name, FileName = file.FileName };
+                content.Add(imageContent);
+                response = await client.PostAsync(uri, content);
+            }
+            var responseContent = await response.Content.ReadAsStringAsync();
+            //return new JsonResult(ProcessImage(""));
+            return new JsonResult(ProcessImage(responseContent));
+        }
+        
+        private Dictionary<string, object> ProcessImage(string imageText)
+        {
+            var medication = new Medication();
+            var prescription = new Prescription();
+            medication.Name = "Test";
+            prescription.Name = "P Test";
+
+            var dict = new Dictionary<string, object>();
+            dict.Add("Medication", medication);
+            dict.Add("Prescription", prescription);
+
+            return dict;
+            //return new object[] { imageText };
+        }
     }
 }

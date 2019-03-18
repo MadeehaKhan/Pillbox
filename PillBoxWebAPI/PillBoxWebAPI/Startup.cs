@@ -9,6 +9,7 @@ namespace PillBoxWebAPI
     public class Startup
     {
         public static string connection;
+        public static string ocrkey;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -21,6 +22,7 @@ namespace PillBoxWebAPI
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             connection = Configuration.GetConnectionString("DefaultConnection");
+            ocrkey = Configuration.GetConnectionString("OcrKey");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

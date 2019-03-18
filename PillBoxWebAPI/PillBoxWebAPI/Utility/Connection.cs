@@ -6,5 +6,6 @@ namespace PillBoxWebAPI.Utility
     {
         //private static string connectionString;
         public static SqlConnection pillboxDatabase = new SqlConnection(Startup.connection);
+        public static string OcrKey = Startup.ocrkey;
     }
 }
