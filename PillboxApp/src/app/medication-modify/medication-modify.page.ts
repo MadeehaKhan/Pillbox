@@ -17,15 +17,16 @@ export class MedicationModifyPage implements OnInit {
 	rxInfo: any = {}
 	isRx: boolean = false;
 	sidefx: string[] = [];
-	medId: string;
+	medId;
 	pId: number;
 	date: string;
 	medList: number[] = [];
 
   constructor(private router: Router, public http: HttpClient, 
      private storage: Storage, private route: ActivatedRoute) {
+ 	this.medId = this.route.snapshot.paramMap.get('id');
 
-  	this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/".concat(this.route.snapshot.paramMap.get('id')))
+  	this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/".concat(this.medId))
   	.toPromise()
   	.then((response) => {
   		this.information = response;
@@ -87,6 +88,8 @@ export class MedicationModifyPage implements OnInit {
     let remainingMed: number = ngForm.form.value.medrem;
     let pharmObtained: string = ngForm.form.value.pharmObt;
     let takeAsNeeded: boolean = false;
+    
+    if(this.sidefx.length == 0) {this.sidefx.push('none')};
     let sideEffects: string = this.sidefx.toString();		
     let medsched: string = "none";
 
@@ -144,6 +147,7 @@ export class MedicationModifyPage implements OnInit {
 			    	.then(response => {
 			      	console.log('Post Success!');
 			      	console.log('Reponse: ' + response);
+			      	this.router.navigateByUrl('/med-view/' + this.medId);
 			    	})
 			    	.catch(error => {
 			      	console.log('Post Error!');
@@ -166,6 +170,7 @@ export class MedicationModifyPage implements OnInit {
 		    .then(response => {
 		      console.log('Post Success!');
 		      console.log('Reponse: ' + response);
+			  this.router.navigateByUrl('/med-view/' + this.medId);
 			})
 			.catch(error => {
 		      console.log('Post Error!');
@@ -188,6 +193,7 @@ export class MedicationModifyPage implements OnInit {
 		    .then(response => {
 		    	console.log('Post Success!');
 			      	console.log('Reponse: ' + response);
+			      	this.router.navigateByUrl('/tabs/tab1');
 			    	})
 	    	.catch(error => {
 	      	console.log('Post Error!');

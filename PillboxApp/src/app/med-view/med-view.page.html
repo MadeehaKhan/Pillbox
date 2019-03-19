@@ -1,20 +1,57 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-title id="myImage_Header">
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content padding>
-
 	<div class="basicInfo">
 		<ion-item>
-			<h1> Name: {{information.name}} </h1>
+			<h2> Name: {{information.name}} </h2>
 		</ion-item>
 		<ion-item>
-			<h1> DIN: {{information.din}} </h1>
+			<h2> DIN: {{information.din}} </h2>
 		</ion-item>
 		<ion-item>
-			<h1> Strength: {{information.strength}} mg </h1>
+			<h2> Strength: {{information.strength}} mg </h2>
+				<!-- {{informaiton.units}} </h2> -->
 		</ion-item>
 	</div>
 
+	<div *ngIf=isRx class= "vii">
+		<ion-item>
+			<h1> Dosage: {{rxInfo.dosage}} </h1>
+		</ion-item>
+		<ion-item>
+			<h1> Instructions: {{rxInfo.instructions}} </h1>
+		</ion-item>
+	</div>
+
+	<div class="medData">
+		<ion-item>
+			<h2> Date Obtained: {{date}} </h2>
+		</ion-item>
+		<ion-item> 
+			<h2> Medication remaining: {{information.remainingPills}}</h2>
+		</ion-item>
+	</div>
+
+	<div *ngIf=isRx class="rxInfo">
+		<ion-item>
+			<h2> Prescribing Doctor: {{rxInfo.doctor}} </h2>
+		</ion-item>
+		<ion-item>
+			<h2> Date Obtained: {{date}} </h2>
+		</ion-item>
+		<ion-item>
+			<h2> Number of Refills: {{rxInfo.numRefills}} </h2>
+		</ion-item>
+	</div>
+
+
 	<div class="button">
 		<ion-item> 
-			<ion-button (click)="editMed()"> Edit </ion-button>		
+			<ion-button span="full" color="primary" (click)="editMed()"> Edit </ion-button>		
 		</ion-item>
 	</div>
 
