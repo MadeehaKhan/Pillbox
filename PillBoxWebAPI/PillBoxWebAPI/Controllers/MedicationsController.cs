@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.IO;
+using System.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PillBoxWebAPI.Models;
@@ -479,22 +482,167 @@ namespace PillBoxWebAPI.Controllers
             }
             var responseContent = await response.Content.ReadAsStringAsync();
             //return new JsonResult(ProcessImage(""));
-            return new JsonResult(ProcessImage(responseContent));
+            var json = JsonValue.Parse(responseContent);
+            var result = new JsonResult(ProcessImage(json));
+            result.ContentType = "application/json";
+            result.StatusCode = 200;
+            return result;
         }
         
-        private Dictionary<string, object> ProcessImage(string imageText)
+        private Dictionary<string, object> ProcessImage(JsonValue imageJson)
         {
             var medication = new Medication();
             var prescription = new Prescription();
             medication.Name = "Test";
             prescription.Name = "P Test";
 
+            if (!imageJson.ContainsKey("regions")) return new Dictionary<string, object>() { { "Medication", medication }, { "Prescription", prescription } };
+            var regions = imageJson["regions"];
+
+            for (int i = 0; i < regions.Count; i++)
+            {
+                var region = regions[i];
+                if (region.ContainsKey("lines"))
+                {
+                    var lines = region["lines"];
+                    for (int j = 0; j < lines.Count; j++)
+                    {
+                        var line = lines[j];                    
+                        var words = line["words"];                                                
+                        var strLine = GetLine(words);
+
+                        //Regex's
+
+                        //PRESCRIPTION
+                        //Instructions
+                        Match match = Regex.Match(strLine, @"TAKE");
+                        if (match.Success)
+                        {
+                            prescription.Instructions = strLine;
+                            continue;
+                        }
+
+                        //Date Obtained
+                        match = Regex.Match(strLine, @"[0-9]{2}-[a-zA-Z]{3}-[0-9]{4}");
+                        if (match.Success)
+                        {
+                            //TODO: Parse strLine to make a datetime object
+                            prescription.DateObtained = new DateTime();
+                            medication.DateObtained = new DateTime();
+                            continue;
+                        }
+
+                        //Doctor
+                        match = Regex.Match(strLine, @"Dr\.");
+                        if (match.Success)
+                        {
+                            prescription.Doctor = strLine;
+                            continue;
+                        }
+
+                        //DOSAGE
+                        match = Regex.Match(strLine, @"TAKE\s*([0-9]+)[\w\s]*");
+                        if (match.Success)
+                        {
+                            //1 'TABLET'? Is the tablet part needed?
+                            prescription.Dosage = Convert.ToDouble(match.Groups[1].Value);
+                            continue;
+                        }
+
+                        //MEDICATION
+                        //DIN
+                        match = Regex.Match(strLine, @"^DIN:\s*(\d+)[\s\w\/\:]*");
+                        if (match.Success){
+                            medication.DIN = Convert.ToInt64(match.Groups[1].Value);
+                            continue;
+                        }
+
+                        //Name, and Strength
+                        match = Regex.Match(strLine, @"^([\w\s]+)([\d*[\w]{2}])");
+                        if (match.Success){
+                            medication.Name = match.Groups[1].Value.Trim();
+                            medication.Strength = Convert.ToDouble(match.Groups[2].Value);
+                            continue;
+                        }
+                       
+                        //Pharmacy Obtained
+
+                        //Remaining Pills
+                        match = Regex.Match(strLine, @"^([\d]+)[\s\w]*(\d[\w]{2})$");
+                        if (match.Success){
+                            medication.RemainingPills = Convert.ToDouble(match.Groups[1].Value);
+                            continue;
+                        }
+
+                        //Take as needed
+                        match = Regex.Match(strLine, @"^[\w\s]+AS\s*NEEDED$");
+                        if (match.Success){
+                            medication.TakeAsNeeded = true;
+                            continue;
+                        }
+                       
+                        var x = 0;
+
+
+                        //for (int k = 0; k < words.Count; k++)
+                        //{
+                        //    if (words[k].ContainsKey("text"))
+                        //    {
+                        //        var word = words[k];
+                        //        var text = words[k]["text"].ToString();
+                        //        text = text.Replace("\"", " ").Replace("\\", " ").Trim();
+                        //    }
+                        //}                           
+                    }
+                }
+            }
+
+            var count = 0;
+
             var dict = new Dictionary<string, object>();
             dict.Add("Medication", medication);
             dict.Add("Prescription", prescription);
 
             return dict;
-            //return new object[] { imageText };
+        }
+
+        private bool LineContains(JsonValue words, string contains)
+        {
+            var result = false;
+
+            for (int k = 0; k < words.Count; k++)
+            {
+                //if (words[k].ContainsKey("text"))
+                //{
+                    var word = words[k];
+                    var text = words[k]["text"].ToString();
+                    text = text.Replace("\"", " ").Replace("\\", " ").Trim();
+                    if (string.Equals(text, contains, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        result = true;
+                        break;
+                    }
+                //}
+            }
+
+            return result;
+        }
+
+        private string GetLine(JsonValue words)
+        {
+            var result = string.Empty;
+
+            for (int k = 0; k < words.Count; k++)
+            {
+                //if (words[k].ContainsKey("text"))
+                //{
+                    var text = words[k]["text"].ToString();
+                    text = text.Replace("\"", " ").Replace("\\", " ").Trim();
+                    result += $" {text}";
+                //}
+            }
+
+            return result.Trim();
         }
     }
 }
