@@ -86,6 +86,9 @@ export class Tab1Page {
      this.router.navigateByUrl('/med-view/' + entry['id']);
   }
 
+  public testnotifications(){
+    this.router.navigateByUrl('testing-local-notifications');
+  }
 
   public logout(){
     console.log('logout()');
