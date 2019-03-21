@@ -519,6 +519,22 @@ namespace PillBoxWebAPI.Controllers
                         if (match.Success)
                         {
                             prescription.Instructions = strLine;
+
+                            //Take as needed
+                            match = Regex.Match(strLine, @"^[\w\s]+AS\s*NEEDED$");
+                            if (match.Success)
+                            {
+                                medication.TakeAsNeeded = true;
+                            }
+
+                            //DOSAGE
+                            match = Regex.Match(strLine, @"TAKE\s*([0-9]+)[\w\s]*");
+                            if (match.Success)
+                            {
+                                //1 'TABLET'? Is the tablet part needed?
+                                prescription.Dosage = Convert.ToDouble(match.Groups[1].Value);
+                            }
+
                             continue;
                         }
 
@@ -540,15 +556,6 @@ namespace PillBoxWebAPI.Controllers
                             continue;
                         }
 
-                        //DOSAGE
-                        match = Regex.Match(strLine, @"TAKE\s*([0-9]+)[\w\s]*");
-                        if (match.Success)
-                        {
-                            //1 'TABLET'? Is the tablet part needed?
-                            prescription.Dosage = Convert.ToDouble(match.Groups[1].Value);
-                            continue;
-                        }
-
                         //MEDICATION
                         //DIN
                         match = Regex.Match(strLine, @"^DIN:\s*(\d+)[\s\w\/\:]*");
@@ -557,32 +564,34 @@ namespace PillBoxWebAPI.Controllers
                             continue;
                         }
 
-                        //Name, and Strength
-                        match = Regex.Match(strLine, @"^([\w\s]+)([\d*[\w]{2}])");
+                        //Pharmacy Address/Location, Not in datamodel right now
+                        match = Regex.Match(strLine, @"^[\w\s]*([\w]{2})(\s[\w]{3}\s[\w]{3}\s)");
+                        if (match.Success)
+                        {
+                            continue;
+                        }
+
+                        //Name
+                        match = Regex.Match(strLine, @"^([a-zA-Z\s-]+)\s(\d+)[a-zA-Z]{2}");
                         if (match.Success){
                             medication.Name = match.Groups[1].Value.Trim();
+                            continue;
+                        }
+                       
+                        //Remaining Pills
+                        match = Regex.Match(strLine, @"^([\d]+)[\sa-zA-Z-]*(\d+)[a-zA-Z]{2}");
+                        if (match.Success){
+                            medication.RemainingPills = Convert.ToDouble(match.Groups[1].Value);
+                            //TODO: Medication Units and Strength, eg 5ml
                             medication.Strength = Convert.ToDouble(match.Groups[2].Value);
                             continue;
                         }
-                       
+
                         //Pharmacy Obtained
-
-                        //Remaining Pills
-                        match = Regex.Match(strLine, @"^([\d]+)[\s\w]*(\d[\w]{2})$");
+                        match = Regex.Match(strLine, @"[\s\w-]+(avenue|ave|court|ct|street|st|drive|dr|lane|ln|road|rd|blvd|plaza|parkway|pkwy|north|east|south|west)[\s\w-]+", RegexOptions.IgnoreCase);
                         if (match.Success){
-                            medication.RemainingPills = Convert.ToDouble(match.Groups[1].Value);
-                            continue;
+                            medication.PharmacyObtained = strLine;
                         }
-
-                        //Take as needed
-                        match = Regex.Match(strLine, @"^[\w\s]+AS\s*NEEDED$");
-                        if (match.Success){
-                            medication.TakeAsNeeded = true;
-                            continue;
-                        }
-                       
-                        var x = 0;
-
 
                         //for (int k = 0; k < words.Count; k++)
                         //{
