@@ -15,7 +15,7 @@ export class TestCRUDPage implements OnInit {
   newItem: MedTrigger = <MedTrigger>{};
   @ViewChild('my-list')mylist: IonList;
 
-  constructor(private router: Router,private storageService: StorageService, private plt: Platform, private toastController: ToastController) {
+  constructor(private router: Router,private storageService: StorageService, private plt: Platform, private toastController: ToastController ) {
     this.plt.ready().then(() => {
       this.loadItems();
     });
@@ -65,6 +65,12 @@ export class TestCRUDPage implements OnInit {
       this.showToast('Item removed!');
       this.mylist.closeSlidingItems(); // Fix or sliding is stuck afterwards
       this.loadItems(); // Or splice it from the array directly
+    });
+  }
+
+  deleteAll(){
+    this.items.forEach(item => {
+      this.deleteItem(item);
     });
   }
   
