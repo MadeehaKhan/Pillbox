@@ -4,7 +4,7 @@
 	<ion-row justify-content-center>
 	    <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
 	    	<div text-center>
-	        	<h4>Edit your information for {{rxInfo.name}}</h4>
+	        	<h4>Edit the information for {{information.name}}</h4>
 	      	</div>
 			<form id="editMed" #form="ngForm" (ngSubmit)="editMed(form)">
 
@@ -76,7 +76,6 @@
 			</form>
 			<ion-footer>
     			<ion-button expand="full" color="primary" (click)="editMed(form)">Done!</ion-button>
-    			<br>
     			<br>
     			<br>
     			<ion-button expand="full" color="danger" (click)="deleteMed()">Delete this Medication</ion-button>
