@@ -296,6 +296,106 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "api/test/PostImage",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:44322/api/test/PostImage",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44322",
+							"path": [
+								"api",
+								"test",
+								"PostImage"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/medication/Medicationocr",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:44322/api/medications/Medicationocr",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44322",
+							"path": [
+								"api",
+								"medications",
+								"Medicationocr"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/medications/Medicationocr - prescription2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "https://localhost:44322/api/medications/Medicationocr",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44322",
+							"path": [
+								"api",
+								"medications",
+								"Medicationocr"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -315,7 +415,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/10",
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/15",
 									"protocol": "https",
 									"host": [
 										"pillboxwebapi20190129085319",
@@ -326,7 +426,7 @@
 										"api",
 										"medications",
 										"getmedication",
-										"10"
+										"15"
 									]
 								}
 							},
@@ -346,7 +446,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"din\": 212,\n\t\"personid\": 2,\n\t\"perscriptionid\": 20,\n\t\"name\": \"new Medicaion TEST\",\n\t\"strength\": 2.0,\n\t\"remainingpills\": 30.0,\n\t\"pharmacyobtained\": \"Pharmacy 10\",\n\t\"takeasneeded\": true,\n\t\"dateobtained\": \"2019-02-25T00:00:00\",\n\t\"sideeffects\": \"none\"\n}"
+									"raw": "{\n\t\"din\": 212,\n\t\"personid\": 2,\n\t\"perscriptionid\": 20,\n\t\"name\": \"new Medicaion TEST\",\n\t\"dosage\": \"1 Tablet\",\n\t\"strength\": 2.0,\n\t\"units\": \"mg\",\n\t\"format\": \"solid\",\n\t\"instructions\": \"take once daily\",\n\t\"numrefills\": \"2\",\n\t\"remainingpills\": 30.0,\n\t\"pharmacyobtained\": \"Pharmacy 10\",\n\t\"takeasneeded\": true,\n\t\"dateobtained\": \"2019-02-25T00:00:00\",\n\t\"sideeffects\": \"none\"\n}"
 								},
 								"url": {
 									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/createmedication/",
@@ -380,7 +480,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"id\": 10,\n\t\"din\": 402,\n\t\"personid\": 2,\n\t\"perscriptionid\": 20,\n\t\"name\": \"new Medicaion TEST\",\n\t\"strength\": 2.0,\n\t\"remainingpills\": 30.0,\n\t\"pharmacyobtained\": \"Pharmacy 10\",\n\t\"takeasneeded\": true,\n\t\"dateobtained\": \"2019-02-25T00:00:00\",\n\t\"sideeffects\": \"none\"\n}"
+									"raw": "{\n\t\"id\": 15,\n\t\"din\": 212,\n\t\"personid\": 2,\n\t\"perscriptionid\": 20,\n\t\"name\": \"updated Medicaion TEST\",\n\t\"dosage\": \"1 Tablet\",\n\t\"strength\": 2.0,\n\t\"units\": \"mg\",\n\t\"format\": \"solid\",\n\t\"instructions\": \"take once daily\",\n\t\"numrefills\": \"2\",\n\t\"remainingpills\": 30.0,\n\t\"pharmacyobtained\": \"Pharmacy 10\",\n\t\"takeasneeded\": true,\n\t\"dateobtained\": \"2019-02-25T00:00:00\",\n\t\"sideeffects\": \"none\"\n}"
 								},
 								"url": {
 									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/editmedication/",
@@ -410,7 +510,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/deletemedication/10",
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/deletemedication/16",
 									"protocol": "https",
 									"host": [
 										"pillboxwebapi20190129085319",
@@ -421,7 +521,7 @@
 										"api",
 										"medications",
 										"deletemedication",
-										"10"
+										"16"
 									]
 								}
 							},
@@ -497,7 +597,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getprescription/12",
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getprescription/5",
 									"protocol": "https",
 									"host": [
 										"pillboxwebapi20190129085319",
@@ -508,7 +608,7 @@
 										"api",
 										"medications",
 										"getprescription",
-										"12"
+										"5"
 									]
 								}
 							},
@@ -528,7 +628,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"personid\": 1,\n\t\"minc\": 123,\n\t\"doctor\": \"Dr.Dre\",\n\t\"instructions\": \"blah inst\",\n\t\"numrefills\": 6,\n\t\"dosage\": 4.2,\n\t\"name\": \"presciprition name\",\n\t\"medicationlist\": \"med list\",\n\t\"dateobtained\": \"2019-02-08T15:46:36.81\"\n}\n\n"
+									"raw": "{\n\t\"personid\": 1,\n\t\"rx\": 123,\n\t\"doctor\": \"Dr.Dre\",\n\t\"dateobtained\": \"2019-02-08T15:46:36.81\"\n}\n\n"
 								},
 								"url": {
 									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/createprescription/",
@@ -562,7 +662,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"id\": 12,\n\t\"personid\": 1,\n\t\"minc\": 123,\n\t\"doctor\": \"Dr.Who 2\",\n\t\"numrefills\": 6,\n\t\"dosage\": 4.2,\n\t\"medicationlist\": \"med list\",\n\t\"dateobtained\": \"2019-02-08T15:46:36.81\"\n}\n\n"
+									"raw": "{\n\t\"id\": 5,\n\t\"personid\": 1,\n\t\"rx\": 123,\n\t\"doctor\": \"Dr.Who 2\",\n\t\"dateobtained\": \"2019-02-08T15:46:36.81\"\n}\n\n"
 								},
 								"url": {
 									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/editprescription/",
@@ -585,14 +685,14 @@
 						{
 							"name": "api/medications/deleteprescription/2",
 							"request": {
-								"method": "GET",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
 									"raw": ""
 								},
 								"url": {
-									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/deleteprescription/3",
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/deleteprescription/5",
 									"protocol": "https",
 									"host": [
 										"pillboxwebapi20190129085319",
@@ -603,7 +703,7 @@
 										"api",
 										"medications",
 										"deleteprescription",
-										"3"
+										"5"
 									]
 								}
 							},
@@ -612,7 +712,7 @@
 						{
 							"name": "api/medications/getprescriptionbyperson/1",
 							"request": {
-								"method": "POST",
+								"method": "GET",
 								"header": [],
 								"body": {
 									"mode": "raw",
@@ -854,7 +954,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"email\": \"bruce@wayne.com\",\n\t\"passwordString\": \"apple123\"\n}\n"
+									"raw": "{\n\t\"email\": \"bruce@gmail.com\",\n\t\"passwordString\": \"apple123\"\n}\n"
 								},
 								"url": {
 									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/authenticateuser/",
@@ -882,96 +982,13 @@
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
-										"type": "text",
-										"value": "application/x-www-form-urlencoded",
-										"disabled": true
+										"value": "application/json",
+										"type": "text"
 									}
 								],
 								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "givenname",
-											"value": "Bruce",
-											"type": "text"
-										},
-										{
-											"key": "lastname",
-											"value": "Wayne",
-											"type": "text"
-										},
-										{
-											"key": "age",
-											"value": "23",
-											"type": "text"
-										},
-										{
-											"key": "email",
-											"value": "bruce@wayne.com",
-											"type": "text"
-										},
-										{
-											"key": "passwordString",
-											"value": "apple123",
-											"type": "text"
-										},
-										{
-											"key": "salt",
-											"value": "db9011cc-89b8-449b-8adb-638aac7f2450",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "phonenumber",
-											"value": "9058074564",
-											"type": "text"
-										},
-										{
-											"key": "emergencycontact1",
-											"value": "e1",
-											"type": "text"
-										},
-										{
-											"key": "emergencycontact2",
-											"value": "e2",
-											"type": "text"
-										},
-										{
-											"key": "height",
-											"value": "5.9",
-											"type": "text"
-										},
-										{
-											"key": "weight",
-											"value": "200.0",
-											"type": "text"
-										},
-										{
-											"key": "healthconditions",
-											"value": "no health conditions",
-											"type": "text"
-										},
-										{
-											"key": "primaryphysician",
-											"value": "Dr.Bob",
-											"type": "text"
-										},
-										{
-											"key": "medicationlist",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "prescriptionlist",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "iscaregiver",
-											"value": "true",
-											"type": "text"
-										}
-									]
+									"mode": "raw",
+									"raw": "{\n\t\"id\": 22,\n\t\"givenname\": \"Bruce\",\n\t\"lastname\": \"Wayne\",\n\t\"dateofbirth\": \"2012-04-23T18:25:43.511Z\",\n\t\"email\": \"bruce@gmail.com\",\n\t\"passwordString\": \"apple1231\",\n\t\"emergencycontact1\": \"Clark Kent\",\n\t\"emergencycontact2\": \"Oliver Queen\",\n\t\"healthconditions\": \"\",\n\t\"primaryphysician\": \"Dr.Smith\",\n\t\"iscaregiver\": true\n}"
 								},
 								"url": {
 									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/signup/",
@@ -1011,90 +1028,13 @@
 									{
 										"key": "Content-Type",
 										"name": "Content-Type",
-										"type": "text",
-										"value": "application/x-www-form-urlencoded",
-										"disabled": true
+										"value": "application/json",
+										"type": "text"
 									}
 								],
 								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "id",
-											"value": "22",
-											"type": "text"
-										},
-										{
-											"key": "givenname",
-											"value": "Bruce",
-											"type": "text"
-										},
-										{
-											"key": "lastname",
-											"value": "Wayne",
-											"type": "text"
-										},
-										{
-											"key": "age",
-											"value": "23",
-											"type": "text"
-										},
-										{
-											"key": "email",
-											"value": "bruce@wayne.com",
-											"type": "text"
-										},
-										{
-											"key": "phonenumber",
-											"value": "9058074564",
-											"type": "text"
-										},
-										{
-											"key": "emergencycontact1",
-											"value": "e1",
-											"type": "text"
-										},
-										{
-											"key": "emergencycontact2",
-											"value": "e2",
-											"type": "text"
-										},
-										{
-											"key": "height",
-											"value": "5.9",
-											"type": "text"
-										},
-										{
-											"key": "weight",
-											"value": "200.0",
-											"type": "text"
-										},
-										{
-											"key": "healthconditions",
-											"value": "no health conditions",
-											"type": "text"
-										},
-										{
-											"key": "primaryphysician",
-											"value": "Dr.Phill",
-											"type": "text"
-										},
-										{
-											"key": "medicationlist",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "prescriptionlist",
-											"value": "",
-											"type": "text"
-										},
-										{
-											"key": "iscaregiver",
-											"value": "true",
-											"type": "text"
-										}
-									]
+									"mode": "raw",
+									"raw": "{\n\t\"id\": 2,\n\t\"givenname\": \"Bruce\",\n\t\"lastname\": \"Wayne\",\n\t\"dateofbirth\": \"2012-04-23T18:25:43.511Z\",\n\t\"email\": \"bruce@gmail.com\",\n\t\"emergencycontact1\": \"Clark Kent\",\n\t\"emergencycontact2\": \"Barry Allen\",\n\t\"healthconditions\": \"\",\n\t\"primaryphysician\": \"Dr.Smith\",\n\t\"iscaregiver\": true\n}"
 								},
 								"url": {
 									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/editperson/",
@@ -1136,7 +1076,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/deleteperson/23",
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/deleteperson/2",
 									"protocol": "https",
 									"host": [
 										"pillboxwebapi20190129085319",
@@ -1147,7 +1087,7 @@
 										"api",
 										"person",
 										"deleteperson",
-										"23"
+										"2"
 									]
 								}
 							},
@@ -1173,7 +1113,7 @@
 									"raw": "{\n\t\"email\": \"bruce@wayne.com\",\n\t\"passwordString\": \"apple123\"\n}\n"
 								},
 								"url": {
-									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/getperson/?email=bruce@wayne.com",
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/getperson/?email=bruce@gmail.com",
 									"protocol": "https",
 									"host": [
 										"pillboxwebapi20190129085319",
@@ -1189,7 +1129,7 @@
 									"query": [
 										{
 											"key": "email",
-											"value": "bruce@wayne.com"
+											"value": "bruce@gmail.com"
 										}
 									]
 								}
@@ -1220,6 +1160,105 @@
 								"api",
 								"test",
 								"index"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/test/PostImage",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/test/PostImage",
+							"protocol": "https",
+							"host": [
+								"pillboxwebapi20190129085319",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"test",
+								"PostImage"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Azure OCR",
+			"item": [
+				{
+					"name": "centralus.api.cognitive.microsoft.com/vision/v2.0/ocr",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Ocp-Apim-Subscription-Key",
+								"name": "Content-Type",
+								"value": "5826751a57074767a5b639fec21daca6",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "5826751a57074767a5b639fec21daca6"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "https://centralus.api.cognitive.microsoft.com/vision/v2.0/ocr?language=en&detectOrientation=true",
+							"protocol": "https",
+							"host": [
+								"centralus",
+								"api",
+								"cognitive",
+								"microsoft",
+								"com"
+							],
+							"path": [
+								"vision",
+								"v2.0",
+								"ocr"
+							],
+							"query": [
+								{
+									"key": "language",
+									"value": "en"
+								},
+								{
+									"key": "detectOrientation",
+									"value": "true"
+								}
 							]
 						}
 					},

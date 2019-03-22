@@ -360,7 +360,7 @@ namespace PillBoxWebAPI.Controllers
             try
             {
                 var command = new SqlCommand("UPDATE Prescription SET PERSONID=@PERSONID, RX=@RX, DOCTOR=@DOCTOR, " +
-                    ", DATEOBTAINED=@DATEOBTAINED WHERE ID=@ID", Connections.pillboxDatabase);
+                    "DATEOBTAINED=@DATEOBTAINED WHERE ID=@ID", Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@ID", prescription.Id);
                 command.Parameters.AddWithValue("@PERSONID", prescription.PersonId);
