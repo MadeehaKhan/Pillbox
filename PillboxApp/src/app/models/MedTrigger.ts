@@ -3,7 +3,8 @@ export class MedTrigger{
     name: string;
     medInfo: string;
     every: string;
-    countr: number;
+    count: number;
+    refills: number;
     hour: number;
     minute: number;
 }
