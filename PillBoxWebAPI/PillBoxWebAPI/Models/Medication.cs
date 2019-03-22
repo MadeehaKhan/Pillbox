@@ -13,7 +13,7 @@ namespace PillBoxWebAPI.Models
         private string name;
         private string dosage;
         private double strength;
-        private string units;
+        private string units = string.Empty;
         private string format;
         private string instructions;
         private int numRefills;
