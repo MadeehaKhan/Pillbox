@@ -32,6 +32,13 @@ export class TestingLocalNotificationsPage implements OnInit {
   }
 
   public scheduleNotification(){
+    var today = new Date(Date.now())
+    var mydate = new Date(today);//new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    console.log("Time Right now: "+ mydate.getMonth() + "/" + mydate.getDate()+"/" + mydate.getMinutes() + ", time: " + mydate.toLocaleTimeString());
+    mydate.setHours(mydate.getHours())
+    mydate.setMinutes(mydate.getMinutes() + 1);
+    console.log("New Time: "+ mydate.getMonth() + "/" + mydate.getDate()+"/" + mydate.getMinutes() + ", time: " + mydate.toLocaleTimeString());
+    this.showAlert("Time",  "Date: "+ mydate.getMonth() + "/" + mydate.getDate()+"/" + mydate.getMinutes() ,"time: " + mydate.toLocaleTimeString())
     this.localNotifications.schedule({
       id: 1,
       title: 'Pillbox App',
@@ -43,7 +50,8 @@ export class TestingLocalNotificationsPage implements OnInit {
       ],
       smallIcon: 'file://assets/img/avatar-finn', //icons not working
       color: '#4286f4',
-      trigger: { in: 3, unit: ELocalNotificationTriggerUnit.SECOND }
+      //trigger: { in: 3, unit: ELocalNotificationTriggerUnit.SECOND }
+      trigger: { at: new Date(mydate)}
     });
 
     //or can also do
@@ -53,6 +61,11 @@ export class TestingLocalNotificationsPage implements OnInit {
 
   back(){
     this.router.navigateByUrl('/tabs/tab1');
+  }
+
+  public cancelNotification(){
+    this.localNotifications.cancel(1);
+    this.showAlert("notification Canceled!", "sub", "canceled");
   }
 
   public recurringNotification(){
