@@ -10,13 +10,8 @@ namespace PillBoxWebAPI.Models
     {
         private Int64 id;
         private Int64 personId;
-        private Int64 minc;
+        private Int64 rx;
         private string doctor;
-        private string instructions;
-        private int numRefills;
-        private double dosage;
-        private string name;
-        private string medicationList; // get rid of list
         private DateTime dateObtained;
 
         public Int64 Id
@@ -33,10 +28,10 @@ namespace PillBoxWebAPI.Models
         }
 
         [Required]
-        public Int64 MINC
+        public Int64 Rx
         {
-            get { return minc; }
-            set { minc = value; }
+            get { return rx; }
+            set { rx = value; }
         }
 
         [Required]
@@ -44,38 +39,6 @@ namespace PillBoxWebAPI.Models
         {
             get { return doctor; }
             set { doctor = value; }
-        }
-
-        public string Instructions
-        {
-            get { return instructions; }
-            set { instructions = value; }
-        }
-
-        [Required]
-        public int NumRefills
-        {
-            get { return numRefills; }
-            set { numRefills = value; }
-        }
-
-        [Required]
-        public double Dosage
-        {
-            get { return dosage; }
-            set { dosage = value; }
-        }
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        public string MedicationList
-        {
-            get { return medicationList; }
-            set { medicationList = value; }
         }
 
         public DateTime DateObtained
@@ -89,18 +52,12 @@ namespace PillBoxWebAPI.Models
                
         }
 
-        public Prescription(Int64 id, Int64 personId, Int64 minc, string doctor, string instructions, int numRefills, double dosage, string name, string medicationList
-            , DateTime dateObtained)
+        public Prescription(long id, long personId, long rx, string doctor, DateTime dateObtained)
         {
             Id = id;
             PersonId = personId;
-            MINC = minc;
+            Rx = rx;
             Doctor = doctor;
-            Instructions = instructions;
-            NumRefills = numRefills;
-            Dosage = dosage;
-            Name = name;
-            MedicationList = medicationList;
             DateObtained = dateObtained;
         }
     }

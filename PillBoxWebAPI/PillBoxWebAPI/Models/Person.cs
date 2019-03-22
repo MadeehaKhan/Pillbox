@@ -9,7 +9,7 @@ namespace PillBoxWebAPI.Models
         private Int64 id;
         private string givenName;
         private string lastName;
-        private int age;
+        private DateTime dateOfBirth;
         private string email;
         private byte[] password;
         private string passwordString;
@@ -17,8 +17,6 @@ namespace PillBoxWebAPI.Models
         private Int64 phoneNumber;
         private string emergencyContact1 = string.Empty;
         private string emergencyContact2 = string.Empty;
-        private double height;
-        private double weight;
         private string healthConditions = string.Empty;
         private string primaryPhysician = string.Empty;
         private List<Medication> medicationList;
@@ -45,10 +43,10 @@ namespace PillBoxWebAPI.Models
             set { lastName = value; }
         }
 
-        public int Age
+        public DateTime DateOfBirth
         {
-            get { return age; }
-            set { age = value; }
+            get { return dateOfBirth; }
+            set { dateOfBirth = value; }
         }
 
         [Required]
@@ -93,18 +91,6 @@ namespace PillBoxWebAPI.Models
             get { return emergencyContact2; }
             set { emergencyContact2 = value; }
         }
-    
-        public double Height
-        {
-            get { return height; }
-            set { height = value; }
-        }
-
-        public double Weight
-        {
-            get { return weight; }
-            set { weight = value; }
-        }
 
         public string HealthConditions
         {
@@ -141,22 +127,19 @@ namespace PillBoxWebAPI.Models
 
         }
 
-        public Person(Int64 id, string givenName, string lastName, int age, string email, Int64 phoneNumber
-            , string emergencyContact1, string emergencyContact2, double height, double weight, string healthConditions, string primaryPhysician
-            , bool isCaregiver)
+        public Person(Int64 id, string givenName, string lastName, DateTime dateOfBirth, string email, Int64 phoneNumber
+            , string emergencyContact1, string emergencyContact2, string healthConditions, string primaryPhysician, bool isCaregiver)
         {
             Id = id;
             GivenName = givenName;
             LastName = lastName;
-            Age = age;
+            DateOfBirth = dateOfBirth;
             Email = email;
             Password = password;
             Salt = salt;
             PhoneNumber = phoneNumber;
             EmergencyContact1 = emergencyContact1;
             EmergencyContact2 = emergencyContact2;
-            Height = height;
-            Weight = weight;
             HealthConditions = healthConditions;
             PrimaryPhysician = primaryPhysician;
             MedicationList = medicationList;

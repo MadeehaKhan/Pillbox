@@ -42,7 +42,12 @@ namespace PillBoxWebAPI.Controllers
                         (long)reader["PERSONID"],
                         (long)reader["PRESCRIPTIONID"],
                         (string)reader["NAME"],
+                        (string)reader["DOSAGE"],
                         (double)reader["STRENGTH"],
+                        (string)reader["UNITS"],
+                        (string)reader["FORMAT"],
+                        (string)reader["INSTRUCTIONS"],
+                        (int)reader["NUMREFILLS"],
                         (double)reader["REMAININGPILLS"],
                         (string)reader["PHARMACYOBTAINED"],
                         null,                                   //Image
@@ -72,15 +77,20 @@ namespace PillBoxWebAPI.Controllers
             try
             {
                 var command = new SqlCommand("INSERT INTO Medication (DIN, PERSONID, PRESCRIPTIONID, [NAME]" +
-                    ", STRENGTH, REMAININGPILLS, PHARMACYOBTAINED,[image], TAKEASNEEDED, SIDEEFFECTS, DATEOBTAINED)" +
-                    "VALUES(@DIN, @PERSONID, @PRESCRIPTIONID, @NAME, @STRENGTH, @REMAININGPILLS, @PHARMACYOBTAINED," +
+                    ", DOSAGE, STRENGTH, UNITS, FORMAT, INSTRUCTIONS, NUMREFILLS, REMAININGPILLS, PHARMACYOBTAINED,[image], TAKEASNEEDED, SIDEEFFECTS, DATEOBTAINED)" +
+                    "VALUES(@DIN, @PERSONID, @PRESCRIPTIONID, @NAME, @DOSAGE, @STRENGTH, @UNITS, @FORMAT, @INSTRUCTIONS, @NUMREFILLS, @REMAININGPILLS, @PHARMACYOBTAINED," +
                     " null, @TAKEASNEEDED, @SIDEEFFECTS, @DATEOBTAINED); SELECT SCOPE_IDENTITY()", Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@DIN", medication.DIN);
                 command.Parameters.AddWithValue("@PERSONID", medication.PersonId);
                 command.Parameters.AddWithValue("@PRESCRIPTIONID", medication.PrescriptionId);
                 command.Parameters.AddWithValue("@NAME", medication.Name);
+                command.Parameters.AddWithValue("@DOSAGE", medication.Dosage);
                 command.Parameters.AddWithValue("@STRENGTH", medication.Strength);
+                command.Parameters.AddWithValue("@UNITS", medication.Units);
+                command.Parameters.AddWithValue("@FORMAT", medication.Format);
+                command.Parameters.AddWithValue("@INSTRUCTIONS", medication.Instructions);
+                command.Parameters.AddWithValue("@NUMREFILLS", medication.NumRefills);
                 command.Parameters.AddWithValue("@REMAININGPILLS", medication.RemainingPills);
                 command.Parameters.AddWithValue("@PHARMACYOBTAINED", medication.PharmacyObtained);
                 command.Parameters.AddWithValue("@TAKEASNEEDED", medication.TakeAsNeeded);
@@ -111,16 +121,21 @@ namespace PillBoxWebAPI.Controllers
             {
                 //TODO: Check if id is null
                 var command = new SqlCommand("UPDATE Medication SET DIN=@DIN, PERSONID=@PERSONID, PRESCRIPTIONID=@PRESCRIPTIONID " +
-                    ", [NAME]=@NAME, STRENGTH=@STRENGTH, REMAININGPILLS=@REMAININGPILLS, PHARMACYOBTAINED=@PHARMACYOBTAINED" +
-                    ", [IMAGE]=null, TAKEASNEEDED=@TAKEASNEEDED, SIDEEFFECTS=@SIDEEFFECTS, DATEOBTAINED=@DATEOBTAINED" +
-                    "  WHERE ID=@ID", Connections.pillboxDatabase);
+                    ", [NAME]=@NAME, DOSAGE=@DOSAGE, STRENGTH=@STRENGTH, UNITS=@UNITS, FORMAT=@FORMAT, INSTRUCTIONS=@INSTRUCTIONS, NUMREFILLS=@NUMREFILLS," +
+                    " REMAININGPILLS=@REMAININGPILLS, PHARMACYOBTAINED=@PHARMACYOBTAINED, [IMAGE]=null, TAKEASNEEDED=@TAKEASNEEDED, SIDEEFFECTS=@SIDEEFFECTS," +
+                    " DATEOBTAINED=@DATEOBTAINED WHERE ID=@ID", Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@ID", medication.Id);
                 command.Parameters.AddWithValue("@DIN", medication.DIN);
                 command.Parameters.AddWithValue("@PERSONID", medication.PersonId);
                 command.Parameters.AddWithValue("@PRESCRIPTIONID", medication.PrescriptionId);
                 command.Parameters.AddWithValue("@NAME", medication.Name);
+                command.Parameters.AddWithValue("@DOSAGE", medication.Dosage);
                 command.Parameters.AddWithValue("@STRENGTH", medication.Strength);
+                command.Parameters.AddWithValue("@UNITS", medication.Units);
+                command.Parameters.AddWithValue("@FORMAT", medication.Format);
+                command.Parameters.AddWithValue("@INSTRUCTIONS", medication.Instructions);
+                command.Parameters.AddWithValue("@NUMREFILLS", medication.NumRefills);
                 command.Parameters.AddWithValue("@REMAININGPILLS", medication.RemainingPills);
                 command.Parameters.AddWithValue("@PHARMACYOBTAINED", medication.PharmacyObtained);
                 command.Parameters.AddWithValue("@TAKEASNEEDED", medication.TakeAsNeeded);
@@ -191,7 +206,12 @@ namespace PillBoxWebAPI.Controllers
                         (long)reader["PERSONID"],
                         (long)reader["PRESCRIPTIONID"],
                         (string)reader["NAME"],
+                        (string)reader["DOSAGE"],
                         (double)reader["STRENGTH"],
+                        (string)reader["UNITS"],
+                        (string)reader["FORMAT"],
+                        (string)reader["INSTRUCTIONS"],
+                        (int)reader["NUMREFILLS"],
                         (double)reader["REMAININGPILLS"],
                         (string)reader["PHARMACYOBTAINED"],
                         null,                                   //Image
@@ -237,7 +257,12 @@ namespace PillBoxWebAPI.Controllers
                         (long)reader["PERSONID"],
                         (long)reader["PRESCRIPTIONID"],
                         (string)reader["NAME"],
+                        (string)reader["DOSAGE"],
                         (double)reader["STRENGTH"],
+                        (string)reader["UNITS"],
+                        (string)reader["FORMAT"],
+                        (string)reader["INSTRUCTIONS"],
+                        (int)reader["NUMREFILLS"],
                         (double)reader["REMAININGPILLS"],
                         (string)reader["PHARMACYOBTAINED"],
                         null,                                   //Image
@@ -279,13 +304,8 @@ namespace PillBoxWebAPI.Controllers
                     var prescription = new Prescription(
                         (long)reader["ID"],
                         (long)reader["PERSONID"],
-                        (long)reader["MINC"],
+                        (long)reader["RX"],
                         (string)reader["DOCTOR"],
-                        (string)reader["INSTRUCTIONS"],
-                        (int)reader["NUMREFILLS"],
-                        (double)reader["DOSAGE"],
-                        (string)reader["NAME"],
-                        string.Empty,
                         (DateTime)reader["DATEOBTAINED"]
                         );
                     return prescription;
@@ -309,18 +329,13 @@ namespace PillBoxWebAPI.Controllers
         {
             try
             {
-                var command = new SqlCommand(@"INSERT INTO Prescription (PERSONID, MINC, DOCTOR, INSTRUCTIONS, NUMREFILLS, DOSAGE, [NAME], MEDICATIONLIST, DATEOBTAINED)
-                              VALUES(@PERSONID, @MINC, @DOCTOR, @INSTRUCTIONS, @NUMREFILLS, @DOSAGE, @NAME, @MEDICATIONLIST, @DATEOBTAINED); SELECT SCOPE_IDENTITY(); "
+                var command = new SqlCommand(@"INSERT INTO Prescription (PERSONID, RX, DOCTOR, DATEOBTAINED)
+                              VALUES(@PERSONID, @RX, @DOCTOR, @DATEOBTAINED); SELECT SCOPE_IDENTITY(); "
                               , Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@PERSONID", prescription.PersonId);
-                command.Parameters.AddWithValue("@MINC", prescription.MINC);
+                command.Parameters.AddWithValue("@RX", prescription.Rx);
                 command.Parameters.AddWithValue("@DOCTOR", prescription.Doctor);
-                command.Parameters.AddWithValue("@INSTRUCTIONS", prescription.Instructions);
-                command.Parameters.AddWithValue("@NUMREFILLS", prescription.NumRefills);
-                command.Parameters.AddWithValue("@DOSAGE", prescription.Dosage);
-                command.Parameters.AddWithValue("@NAME", prescription.Name);
-                command.Parameters.AddWithValue("@MEDICATIONLIST", string.Empty);        //medication list
                 command.Parameters.AddWithValue("@DATEOBTAINED", prescription.DateObtained);
 
                 Connections.pillboxDatabase.Open();            
@@ -344,19 +359,13 @@ namespace PillBoxWebAPI.Controllers
         {
             try
             {
-                var command = new SqlCommand("UPDATE Prescription SET PERSONID=@PERSONID, MINC=@MINC, DOCTOR=@DOCTOR, INSTRUCTIONS=@INSTRUCTIONS " +
-                    ", NUMREFILLS=@NUMREFILLS, DOSAGE=@DOSAGE, [NAME]=@NAME, MEDICATIONLIST=@MEDICATIONLIST, DATEOBTAINED=@DATEOBTAINED" +
-                    "  WHERE ID=@ID", Connections.pillboxDatabase);
+                var command = new SqlCommand("UPDATE Prescription SET PERSONID=@PERSONID, RX=@RX, DOCTOR=@DOCTOR, " +
+                    ", DATEOBTAINED=@DATEOBTAINED WHERE ID=@ID", Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@ID", prescription.Id);
                 command.Parameters.AddWithValue("@PERSONID", prescription.PersonId);
-                command.Parameters.AddWithValue("@MINC", prescription.MINC);
+                command.Parameters.AddWithValue("@RX", prescription.Rx);
                 command.Parameters.AddWithValue("@DOCTOR", prescription.Doctor);
-                command.Parameters.AddWithValue("@INSTRUCTIONS", prescription.Instructions ?? string.Empty);
-                command.Parameters.AddWithValue("@NUMREFILLS", prescription.NumRefills);
-                command.Parameters.AddWithValue("@DOSAGE", prescription.Dosage);
-                command.Parameters.AddWithValue("@NAME", prescription.Name ?? string.Empty);
-                command.Parameters.AddWithValue("@MEDICATIONLIST", prescription.MedicationList);
                 command.Parameters.AddWithValue("@DATEOBTAINED", prescription.DateObtained);
 
                 Connections.pillboxDatabase.Open();
@@ -420,13 +429,8 @@ namespace PillBoxWebAPI.Controllers
                     var prescription = new Prescription(
                         (long)reader["ID"],
                         (long)reader["PERSONID"],
-                        (long)reader["MINC"],
+                        (long)reader["RX"],
                         (string)reader["DOCTOR"],
-                        (string)reader["INSTRUCTIONS"],
-                        (int)reader["NUMREFILLS"],
-                        (double)reader["DOSAGE"],
-                        (string)reader["NAME"],
-                        string.Empty,
                         (DateTime)reader["DATEOBTAINED"]
                         );
                     prescriptions.Add(prescription);
@@ -494,7 +498,6 @@ namespace PillBoxWebAPI.Controllers
             var medication = new Medication();
             var prescription = new Prescription();
             medication.Name = "Test";
-            prescription.Name = "P Test";
 
             if (!imageJson.ContainsKey("regions")) return new Dictionary<string, object>() { { "Medication", medication }, { "Prescription", prescription } };
             var regions = imageJson["regions"];
@@ -518,22 +521,15 @@ namespace PillBoxWebAPI.Controllers
                         Match match = Regex.Match(strLine, @"TAKE");
                         if (match.Success)
                         {
-                            prescription.Instructions = strLine;
+                            medication.Instructions = strLine;
 
                             //Take as needed
                             match = Regex.Match(strLine, @"^[\w\s]+AS\s*NEEDED$");
-                            if (match.Success)
-                            {
-                                medication.TakeAsNeeded = true;
-                            }
+                            if (match.Success) medication.TakeAsNeeded = true;
 
                             //DOSAGE
                             match = Regex.Match(strLine, @"TAKE\s*([0-9]+)[\w\s]*");
-                            if (match.Success)
-                            {
-                                //1 'TABLET'? Is the tablet part needed?
-                                prescription.Dosage = Convert.ToDouble(match.Groups[1].Value);
-                            }
+                            if (match.Success) medication.Dosage = match.Groups[1].Value;
 
                             continue;
                         }
@@ -591,22 +587,10 @@ namespace PillBoxWebAPI.Controllers
                         match = Regex.Match(strLine, @"[\s\w-]+(avenue|ave|court|ct|street|st|drive|dr|lane|ln|road|rd|blvd|plaza|parkway|pkwy|north|east|south|west)[\s\w-]+", RegexOptions.IgnoreCase);
                         if (match.Success){
                             medication.PharmacyObtained = strLine;
-                        }
-
-                        //for (int k = 0; k < words.Count; k++)
-                        //{
-                        //    if (words[k].ContainsKey("text"))
-                        //    {
-                        //        var word = words[k];
-                        //        var text = words[k]["text"].ToString();
-                        //        text = text.Replace("\"", " ").Replace("\\", " ").Trim();
-                        //    }
-                        //}                           
+                        }                       
                     }
                 }
             }
-
-            var count = 0;
 
             var dict = new Dictionary<string, object>();
             dict.Add("Medication", medication);

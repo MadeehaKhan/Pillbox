@@ -11,8 +11,13 @@ namespace PillBoxWebAPI.Models
         private Int64 personId;
         private Int64 prescriptionId;
         private string name;
+        private string dosage;
         private double strength;
-        private double remaining;
+        private string units;
+        private string format;
+        private string instructions;
+        private int numRefills;
+        private double remainingPills;
         private string pharmacyObtained;
         private IFormFile image;
         private bool takeAsNeeded;
@@ -53,17 +58,49 @@ namespace PillBoxWebAPI.Models
         }
 
         [Required]
+        public string Dosage
+        {
+            get { return dosage; }
+            set { dosage = value; }
+        }
+
+        [Required]
         public double Strength
         {
             get { return strength; }
             set { strength = value; }
         }
 
+        public string Units
+        {
+            get { return units; }
+            set { units = value; }
+        }
+
+        public string Format
+        {
+            get { return format; }
+            set { format = value; }
+        }
+
+        public string Instructions
+        {
+            get { return instructions; }
+            set { instructions = value; }
+        }
+
+        [Required]
+        public int NumRefills
+        {
+            get { return numRefills; }
+            set { numRefills = value; }
+        }
+
         [Required]
         public double RemainingPills
         {
-            get { return remaining; }
-            set { remaining = value; }
+            get { return remainingPills; }
+            set { remainingPills = value; }
         }
 
         [Required]
@@ -105,16 +142,21 @@ namespace PillBoxWebAPI.Models
 
         }
 
-        public Medication(Int64 id, Int64 din, Int64 personId, Int64 prescriptionId, string name
-            , double strength, double remainingpills, string pharmacyObtained, IFormFile image, bool takeAsNeeded
-            , DateTime dateObtained, string sideEffects)
+        public Medication(Int64 id, Int64 din, Int64 personId, Int64 prescriptionId, string name, string dosage
+            , double strength, string units, string format, string instructions, int numRefills, double remainingpills
+            , string pharmacyObtained, IFormFile image, bool takeAsNeeded, DateTime dateObtained, string sideEffects)
         {
             Id = id;
             DIN = din;
             PersonId = personId;
             PrescriptionId = prescriptionId;
             Name = name;
+            Dosage = dosage;
             Strength = strength;
+            Units = units;
+            Format = format;
+            Instructions = instructions;
+            NumRefills = numRefills;
             RemainingPills = remainingpills;
             PharmacyObtained = pharmacyObtained;
             Image = image;
