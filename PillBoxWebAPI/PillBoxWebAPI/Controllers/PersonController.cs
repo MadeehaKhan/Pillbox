@@ -23,20 +23,18 @@ namespace PillBoxWebAPI.Controllers
                 //command = new SqlCommand("INSERT INTO Person (givenname, lastname, age, email, [password], salt, phonenumber, emergencycontact1, emergencycontact2, height, [weight], healthconditions, primaryphysician, iscaregiver) " +
                 //             " VALUES ('Bruce', 'Wayne', 34, 'bruce@wayen.com', HASHBYTES('SHA2_512', 'apple123' + CAST(@salt AS NVARCHAR(36))), @salt, 9058074564, 'e1', 'e2', 5.9, 200.0, 'hc', 'Dr.Who', 1); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
 
-                var command = new SqlCommand("INSERT INTO Person (givenname, lastname, age, email, [password], salt, phonenumber, emergencycontact1, emergencycontact2, height, [weight], healthconditions, primaryphysician, iscaregiver) " +
-                             " VALUES (@givenname, @lastname, @age, @email, HASHBYTES('SHA2_512', @password + CAST(@salt AS NVARCHAR(36))), @salt, @phonenumber, @emergencycontact1, @emergencycontact2, @height, @weight, @healthconditions, @primaryphysician, @iscaregiver); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
+                var command = new SqlCommand("INSERT INTO Person (givenname, lastname, dateOfBirth, email, [password], salt, phonenumber, emergencycontact1, emergencycontact2, healthconditions, primaryphysician, iscaregiver) " +
+                             " VALUES (@givenname, @lastname, @dateOfBirth, @email, HASHBYTES('SHA2_512', @password + CAST(@salt AS NVARCHAR(36))), @salt, @phonenumber, @emergencycontact1, @emergencycontact2, @healthconditions, @primaryphysician, @iscaregiver); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@givenname", person.GivenName);
                 command.Parameters.AddWithValue("@lastname", person.LastName);
-                command.Parameters.AddWithValue("@age", person.Age);
+                command.Parameters.AddWithValue("@dateOfBirth", person.DateOfBirth);
                 command.Parameters.AddWithValue("@email", person.Email);
                 command.Parameters.AddWithValue("@password", person.PasswordString);
                 command.Parameters.AddWithValue("@salt", Guid.NewGuid());
                 command.Parameters.AddWithValue("@phonenumber", person.PhoneNumber);
                 command.Parameters.AddWithValue("@emergencycontact1", person.EmergencyContact1);
                 command.Parameters.AddWithValue("@emergencycontact2", person.EmergencyContact2);
-                command.Parameters.AddWithValue("@height", person.Height);
-                command.Parameters.AddWithValue("@weight", person.Weight);
                 command.Parameters.AddWithValue("@healthconditions", person.HealthConditions);
                 command.Parameters.AddWithValue("@primaryphysician", person.PrimaryPhysician);
                 command.Parameters.AddWithValue("@iscaregiver", person.IsCaregiver);
@@ -64,20 +62,18 @@ namespace PillBoxWebAPI.Controllers
             {
                 //TODO: Check if id is null
                 var command = new SqlCommand("UPDATE Person SET " +
-                    "givenname=@givenname, lastname=@lastname, age=@age, " +
+                    "givenname=@givenname, lastname=@lastname, dateOfBirth=@dateOfBirth, " +
                     "phonenumber=@phonenumber, emergencycontact1=@emergencycontact1, emergencycontact2=@emergencycontact2, " +
-                    "height=@height, [weight]=@weight, healthconditions=@healthconditions, primaryphysician=@primaryphysician, iscaregiver=@iscaregiver " +
+                    "healthconditions=@healthconditions, primaryphysician=@primaryphysician, iscaregiver=@iscaregiver " +
                     " WHERE ID=@id", Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@id", person.Id);
                 command.Parameters.AddWithValue("@givenname", person.GivenName);
                 command.Parameters.AddWithValue("@lastname", person.LastName);
-                command.Parameters.AddWithValue("@age", person.Age);
+                command.Parameters.AddWithValue("@dateOfBirth", person.DateOfBirth);
                 command.Parameters.AddWithValue("@phonenumber", person.PhoneNumber);
                 command.Parameters.AddWithValue("@emergencycontact1", person.EmergencyContact1);
                 command.Parameters.AddWithValue("@emergencycontact2", person.EmergencyContact2);
-                command.Parameters.AddWithValue("@height", person.Height);
-                command.Parameters.AddWithValue("@weight", person.Weight);
                 command.Parameters.AddWithValue("@healthconditions", person.HealthConditions);
                 command.Parameters.AddWithValue("@primaryphysician", person.PrimaryPhysician);
                 command.Parameters.AddWithValue("@iscaregiver", person.IsCaregiver);
@@ -148,13 +144,11 @@ namespace PillBoxWebAPI.Controllers
                         (Int64)reader["ID"],
                         (string)reader["givenname"],
                         (string)reader["lastname"],
-                        (int)reader["age"],
+                        (DateTime)reader["dateOfBirth"],
                         (string)reader["email"],
                         (Int64)reader["phonenumber"],
                         (string)reader["emergencycontact1"],
                         (string)reader["emergencycontact2"],
-                        (double)reader["height"],
-                        (double)reader["weight"],
                         (string)reader["healthconditions"],
                         (string)reader["primaryphysician"],
                         (bool)reader["iscaregiver"]
