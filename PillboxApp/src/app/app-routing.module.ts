@@ -17,7 +17,9 @@ const routes: Routes = [
   { path: 'view-all-medications', loadChildren: './profile/view-all-medications/view-all-medications.module#ViewAllMedicationsPageModule' },
   { path: 'change-healthconditions', loadChildren: './profile/change-healthconditions/change-healthconditions.module#ChangeHealthconditionsPageModule' },
   { path: 'change-physicianinformation', loadChildren: './profile/change-physicianinformation/change-physicianinformation.module#ChangePhysicianinformationPageModule' },
-  { path: 'med-view/:id', loadChildren: './med-view/med-view.module#MedViewPageModule' },  { path: 'testing-local-notifications', loadChildren: './notifications/testing-local-notifications/testing-local-notifications.module#TestingLocalNotificationsPageModule' }
+  { path: 'med-view/:id', loadChildren: './med-view/med-view.module#MedViewPageModule' },
+  { path: 'testing-local-notifications', loadChildren: './notifications/testing-local-notifications/testing-local-notifications.module#TestingLocalNotificationsPageModule' },
+  { path: 'test-crud', loadChildren: './test-crud/test-crud.module#TestCRUDPageModule' }
 
 
 

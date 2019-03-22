@@ -32,8 +32,6 @@ export class TestingLocalNotificationsPage implements OnInit {
   }
 
   public scheduleNotification(){
-   
-
     this.localNotifications.schedule({
       id: 1,
       title: 'Pillbox App',
@@ -73,7 +71,7 @@ export class TestingLocalNotificationsPage implements OnInit {
       title: 'Good Morning Pillbox',
       text: 'Quick reminder to...',
       data: { mydata: 'More information'},
-      trigger: { every: { hour: 16, minute: 36 } }
+      trigger: { every: { hour: 16, minute: 36 }, count: 2 }
     });
   }
 

@@ -120,5 +120,29 @@
                 <h2>Help</h2>
             </ion-label>
         </ion-item>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="testnotifications()" detail>
+            <div id="softBlueCircle" slot="start" class="hydrated">
+                <ion-icon name="help"></ion-icon>
+            </div>  
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                <h2>TEST NOTIFICATIONS</h2>
+            </ion-label>
+        </ion-item>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="testlocalDB()" detail>
+            <div id="softBlueCircle" slot="start" class="hydrated">
+                <ion-icon name="help"></ion-icon>
+            </div>  
+            <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                <h2>Test SQL DB</h2>
+            </ion-label>
+        </ion-item>
+        <ion-item  class="in-list item ion-focusable item-label hydrated no-padding" (click)="testCRUD()" detail>
+                <div id="softBlueCircle" slot="start" class="hydrated">
+                    <ion-icon name="help"></ion-icon>
+                </div>  
+                <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
+                    <h2>Test CRUD</h2>
+                </ion-label>
+            </ion-item>
     </ion-list>
 </ion-content>

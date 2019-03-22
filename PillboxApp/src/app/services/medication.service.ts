@@ -23,7 +23,7 @@ export class MedicationService {
     return this.http.get(this.urlMedsByPerson +id).pipe(
       map(results => {
         console.log('RAW ', results)
-        return results
+        return results   
         })
       );
   }

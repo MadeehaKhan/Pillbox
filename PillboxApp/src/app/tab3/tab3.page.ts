@@ -63,4 +63,15 @@ export class Tab3Page {
     this.router.navigateByUrl('/tutorial');
   }
 
+  public testnotifications(){
+    this.router.navigateByUrl('testing-local-notifications');
+  }
+
+  public testlocalDB(){
+    //this.router.navigateByUrl('test-db');
+  }
+  
+  public testCRUD(){
+    this.router.navigateByUrl('test-crud');
+  }
 }

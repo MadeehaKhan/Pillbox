@@ -14,15 +14,23 @@ import { IonicStorageModule } from '@ionic/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { MedViewPipe } from './med-view.pipe';
 
+import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx'
+import { SQLite } from '@ionic-native/sqlite/ngx'
+import { SQLiteObject } from '@ionic-native/sqlite';
+import { HttpModule } from '@angular/http';
+//Data base provider?
+
 @NgModule({
   declarations: [AppComponent, MedViewPipe],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot(), HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot(), HttpClientModule, HttpModule],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    LocalNotifications
+    LocalNotifications,
+    SQLite,
+    SQLitePorter
   ],
   bootstrap: [AppComponent]
 })

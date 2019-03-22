@@ -78,7 +78,20 @@
     </div>
 
     <div id="centerButton">
-      <ion-button id="test-btn" (click)="testnotifications()"> test notification </ion-button>
+        <ion-button (click)="toastMedTrig()"> Toast Medication Triggers </ion-button>
     </div>
+   
+    <ion-item *ngFor="let item of meds">
+      <ion-label text-wrap>
+        <h3>{{ item.id }}</h3>
+        <h3>{{ item.every }}</h3>
+        <h3>{{ item.count }}</h3>
+        <ion-text color="secondary">
+          <p>{{ item.hour }}</p>
+          <p>{{ item.minute }}</p>
+        </ion-text>
+        <p>{{ item.minute | date:'short'}}</p>
+      </ion-label>
+    </ion-item>
 
 </ion-content>

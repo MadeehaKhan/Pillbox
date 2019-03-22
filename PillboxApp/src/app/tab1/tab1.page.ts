@@ -5,6 +5,9 @@ import { Observable } from 'rxjs';
 import { MedicationService } from '../services/medication.service';
 import { Storage } from '@ionic/storage';
 import { Person } from '../models/Person';
+import { ToastController } from '@ionic/angular';
+import { MedTrigger } from '../models/MedTrigger';
+import { StorageService } from '../services/storage.service';
 
 
 @Component({
@@ -15,10 +18,12 @@ import { Person } from '../models/Person';
 export class Tab1Page {
   today = Date.now();
   isLoggedIn = this.storage.get("isLoggedIn");
+  meds: MedTrigger[] = [];
 
   user: Person = new Person();
-  constructor(private router: Router,  public http: HttpClient, private medicationService: MedicationService, private storage: Storage) {
-    
+  constructor(private router: Router,  public http: HttpClient, private medicationService: MedicationService, 
+    private storage: Storage, private toastController: ToastController, private storageService: StorageService) {
+  
   }
 
 
@@ -88,6 +93,26 @@ export class Tab1Page {
 
   public testnotifications(){
     this.router.navigateByUrl('testing-local-notifications');
+  }
+
+  public async toastMedTrig(){
+
+    await this.storageService.getItems().then(items => {
+      this.meds = items;
+    });
+    this.meds.forEach(element => {
+      this.showToast("Toast: " + element.id + ", Month: " + element.every);
+    });
+
+  }
+
+  // Helper
+  async showToast(msg) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 2000
+    });
+    toast.present();
   }
 
   public logout(){
