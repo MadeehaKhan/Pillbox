@@ -1,54 +1,42 @@
-.basicInfo {
+h2 {
+	font-size: 20px;
+}
+
+h3 {
+	font-size: 18px;
+}
+
+h1 {
+	color: grey;
+	margin-bottom: 20px;
+}
+
+div {
 	border: 3px solid #42b0f4;
 	box-shadow: 8px 8px 5px #3ba2e2;
 	text-decoration: none; 
 	padding-bottom: 20px;
-	margin-bottom: 50px;
-	max-width: 400px;
+	margin: auto;
+	margin-bottom: 30px;
+}
+
+.basicInfo {
+	
+	max-width: 300px;
 }
 
 .medData {
-	border: 3px solid #42b0f4;
-	box-shadow: 8px 8px 5px #3ba2e2;
-	text-decoration: none; 
-	padding-bottom: 20px;
-	margin-bottom: 50px;
-	max-width: 500px;
+	
+	max-width: 300px;
 }
 
 .rxInfo {
-	border: 3px solid #42b0f4;
-	box-shadow: 8px 8px 5px #3ba2e2;
-	text-decoration: none; 
-	padding-bottom: 20px;
-	margin-bottom: 50px;
-	max-width: 600px;
+	
+	max-width: 400px;	
 }
 
 .vii {
-	border: 3px solid #42b0f4;
-	box-shadow: 8px 8px 5px #3ba2e2;
-	text-decoration: none; 
-	padding-bottom: 20px;
-	margin-bottom: 50px;
-}
-
-.welcome-card ion-img {
-  max-height: 35vh;
-  overflow: hidden;
-}
-
-
-#myImage_Header{
- background: url('/assets/img/pillbox_logo_blue.svg');
- background-size: 100% 100%;
- min-width: 58px;
- min-height: 36px;
-}
-
-
-ion-card-title{
-  font-size: 18px;
-  padding-left: 10px;
+	
+	max-width: 400px;
 }
 

@@ -20,7 +20,6 @@ export class MedicationModifyPage implements OnInit {
 	medId;
 	pId: number;
 	date: string;
-	medList: number[] = [];
 
   constructor(private router: Router, public http: HttpClient, 
      private storage: Storage, private route: ActivatedRoute) {
@@ -92,10 +91,8 @@ export class MedicationModifyPage implements OnInit {
     if(this.sidefx.length == 0) {this.sidefx.push('none')};
     let sideEffects: string = this.sidefx.toString();		
     let medsched: string = "none";
-
-    let minc: number = 2738; 								
-    let doctor: string = ngForm.form.value.doc;
-    let medList: string = this.medList.toString();							
+							
+    let doctor: string = ngForm.form.value.doc;							
     let dObt: string = ngForm.form.value.dobt;				//kept this as the same for both but need to change that eventually
     let instr: string = ngForm.form.value.instr;
     let dosage: number = ngForm.form.value.dosage;
@@ -105,15 +102,9 @@ export class MedicationModifyPage implements OnInit {
 
     const datascript: any = {
     	"id": id,
-		"Minc": minc,
 		"Doctor": doctor,
-		"Name": name,
-		"Dosage": dosage,
 		"DateObtained": dObt,
-		"PersonID": PersonId,
-		"MedicationList": medList,
-		"NumRefills": numrefills,
-		"Instructions": instr,
+		"PersonID": PersonId
 		};
 
 	const datamed: any = {
@@ -129,6 +120,11 @@ export class MedicationModifyPage implements OnInit {
 		"PersonID": PersonId,
 		"MedicationSchedule": medsched,
 		"PrescriptionId": id,
+
+		"NumRefills": numrefills,
+		"Instructions": instr,
+
+		"Dosage": dosage
 	}
 
 	
@@ -198,6 +194,7 @@ export class MedicationModifyPage implements OnInit {
 	    	.catch(error => {
 	      	console.log('Post Error!');
 	      	console.log('Reponse: ' + typeof(error));
+	      	this.router.navigateByUrl('/med-view/' + this.medId);
 	    	});
 	}
 

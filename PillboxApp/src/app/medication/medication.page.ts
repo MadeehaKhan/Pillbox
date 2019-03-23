@@ -57,30 +57,22 @@ export class MedicationPage implements OnInit {
     	let sideEffects: string = "none";											
     	let medsched: string = "empty"												//gotta figure this out
 
-    	this.medList.push(ngForm.form.value.din);
+    	let units: string = ngForm.form.value.units;
+    	
+    	let doctor: string = ngForm.form.value.doc;											
 
-    	let minc: number = 0;														//getting rid of this
-    	let doctor: string = ngForm.form.value.doc;											//change to be user-input
-    	let medList: string = this.medList.toString();								//gotta figure this out, how to add more medications
     	let dObt: string = ngForm.form.value.dobt;
     	let instr: string = ngForm.form.value.instr;
     	let dosage: number = ngForm.form.value.dosage;
     	let numrefills: number = ngForm.form.value.numrefills;
-    	let scriptname: string = "none";
 
 		var urlscript = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/createprescription/";
 		var urlmed = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/CreateMedication";
 
 		const datascript: any = {
-			"Minc": minc,
 			"Doctor": doctor,
-			"Name": scriptname,
-			"Dosage": dosage,
 			"DateObtained": dObt,
-			"PersonID": PersonId,
-			"MedicationList": medList,
-			"NumRefills": numrefills,
-			"Instructions": ngForm.form.value.instr,
+			"PersonID": PersonId
 		};
 
 		const datamed: any = {
@@ -94,7 +86,13 @@ export class MedicationPage implements OnInit {
 			"DateObtained": dateObtained,
 			"PersonID": PersonId,
 			"MedicationSchedule": medsched,
-		};
+
+			"NumRefills": numrefills,
+			"Instructions": instr,
+
+			"Dosage": dosage,
+			"Units" : units
+		}
 
 		if(this.isRX) {
 
@@ -109,20 +107,6 @@ export class MedicationPage implements OnInit {
 
 		      let prescriptionID: number = this.rxId as number;   
 			  console.log("prescription id is " + this.rxId);
-
-			  const datamed: any = {
-					"Din": din,
-					"PrescriptionId": prescriptionID,
-					"Name": name,
-					"Strength": strength,
-					"RemainingPills": remainingMed,
-					"PharmacyObtained": pharmObtained,
-					"TakeAsNeeded": takeAsNeeded,
-					"SideEffects": sideEffects,
-					"DateObtained": dateObtained,
-					"PersonID": PersonId,
-					"MedicationSchedule": medsched,
-				};
 
 		      this.http.post(urlmed, datamed)
 		    	.toPromise()
@@ -188,10 +172,13 @@ export class MedicationPage implements OnInit {
     	let sideEffects: string = "none";											
     	let medsched: string = "empty"	
     	let prescriptionID: number = this.rxId as number;   
+
+    	let instr: string = ngForm.form.value.instr;
+    	let dosage: number = ngForm.form.value.dosage;
+    	let numrefills: number = ngForm.form.value.numrefills;
 		
 		const datamed: any = {
 			"Din": din,
-			"PrescriptionId": prescriptionID,
 			"Name": name,
 			"Strength": strength,
 			"RemainingPills": remainingMed,
@@ -201,6 +188,11 @@ export class MedicationPage implements OnInit {
 			"DateObtained": dateObtained,
 			"PersonID": PersonId,
 			"MedicationSchedule": medsched,
+
+			"NumRefills": numrefills,
+			"Instructions": instr,
+
+			"Dosage": dosage
 		};
 
         this.http.post(urlmed, datamed)

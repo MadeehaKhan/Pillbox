@@ -12,10 +12,10 @@ ion-grid {
 
 ion-row {
     height: $height100;
+    background: $white-color;
 }
 
 ion-col {
-    border: 1px solid #488aff;
     background: $white-color;
 }
 
@@ -30,5 +30,24 @@ ion-button {
     ion-col {
         border: none;
     }
+}
+
+.welcome-card ion-img {
+  max-height: 35vh;
+  overflow: hidden;
+}
+
+
+#myImage_Header{
+ background: url('/assets/img/pillbox_logo_blue.svg');
+ background-size: 100% 100%;
+ min-width: 58px;
+ min-height: 36px;
+}
+
+
+ion-card-title{
+  font-size: 18px;
+  padding-left: 10px;
 }
 
