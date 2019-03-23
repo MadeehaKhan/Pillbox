@@ -11,17 +11,17 @@ namespace PillBoxWebAPI.Models
         private Int64 personId;
         private Int64 prescriptionId;
         private string name;
-        private string dosage;
+        private string dosage = string.Empty;
         private double strength;
         private string units = string.Empty;
-        private string format;
-        private string instructions;
+        private string format = string.Empty;
+        private string instructions = string.Empty;
         private int numRefills;
         private double remainingPills;
-        private string pharmacyObtained;
+        private string pharmacyObtained = string.Empty;
         private IFormFile image;
         private bool takeAsNeeded;
-        private string sideEffects;
+        private string sideEffects = string.Empty;
         private DateTime dateObtained;
 
         public Int64 Id
@@ -57,7 +57,6 @@ namespace PillBoxWebAPI.Models
             set { name = value; }
         }
 
-        [Required]
         public string Dosage
         {
             get { return dosage; }

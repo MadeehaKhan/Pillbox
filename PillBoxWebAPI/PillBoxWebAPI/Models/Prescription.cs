@@ -11,7 +11,7 @@ namespace PillBoxWebAPI.Models
         private Int64 id;
         private Int64 personId;
         private Int64 rx;
-        private string doctor;
+        private string doctor = string.Empty;
         private DateTime dateObtained;
 
         public Int64 Id
