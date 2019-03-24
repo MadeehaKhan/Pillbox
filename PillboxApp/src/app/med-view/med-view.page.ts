@@ -35,7 +35,6 @@ export class MedViewPage implements OnInit {
 	  		}
 	  	}
 	  	this.date = this.information['dateObtained'].substring(0,10);
-	  	this.date = this.information['dateObtained'].substring(0,10);
 
 	  	if (!(this.information['prescriptionId'] == 0))  {
 		this.http.get("https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getprescription/"

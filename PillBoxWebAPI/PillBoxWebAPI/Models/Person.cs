@@ -7,12 +7,12 @@ namespace PillBoxWebAPI.Models
     public class Person
     {
         private Int64 id;
-        private string givenName;
-        private string lastName;
+        private string givenName = string.Empty;
+        private string lastName = string.Empty;
         private DateTime dateOfBirth;
-        private string email;
+        private string email = string.Empty;
         private byte[] password;
-        private string passwordString;
+        private string passwordString = string.Empty;
         private Guid salt;
         private Int64 phoneNumber;
         private string emergencyContact1 = string.Empty;

@@ -8,7 +8,6 @@ using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
-
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PillBoxWebAPI.Models;
@@ -517,25 +516,8 @@ namespace PillBoxWebAPI.Controllers
                         //Regex's
 
                         //PRESCRIPTION
-                        //Instructions
-                        Match match = Regex.Match(strLine, @"TAKE");
-                        if (match.Success)
-                        {
-                            medication.Instructions = strLine;
-
-                            //Take as needed
-                            match = Regex.Match(strLine, @"^[\w\s]+AS\s*NEEDED$");
-                            if (match.Success) medication.TakeAsNeeded = true;
-
-                            //DOSAGE
-                            match = Regex.Match(strLine, @"TAKE\s*([0-9]+)[\w\s]*");
-                            if (match.Success) medication.Dosage = match.Groups[1].Value;
-
-                            continue;
-                        }
-
                         //Date Obtained
-                        match = Regex.Match(strLine, @"[0-9]{2}-[a-zA-Z]{3}-[0-9]{4}");
+                        Match match = Regex.Match(strLine, @"[0-9]{2}-[a-zA-Z]{3}-[0-9]{4}");
                         if (match.Success)
                         {
                             //TODO: Parse strLine to make a datetime object
@@ -552,11 +534,36 @@ namespace PillBoxWebAPI.Controllers
                             continue;
                         }
 
+                        //Rx
+                        match = Regex.Match(strLine, @"Rx:\s*(\d+)");
+                        if (match.Success)
+                        {
+                            prescription.Rx = Convert.ToInt64(match.Groups[1].Value);
+                            continue;
+                        }
+
                         //MEDICATION
                         //DIN
                         match = Regex.Match(strLine, @"^DIN:\s*(\d+)[\s\w\/\:]*");
                         if (match.Success){
                             medication.DIN = Convert.ToInt64(match.Groups[1].Value);
+                            continue;
+                        }
+
+                        //Instructions
+                        match = Regex.Match(strLine, @"TAKE");
+                        if (match.Success)
+                        {
+                            medication.Instructions = strLine;
+
+                            //Take as needed
+                            match = Regex.Match(strLine, @"^[\w\s]+AS\s*NEEDED$");
+                            if (match.Success) medication.TakeAsNeeded = true;
+
+                            //DOSAGE
+                            match = Regex.Match(strLine, @"TAKE\s*([0-9\w]+\s+[a-zA-Z]*)[\w\s]*");
+                            if (match.Success) medication.Dosage = match.Groups[1].Value;
+
                             continue;
                         }
 
@@ -568,18 +575,25 @@ namespace PillBoxWebAPI.Controllers
                         }
 
                         //Name
-                        match = Regex.Match(strLine, @"^([a-zA-Z\s-]+)\s(\d+)[a-zA-Z]{2}");
+                        match = Regex.Match(strLine, @"^([a-zA-Z][a-zA-Z\s-\d]+)\s(\d+)([[a-zA-Z]{2}|unit|mg|un|ml])");
                         if (match.Success){
                             medication.Name = match.Groups[1].Value.Trim();
+                            //Strength
+                            medication.Strength = Convert.ToDouble(match.Groups[2].Value);
+                            //Units
+                            medication.Units = match.Groups[3].Value;
                             continue;
                         }
                        
                         //Remaining Pills
-                        match = Regex.Match(strLine, @"^([\d]+)[\sa-zA-Z-]*(\d+)[a-zA-Z]{2}");
+                        match = Regex.Match(strLine, @"^([\d]+)[\sa-zA-Z-]*(\d+)([[a-zA-Z]{2}|unit|mg|un|ml])[\w\s]*");
                         if (match.Success){
                             medication.RemainingPills = Convert.ToDouble(match.Groups[1].Value);
-                            //TODO: Medication Units and Strength, eg 5ml
-                            medication.Strength = Convert.ToDouble(match.Groups[2].Value);
+                            //Strength
+                            if (medication.Strength == 0) medication.Strength = Convert.ToDouble(match.Groups[2].Value);
+                            //Units
+                            if (medication.Units == string.Empty) medication.Units = match.Groups[3].Value;
+
                             continue;
                         }
 
