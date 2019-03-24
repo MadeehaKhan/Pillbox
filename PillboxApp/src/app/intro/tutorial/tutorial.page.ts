@@ -16,6 +16,7 @@ export class TutorialPage implements OnInit {
 
   async finish() {
     await this.storage.set('tutorialComplete', true);
+    await this.storage.set('notifyCounter', Number(0));
     this.router.navigateByUrl('/')
   }
 

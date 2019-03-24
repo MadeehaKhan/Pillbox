@@ -12,11 +12,14 @@ import { AlertController, Platform } from '@ionic/angular';
 // }
 
 const MEDTRIGGERS_KEY = 'my-triggers';
+const ID_COUNTER_KEY = 'notifyCounter';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
+  
+
 
   constructor(private storage: Storage, private localNotifications: LocalNotifications, private alerCtrl: AlertController, 
       private plt: Platform) { 
@@ -151,31 +154,51 @@ export class StorageService {
     date.setMinutes(parseInt(tMinute.toString()));
     date.setHours(parseInt(tHour.toString()));
     this.showAlert("Time",  "Date: "+ date.getMonth() + "/" + date.getDate() ,"time: " + date.toLocaleTimeString());
-    for(var i=0; i <= 5; i++){
-      //this.showAlert("Inside",  "","");
-      // console.log("Inside sending storage!");
-      this.localNotifications.schedule({
-        id: i,
-        title: 'Pillbox App',
-        text: medName,
-        data: { mydata: medInfo},
-        actions: [
-          {id: 'take', title: 'Take'},
-          {id: 'dismiss', title: 'Dismiss'}
-        ],
-        smallIcon: 'file://assets/img/avatar-finn', //icons not working
-        color: '#4286f4',
-        trigger: {at: new Date(date)}, 
-      });
-
-      date = new Date(date.getFullYear(), date.getMonth(), date.getDate() + parseInt(tcount.toString()));
-      date.setMinutes(parseInt(tMinute.toString())); //TO DO! CHANGE TO EVERY MINUTE
-      date.setHours(parseInt(tHour.toString()));
-      //date.setDate(date.getDate() + tcount);
-      console.log("Tomorow's date: "+ date.getMonth() + "/" + date.getDate()+ ", time: " + date.toLocaleTimeString());
-      this.showAlert("Tomorrow",  "Date: "+ date.getMonth() + "/" + date.getDate() ,"time: " + date.toLocaleTimeString());
-      //(2018, 11, 24, 10, 33, 30, 0)
-    }
+    var counter: number= 0;
+    
+    this.storage.get(ID_COUNTER_KEY).then((num) => {
+        console.log('NUM before notif: ' + num);
+        if(num == null || num == undefined){
+          console.log('Counter is null');
+          num= 0;
+        }
+        counter = Number(num);
+        
+    }).then(()=> {
+      console.log('THEN Counter before notif: ' + counter);
+      this.showAlert("Counter ID before",  "BEFORE ","counter: " + counter.toString() );
+      for(var i=0; i <= 5; i++){
+        //this.showAlert("Inside",  "","");
+        // console.log("Inside sending storage!");
+        this.localNotifications.schedule({
+          id: parseInt(counter.toString()),
+          title: 'Pillbox App',
+          text: medName,
+          data: { mydata: medInfo},
+          actions: [
+            {id: 'take', title: 'Take'},
+            {id: 'dismiss', title: 'Dismiss'}
+          ],
+          smallIcon: 'file://assets/img/avatar-finn', //icons not working
+          color: '#4286f4',
+          trigger: {at: new Date(date)}, 
+        });
+        counter = counter + 1;
+        console.log("ID counter:" + counter.toString());
+        date = new Date(date.getFullYear(), date.getMonth(), date.getDate() + parseInt(tcount.toString()));
+        date.setMinutes(parseInt(tMinute.toString())); //TO DO! CHANGE TO EVERY MINUTE
+        date.setHours(parseInt(tHour.toString()));
+        //date.setDate(date.getDate() + tcount);
+        console.log("Tomorow's date: "+ date.getMonth() + "/" + date.getDate()+ ", time: " + date.toLocaleTimeString());
+        this.showAlert("Tomorrow",  "Date: "+ date.getMonth() + "/" + date.getDate() ,"time: " + date.toLocaleTimeString());
+        //(2018, 11, 24, 10, 33, 30, 0)
+      }
+      console.log("Counter updated: " + counter);
+      this.showAlert("Counter ID updated",  "UPDATE ","counter: " + counter.toString() );
+      this.storage.set(ID_COUNTER_KEY, Number(counter + 1));
+    });
+    
+    
   }
 
   public cancelNotificationByMedID(medID: number){
