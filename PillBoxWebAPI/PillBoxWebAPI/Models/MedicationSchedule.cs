@@ -8,51 +8,76 @@ namespace PillBoxWebAPI.Models
 {
     public class MedicationSchedule
     {
-        private int id;
-        private int medicationId;
-        private DateTime startDate;
-        private int repeatNumber;
-        private string timeFrame;
-        private string repeatOn;
+        private long id;
+        private long medicationId;
+        private string name;
+        private string medInfo;
+        private string every;
+        private int count;
+        private DateTime date;
+        private int hour;
+        private int minute;
 
-        public int Id
+        public long Id
         {
             get { return id; }
             set { id = value; }
         }
 
         [Required]
-        public int MedicationId
+        public long MedicationId
         {
             get { return medicationId; }
             set { medicationId = value; }
         }
 
         [Required]
-        public DateTime StartDate
+        public string Name
         {
-            get { return startDate; }
-            set { startDate = value; }
+            get { return name; }
+            set { name = value; }
         }
 
         [Required]
-        public int RepeatNumber
+        public string MedInfo
         {
-            get { return repeatNumber; }
-            set { repeatNumber = value; }
+            get { return medInfo; }
+            set { medInfo = value; }
         }
 
         [Required]
-        public string TimeFrame
+        public string Every
         {
-            get { return timeFrame; }
-            set { timeFrame = value; }
+            get { return every; }
+            set { every = value; }
         }
 
-        public string RepeatOn
+        [Required]
+        public int Count
         {
-            get { return repeatOn ?? string.Empty; }
-            set { repeatOn = value; }
+            get { return count; }
+            set { count = value; }
+        }
+
+        [Required]
+        public DateTime Date
+        {
+            get { return date; }
+            set { date = value; }
+        }
+
+        [Required]
+        public int Hour
+        {
+            get { return hour; }
+            set { hour = value; }
+        }
+
+        [Required]
+        public int Minute
+        {
+            get { return minute; }
+            set { minute = value; }
         }
 
         public MedicationSchedule()
@@ -60,14 +85,17 @@ namespace PillBoxWebAPI.Models
 
         }
 
-        public MedicationSchedule(int id, int medicationId, DateTime startDate, int repeatNumber, string timeFrame, string repeatOn)
+        public MedicationSchedule(long id, long medicationId, string name, string medInfo, string every, int count,  DateTime date, int hour, int minute)
         {
             Id = id;
             MedicationId = medicationId;
-            StartDate = startDate;
-            RepeatNumber = repeatNumber;
-            TimeFrame = timeFrame;
-            RepeatOn = repeatOn;
+            Name = name;
+            MedInfo = medInfo;
+            Every = every;
+            Count = count;
+            Date = date;
+            Hour = hour;
+            Minute = minute;
         }
     }
 }

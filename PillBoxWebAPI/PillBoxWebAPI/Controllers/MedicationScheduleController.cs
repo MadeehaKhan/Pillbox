@@ -13,7 +13,7 @@ namespace PillBoxWebAPI.Controllers
     {
         // GET: api/MedicationSchedule/GetMedicationSchedule/
         [HttpGet("{id}")]
-        public ActionResult<MedicationSchedule> GetMedicationSchedule(int id)
+        public ActionResult<MedicationSchedule> GetMedicationSchedule(long id)
         {
             try
             {
@@ -28,12 +28,15 @@ namespace PillBoxWebAPI.Controllers
                 {
                     reader.Read();
                     var medicationSchedule = new MedicationSchedule(
-                        (int)reader["ID"],
-                        (int)reader["MEDICATIONID"],
-                        (DateTime)reader["STARTDATE"],
-                        (int)reader["REPEATNUMBER"],
-                        (string)reader["TIMEFRAME"],
-                        (string)reader["REPEATON"]
+                        (long)reader["ID"],
+                        (long)reader["MEDICATIONID"],
+                        (string)reader["NAME"],
+                        (string)reader["MEDINFO"],
+                        (string)reader["EVERY"],                    
+                        (int)reader["COUNT"],
+                        (DateTime)reader["DATE"],
+                        (int)reader["HOUR"],
+                        (int)reader["MINUTE"]
                         );
                     return medicationSchedule;
                 }
@@ -57,14 +60,17 @@ namespace PillBoxWebAPI.Controllers
             //TODO: If the timeframe is week, then repeat on should not be empty
             try
             {
-                var command = new SqlCommand("INSERT INTO MedicationSchedule (MEDICATIONID, STARTDATE, REPEATNUMBER, TIMEFRAME, REPEATON)" +
-                    "VALUES(@MEDICATIONID, @STARTDATE, @REPEATNUMBER, @TIMEFRAME, @REPEATON); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
+                var command = new SqlCommand("INSERT INTO MedicationSchedule (MEDICATIONID, NAME, MEDINFO, EVERY, COUNT, DATE, HOUR, MINUTE) " +
+                    "VALUES(@MEDICATIONID, @NAME, @MEDINFO, @EVERY, @COUNT, @DATE, @HOUR, @MINUTE); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@MEDICATIONID", medicationSchedule.MedicationId);
-                command.Parameters.AddWithValue("@STARTDATE", medicationSchedule.StartDate);
-                command.Parameters.AddWithValue("@REPEATNUMBER", medicationSchedule.RepeatNumber);
-                command.Parameters.AddWithValue("@TIMEFRAME", medicationSchedule.TimeFrame);
-                command.Parameters.AddWithValue("@REPEATON", medicationSchedule.RepeatOn);
+                command.Parameters.AddWithValue("@NAME", medicationSchedule.Name);
+                command.Parameters.AddWithValue("@MEDINFO", medicationSchedule.MedInfo);
+                command.Parameters.AddWithValue("@EVERY", medicationSchedule.Every);
+                command.Parameters.AddWithValue("@COUNT", medicationSchedule.Count);
+                command.Parameters.AddWithValue("@DATE", medicationSchedule.Date);
+                command.Parameters.AddWithValue("@HOUR", medicationSchedule.Hour);
+                command.Parameters.AddWithValue("@MINUTE", medicationSchedule.Minute);
 
                 Connections.pillboxDatabase.Open();
 
@@ -88,16 +94,19 @@ namespace PillBoxWebAPI.Controllers
         {
             try
             {
-                var command = new SqlCommand("UPDATE MedicationSchedule SET MEDICATIONID=@MEDICATIONID, STARTDATE=@STARTDATE, REPEATNUMBER=@REPEATNUMBER " +
-                    ", TIMEFRAME=@TIMEFRAME, REPEATON=@REPEATON" +
+                var command = new SqlCommand("UPDATE MedicationSchedule SET MEDICATIONID=@MEDICATIONID, NAME=@NAME, MEDINFO=@MEDINFO, EVERY=@EVERY " +
+                    ", COUNT=@COUNT, DATE=@DATE, HOUR=@HOUR, MINUTE=@MINUTE " +
                     "  WHERE ID=@ID", Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@ID", medicationSchedule.Id);
                 command.Parameters.AddWithValue("@MEDICATIONID", medicationSchedule.MedicationId);
-                command.Parameters.AddWithValue("@STARTDATE", medicationSchedule.StartDate);
-                command.Parameters.AddWithValue("@REPEATNUMBER", medicationSchedule.RepeatNumber);
-                command.Parameters.AddWithValue("@TIMEFRAME", medicationSchedule.TimeFrame);
-                command.Parameters.AddWithValue("@REPEATON", medicationSchedule.RepeatOn);
+                command.Parameters.AddWithValue("@NAME", medicationSchedule.Name);
+                command.Parameters.AddWithValue("@MEDINFO", medicationSchedule.MedInfo);
+                command.Parameters.AddWithValue("@EVERY", medicationSchedule.Every);
+                command.Parameters.AddWithValue("@COUNT", medicationSchedule.Count);
+                command.Parameters.AddWithValue("@DATE", medicationSchedule.Date);
+                command.Parameters.AddWithValue("@HOUR", medicationSchedule.Hour);
+                command.Parameters.AddWithValue("@MINUTE", medicationSchedule.Minute);
 
                 Connections.pillboxDatabase.Open();
 
@@ -117,7 +126,7 @@ namespace PillBoxWebAPI.Controllers
 
         // POST: api/MedicationSchedule/DeleteMedicationSchedule/id
         [HttpPost("{id}")]
-        public ActionResult<string> DeleteMedicationSchedule(int id)
+        public ActionResult<string> DeleteMedicationSchedule(long id)
         {
             try
             {
@@ -159,12 +168,15 @@ namespace PillBoxWebAPI.Controllers
                 while (reader.Read())
                 {                    
                     var medicationSchedule = new MedicationSchedule(
-                        (int)reader["ID"],
-                        (int)reader["MEDICATIONID"],
-                        (DateTime)reader["STARTDATE"],
-                        (int)reader["REPEATNUMBER"],
-                        (string)reader["TIMEFRAME"],
-                        (string)reader["REPEATON"]
+                        (long)reader["ID"],
+                        (long)reader["MEDICATIONID"],
+                        (string)reader["NAME"],
+                        (string)reader["MEDINFO"],
+                        (string)reader["EVERY"],
+                        (int)reader["COUNT"],
+                        (DateTime)reader["DATE"],
+                        (int)reader["HOUR"],
+                        (int)reader["MINUTE"]
                         );
                     medSchedules.Add(medicationSchedule);
                 }
