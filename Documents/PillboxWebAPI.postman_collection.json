@@ -744,6 +744,9 @@
 					"item": [
 						{
 							"name": "api/medicationschedule/getmedicationschedule/id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -752,7 +755,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/getmedicationschedule/2",
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/getmedicationschedule/1",
 									"protocol": "https",
 									"host": [
 										"pillboxwebapi20190129085319",
@@ -763,7 +766,7 @@
 										"api",
 										"medicationschedule",
 										"getmedicationschedule",
-										"2"
+										"1"
 									]
 								}
 							},
@@ -773,36 +776,17 @@
 							"name": "api/medicationschedule/createmedicationschedule/",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
 								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "medicationid",
-											"value": "2",
-											"type": "text"
-										},
-										{
-											"key": "startdate",
-											"value": "2019-01-01T00:00:00.0000000",
-											"type": "text"
-										},
-										{
-											"key": "repeatnumber",
-											"value": "3",
-											"type": "text"
-										},
-										{
-											"key": "timeframe",
-											"value": "day",
-											"type": "text"
-										},
-										{
-											"key": "repeaton",
-											"value": "",
-											"type": "text"
-										}
-									]
+									"mode": "raw",
+									"raw": "{\n\t\"medicationid\": 1,\n\t\"name\": \"Advil\",\n\t\"medinfo\": \"some extra info\",\n\t\"every\": \"day\",\n\t\"count\": 20,\n\t\"date\": \"2019-03-26T00:00:00\",\n\t\"hour\": 10,\n\t\"minute\": 30\n}"
 								},
 								"url": {
 									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/createmedicationschedule/",
@@ -826,41 +810,17 @@
 							"name": "api/medicationschedule/editmedicationschedule/",
 							"request": {
 								"method": "POST",
-								"header": [],
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
 								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "id",
-											"value": "1",
-											"type": "text"
-										},
-										{
-											"key": "medicationid",
-											"value": "3",
-											"type": "text"
-										},
-										{
-											"key": "startdate",
-											"value": "2019-01-01T00:00:00.0000000",
-											"type": "text"
-										},
-										{
-											"key": "repeatnumber",
-											"value": "3",
-											"type": "text"
-										},
-										{
-											"key": "timeframe",
-											"value": "day",
-											"type": "text"
-										},
-										{
-											"key": "repeaton",
-											"value": "",
-											"type": "text"
-										}
-									]
+									"mode": "raw",
+									"raw": "{\n\t\"id\": 1,\n\t\"medicationid\": 1,\n\t\"name\": \"Advil\",\n\t\"medinfo\": \"Edit extra info\",\n\t\"every\": \"day\",\n\t\"count\": 20,\n\t\"date\": \"2019-03-26T00:00:00\",\n\t\"hour\": 10,\n\t\"minute\": 30\n}"
 								},
 								"url": {
 									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/editmedicationschedule/",
@@ -1259,6 +1219,38 @@
 									"key": "detectOrientation",
 									"value": "true"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/medications/Medicationocr",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": ""
+								}
+							]
+						},
+						"url": {
+							"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/medicationocr",
+							"protocol": "https",
+							"host": [
+								"pillboxwebapi20190129085319",
+								"azurewebsites",
+								"net"
+							],
+							"path": [
+								"api",
+								"medications",
+								"medicationocr"
 							]
 						}
 					},
