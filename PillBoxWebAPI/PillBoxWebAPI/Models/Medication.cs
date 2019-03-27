@@ -136,6 +136,8 @@ namespace PillBoxWebAPI.Models
             set { dateObtained = value; }
         }
 
+        public byte[] ImageBytes { get; set; } = null;
+
         public Medication()
         {
 

@@ -5,10 +5,12 @@ using System.IO;
 using System.Json;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
 using PillBoxWebAPI.Models;
 using PillBoxWebAPI.Utility;
@@ -35,6 +37,9 @@ namespace PillBoxWebAPI.Controllers
                 if (reader.HasRows)
                 {
                     reader.Read();
+                    var temp = reader["IMAGE"].ToString();
+                    var imageBytes = temp != string.Empty ? (byte[])reader["IMAGE"] : null ;
+                    
                     var medication = new Medication(
                         (long)reader["ID"],
                         (long)reader["DIN"],
@@ -54,6 +59,7 @@ namespace PillBoxWebAPI.Controllers
                         (DateTime)reader["DATEOBTAINED"],
                         (string)reader["SIDEEFFECTS"]
                         );
+                    medication.ImageBytes = imageBytes;
                     return medication;
                 }
 
@@ -93,6 +99,61 @@ namespace PillBoxWebAPI.Controllers
                 command.Parameters.AddWithValue("@REMAININGPILLS", medication.RemainingPills);
                 command.Parameters.AddWithValue("@PHARMACYOBTAINED", medication.PharmacyObtained);
                 command.Parameters.AddWithValue("@TAKEASNEEDED", medication.TakeAsNeeded);
+                command.Parameters.AddWithValue("@SIDEEFFECTS", medication.SideEffects);
+                command.Parameters.AddWithValue("@DATEOBTAINED", medication.DateObtained);
+
+                Connections.pillboxDatabase.Open();
+
+                var medicationId = Convert.ToInt32(command.ExecuteScalar());
+
+                return Ok(medicationId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"CreateMedication() error \n {ex.ToString()}");
+            }
+            finally
+            {
+                Connections.pillboxDatabase.Close();
+            }
+        }
+
+
+        // POST: api/Medications/CreateMedicationWithImage
+        [HttpPost]
+        public ActionResult<int> CreateMedicationWithImage([FromForm] Medication medication)
+        {
+            try
+            {
+                var command = new SqlCommand("INSERT INTO Medication (DIN, PERSONID, PRESCRIPTIONID, [NAME]" +
+                    ", DOSAGE, STRENGTH, UNITS, FORMAT, INSTRUCTIONS, NUMREFILLS, REMAININGPILLS, PHARMACYOBTAINED,[IMAGE], TAKEASNEEDED, SIDEEFFECTS, DATEOBTAINED)" +
+                    "VALUES(@DIN, @PERSONID, @PRESCRIPTIONID, @NAME, @DOSAGE, @STRENGTH, @UNITS, @FORMAT, @INSTRUCTIONS, @NUMREFILLS, @REMAININGPILLS, @PHARMACYOBTAINED," +
+                    " @IMAGE, @TAKEASNEEDED, @SIDEEFFECTS, @DATEOBTAINED); SELECT SCOPE_IDENTITY()", Connections.pillboxDatabase);
+
+                byte[] imageBytes;
+
+                using (var ms = new MemoryStream())
+                {
+                    medication.Image.CopyTo(ms);
+                    imageBytes = ms.ToArray();
+                    //string s = Convert.ToBase64String(fileBytes);
+                    // act on the Base64 data
+                }
+
+                command.Parameters.AddWithValue("@DIN", medication.DIN);
+                command.Parameters.AddWithValue("@PERSONID", medication.PersonId);
+                command.Parameters.AddWithValue("@PRESCRIPTIONID", medication.PrescriptionId);
+                command.Parameters.AddWithValue("@NAME", medication.Name);
+                command.Parameters.AddWithValue("@DOSAGE", medication.Dosage);
+                command.Parameters.AddWithValue("@STRENGTH", medication.Strength);
+                command.Parameters.AddWithValue("@UNITS", medication.Units);
+                command.Parameters.AddWithValue("@FORMAT", medication.Format);
+                command.Parameters.AddWithValue("@INSTRUCTIONS", medication.Instructions);
+                command.Parameters.AddWithValue("@NUMREFILLS", medication.NumRefills);
+                command.Parameters.AddWithValue("@REMAININGPILLS", medication.RemainingPills);
+                command.Parameters.AddWithValue("@PHARMACYOBTAINED", medication.PharmacyObtained);
+                command.Parameters.AddWithValue("@TAKEASNEEDED", medication.TakeAsNeeded);
+                command.Parameters.AddWithValue("@IMAGE", medication.Image != null ? imageBytes : null);
                 command.Parameters.AddWithValue("@SIDEEFFECTS", medication.SideEffects);
                 command.Parameters.AddWithValue("@DATEOBTAINED", medication.DateObtained);
 
