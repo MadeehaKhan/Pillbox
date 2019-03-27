@@ -194,7 +194,7 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("{personId}")]
         public ActionResult<List<MedicationSchedule>> GetAllMedicatoinScheduleByDay(long personId, DateTime? day = null)
         {
             if (day == null) day = DateTime.Now;

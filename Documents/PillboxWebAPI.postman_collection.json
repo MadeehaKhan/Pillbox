@@ -904,7 +904,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/GetAllMedicatoinScheduleByDay?personId=1&day=2019-03-26T01:01:10",
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/GetAllMedicatoinScheduleByDay/1?day=2019-03-26T01:01:10",
 									"protocol": "https",
 									"host": [
 										"pillboxwebapi20190129085319",
@@ -914,12 +914,14 @@
 									"path": [
 										"api",
 										"medicationschedule",
-										"GetAllMedicatoinScheduleByDay"
+										"GetAllMedicatoinScheduleByDay",
+										"1"
 									],
 									"query": [
 										{
 											"key": "personId",
-											"value": "1"
+											"value": "1",
+											"disabled": true
 										},
 										{
 											"key": "day",
