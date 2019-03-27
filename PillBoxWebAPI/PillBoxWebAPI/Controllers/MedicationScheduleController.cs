@@ -194,6 +194,56 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
+        [HttpGet]
+        public ActionResult<List<MedicationSchedule>> GetAllMedicatoinScheduleByDay(long personId, DateTime? day = null)
+        {
+            if (day == null) day = DateTime.Now;
+
+            try
+            {
+                var command = new SqlCommand("SELECT * " +
+                                        "FROM MedicationSchedule WHERE 1 = 1 " +
+                                        "AND CAST([Date] AS Date) = CAST(@day AS Date) " +
+                                        "AND medicationId IN " +
+                                        "   (SELECT DISTINCT med.id FROM Medication AS med WHERE personId=@personId)", Connections.pillboxDatabase);
+                command.Parameters.AddWithValue("@day", day);
+                command.Parameters.AddWithValue("@personId", personId);
+
+                Connections.pillboxDatabase.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                var medSchedules = new List<MedicationSchedule>();
+
+                while (reader.Read())
+                {
+                    var medicationSchedule = new MedicationSchedule(
+                        (long)reader["ID"],
+                        (long)reader["MEDICATIONID"],
+                        (string)reader["NAME"],
+                        (string)reader["MEDINFO"],
+                        (string)reader["EVERY"],
+                        (int)reader["COUNT"],
+                        (DateTime)reader["DATE"],
+                        (int)reader["HOUR"],
+                        (int)reader["MINUTE"],
+                        (bool)reader["TAKEN"]
+                        );
+                    medSchedules.Add(medicationSchedule);
+                }
+                return medSchedules;
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"GetAllMedicatoinScheduleByDay({personId},{day}) method. \n::::\n" + ex.ToString());
+            }
+            finally
+            {
+                Connections.pillboxDatabase.Close();
+            }
+        }
+
         //TODO: Not implemented yet 
         // GET: api/MedicationSchedule/PushNotification/
         [HttpGet]

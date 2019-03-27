@@ -893,6 +893,42 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "api/medicationschedule/GetAllMedicatoinScheduleByDay",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/GetAllMedicatoinScheduleByDay?personId=1&day=2019-03-26T01:01:10",
+									"protocol": "https",
+									"host": [
+										"pillboxwebapi20190129085319",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"api",
+										"medicationschedule",
+										"GetAllMedicatoinScheduleByDay"
+									],
+									"query": [
+										{
+											"key": "personId",
+											"value": "1"
+										},
+										{
+											"key": "day",
+											"value": "2019-03-26T01:01:10"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
