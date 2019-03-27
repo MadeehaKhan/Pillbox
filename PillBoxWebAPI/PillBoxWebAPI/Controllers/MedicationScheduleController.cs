@@ -228,7 +228,7 @@ namespace PillBoxWebAPI.Controllers
                         (int)reader["HOUR"],
                         (int)reader["MINUTE"],
                         (bool)reader["TAKEN"]
-                        );
+                        ); 
                     medSchedules.Add(medicationSchedule);
                 }
                 return medSchedules;
