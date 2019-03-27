@@ -17,6 +17,8 @@ namespace PillBoxWebAPI.Models
         private DateTime date;
         private int hour;
         private int minute;
+        private bool taken;
+
 
         public long Id
         {
@@ -80,12 +82,19 @@ namespace PillBoxWebAPI.Models
             set { minute = value; }
         }
 
+        [Required]
+        public bool Taken
+        {
+            get { return taken; }
+            set { taken = value; }
+        }
+
         public MedicationSchedule()
         {
 
         }
 
-        public MedicationSchedule(long id, long medicationId, string name, string medInfo, string every, int count,  DateTime date, int hour, int minute)
+        public MedicationSchedule(long id, long medicationId, string name, string medInfo, string every, int count,  DateTime date, int hour, int minute, bool taken)
         {
             Id = id;
             MedicationId = medicationId;
@@ -96,6 +105,7 @@ namespace PillBoxWebAPI.Models
             Date = date;
             Hour = hour;
             Minute = minute;
+            Taken = taken;
         }
     }
 }

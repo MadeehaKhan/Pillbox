@@ -786,7 +786,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"medicationid\": 1,\n\t\"name\": \"Advil\",\n\t\"medinfo\": \"some extra info\",\n\t\"every\": \"day\",\n\t\"count\": 20,\n\t\"date\": \"2019-03-26T00:00:00\",\n\t\"hour\": 10,\n\t\"minute\": 30\n}"
+									"raw": "{\n\t\"medicationid\": 1,\n\t\"name\": \"Advil\",\n\t\"medinfo\": \"some extra info\",\n\t\"every\": \"day\",\n\t\"count\": 20,\n\t\"date\": \"2019-03-26T00:00:00\",\n\t\"hour\": 10,\n\t\"minute\": 30,\n\t\"taken\": true\n}"
 								},
 								"url": {
 									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/createmedicationschedule/",
@@ -820,7 +820,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"id\": 1,\n\t\"medicationid\": 1,\n\t\"name\": \"Advil\",\n\t\"medinfo\": \"Edit extra info\",\n\t\"every\": \"day\",\n\t\"count\": 20,\n\t\"date\": \"2019-03-26T00:00:00\",\n\t\"hour\": 10,\n\t\"minute\": 30\n}"
+									"raw": "{\n\t\"id\": 1,\n\t\"medicationid\": 1,\n\t\"name\": \"Advil\",\n\t\"medinfo\": \"Edit extra info\",\n\t\"every\": \"day\",\n\t\"count\": 20,\n\t\"date\": \"2019-03-26T00:00:00\",\n\t\"hour\": 10,\n\t\"minute\": 30,\n\t\"taken\": true\n}"
 								},
 								"url": {
 									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/editmedicationschedule/",

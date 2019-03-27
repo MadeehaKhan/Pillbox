@@ -36,7 +36,8 @@ namespace PillBoxWebAPI.Controllers
                         (int)reader["COUNT"],
                         (DateTime)reader["DATE"],
                         (int)reader["HOUR"],
-                        (int)reader["MINUTE"]
+                        (int)reader["MINUTE"],
+                        (bool)reader["TAKEN"]
                         );
                     return medicationSchedule;
                 }
@@ -176,7 +177,8 @@ namespace PillBoxWebAPI.Controllers
                         (int)reader["COUNT"],
                         (DateTime)reader["DATE"],
                         (int)reader["HOUR"],
-                        (int)reader["MINUTE"]
+                        (int)reader["MINUTE"],
+                        (bool)reader["TAKEN"]
                         );
                     medSchedules.Add(medicationSchedule);
                 }
@@ -192,7 +194,7 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        //TODO: Not implemented yet
+        //TODO: Not implemented yet 
         // GET: api/MedicationSchedule/PushNotification/
         [HttpGet]
         public ActionResult<List<MedicationSchedule>> PushNotification()

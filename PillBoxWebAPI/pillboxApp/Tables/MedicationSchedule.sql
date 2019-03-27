@@ -9,4 +9,5 @@
     [Date] DATETIME NOT NULL, 
     [Hour] INT NOT NULL, 
     [Minute] INT NOT NULL, 
+    [Taken] BIT NOT NULL, 
 )
