@@ -6,142 +6,65 @@ namespace PillBoxWebAPI.Models
 {
     public class Medication
     {
-        private Int64 id;
-        private Int64 din;
-        private Int64 personId;
-        private Int64 prescriptionId;
-        private string name;
-        private string dosage = string.Empty;
-        private double strength;
-        private string units = string.Empty;
-        private string format = string.Empty;
-        private string instructions = string.Empty;
-        private int numRefills;
-        private double remainingPills;
-        private string pharmacyObtained = string.Empty;
-        private IFormFile image;
-        private bool takeAsNeeded;
-        private string sideEffects = string.Empty;
-        private DateTime dateObtained;
+        #region Public Properties
 
-        public Int64 Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
+        public long Id { get; set; }
 
         [Required]
-        public Int64 DIN
-        {
-            get { return din; }
-            set { din = value; }
-        }
+        public long DIN { get; set; }
 
         [Required]
-        public Int64 PersonId
-        {
-            get { return personId; }
-            set { personId = value; }
-        }
+        public long PersonId { get; set; }
 
-        public Int64 PrescriptionId
-        {
-            get { return prescriptionId; }
-            set { prescriptionId = value; }
-        }
+        public long PrescriptionId { get; set; }
 
         [Required]
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+        public string Name { get; set; }
 
-        public string Dosage
-        {
-            get { return dosage; }
-            set { dosage = value; }
-        }
+        public string Dosage { get; set; } = string.Empty;
 
         [Required]
-        public double Strength
-        {
-            get { return strength; }
-            set { strength = value; }
-        }
+        public double Strength { get; set; }
 
-        public string Units
-        {
-            get { return units; }
-            set { units = value; }
-        }
+        public string Units { get; set; } = string.Empty;
 
-        public string Format
-        {
-            get { return format; }
-            set { format = value; }
-        }
+        public string Format { get; set; } = string.Empty;
 
-        public string Instructions
-        {
-            get { return instructions; }
-            set { instructions = value; }
-        }
+        public string Instructions { get; set; } = string.Empty;
 
         [Required]
-        public int NumRefills
-        {
-            get { return numRefills; }
-            set { numRefills = value; }
-        }
+        public int NumRefills { get; set; }
 
         [Required]
-        public double RemainingPills
-        {
-            get { return remainingPills; }
-            set { remainingPills = value; }
-        }
+        public double RemainingPills { get; set; }
 
         [Required]
-        public string PharmacyObtained
-        {
-            get { return pharmacyObtained; }
-            set { pharmacyObtained = value; }
-        }
+        public string PharmacyObtained { get; set; } = string.Empty;
 
-        public IFormFile Image
-        {
-            get { return image; }
-            set { image = value; }
-        }
+        public IFormFile Image { get; set; }
 
         [Required]
-        public bool TakeAsNeeded
-        {
-            get { return takeAsNeeded; }
-            set { takeAsNeeded = value; }
-        }
+        public bool TakeAsNeeded { get; set; }
 
         [Required]
-        public string SideEffects
-        {
-            get { return sideEffects; }
-            set { sideEffects = value; }
-        }
+        public string SideEffects { get; set; } = string.Empty;
 
         [Required]
-        public DateTime DateObtained
-        {
-            get { return dateObtained; }
-            set { dateObtained = value; }
-        }
+        public DateTime DateObtained { get; set; }
+
+        #endregion
+
+        //Used for returning images in byte form
+        public byte[] ImageBytes { get; set; } = null;
+
+        #region Constructors
 
         public Medication()
         {
 
         }
 
-        public Medication(Int64 id, Int64 din, Int64 personId, Int64 prescriptionId, string name, string dosage
+        public Medication(long id, long din, long personId, long prescriptionId, string name, string dosage
             , double strength, string units, string format, string instructions, int numRefills, double remainingpills
             , string pharmacyObtained, IFormFile image, bool takeAsNeeded, DateTime dateObtained, string sideEffects)
         {
@@ -163,5 +86,7 @@ namespace PillBoxWebAPI.Models
             DateObtained = dateObtained;
             SideEffects = sideEffects;
         }
+
+        #endregion
     }
 }

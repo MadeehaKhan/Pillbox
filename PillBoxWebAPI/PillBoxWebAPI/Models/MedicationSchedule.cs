@@ -1,73 +1,64 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PillBoxWebAPI.Models
 {
     public class MedicationSchedule
     {
-        private int id;
-        private int medicationId;
-        private DateTime startDate;
-        private int repeatNumber;
-        private string timeFrame;
-        private string repeatOn;
+        #region Public Properties
 
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
+        public long Id { get; set; }
 
         [Required]
-        public int MedicationId
-        {
-            get { return medicationId; }
-            set { medicationId = value; }
-        }
+        public long MedicationId { get; set; }
 
         [Required]
-        public DateTime StartDate
-        {
-            get { return startDate; }
-            set { startDate = value; }
-        }
+        public string Name { get; set; }
 
         [Required]
-        public int RepeatNumber
-        {
-            get { return repeatNumber; }
-            set { repeatNumber = value; }
-        }
+        public string MedInfo { get; set; }
 
         [Required]
-        public string TimeFrame
-        {
-            get { return timeFrame; }
-            set { timeFrame = value; }
-        }
+        public string Every { get; set; }
 
-        public string RepeatOn
-        {
-            get { return repeatOn ?? string.Empty; }
-            set { repeatOn = value; }
-        }
+        [Required]
+        public int Count { get; set; }
+
+        [Required]
+        public DateTime Date { get; set; }
+
+        [Required]
+        public int Hour { get; set; }
+
+        [Required]
+        public int Minute { get; set; }
+
+        [Required]
+        public bool Taken { get; set; }
+
+        #endregion
+
+        #region Constructors
 
         public MedicationSchedule()
         {
 
         }
 
-        public MedicationSchedule(int id, int medicationId, DateTime startDate, int repeatNumber, string timeFrame, string repeatOn)
+        public MedicationSchedule(long id, long medicationId, string name, string medInfo, string every, int count,  DateTime date, int hour, int minute, bool taken)
         {
             Id = id;
             MedicationId = medicationId;
-            StartDate = startDate;
-            RepeatNumber = repeatNumber;
-            TimeFrame = timeFrame;
-            RepeatOn = repeatOn;
+            Name = name;
+            MedInfo = medInfo;
+            Every = every;
+            Count = count;
+            Date = date;
+            Hour = hour;
+            Minute = minute;
+            Taken = taken;
         }
+        
+        #endregion
     }
 }

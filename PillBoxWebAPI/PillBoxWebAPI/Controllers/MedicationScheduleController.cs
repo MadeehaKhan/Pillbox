@@ -11,9 +11,14 @@ namespace PillBoxWebAPI.Controllers
     [ApiController]
     public class MedicationScheduleController : ControllerBase
     {
-        // GET: api/MedicationSchedule/GetMedicationSchedule/
+        /// <summary>
+        /// Get a medication schedule
+        /// GET: api/MedicationSchedule/GetMedicationSchedule/ 
+        /// </summary>
+        /// <param name="id">A long precision number.</param>
+        /// <returns>A medication schedule.</returns>
         [HttpGet("{id}")]
-        public ActionResult<MedicationSchedule> GetMedicationSchedule(int id)
+        public ActionResult<MedicationSchedule> GetMedicationSchedule(long id)
         {
             try
             {
@@ -28,12 +33,16 @@ namespace PillBoxWebAPI.Controllers
                 {
                     reader.Read();
                     var medicationSchedule = new MedicationSchedule(
-                        (int)reader["ID"],
-                        (int)reader["MEDICATIONID"],
-                        (DateTime)reader["STARTDATE"],
-                        (int)reader["REPEATNUMBER"],
-                        (string)reader["TIMEFRAME"],
-                        (string)reader["REPEATON"]
+                        (long)reader["ID"],
+                        (long)reader["MEDICATIONID"],
+                        (string)reader["NAME"],
+                        (string)reader["MEDINFO"],
+                        (string)reader["EVERY"],                    
+                        (int)reader["COUNT"],
+                        (DateTime)reader["DATE"],
+                        (int)reader["HOUR"],
+                        (int)reader["MINUTE"],
+                        (bool)reader["TAKEN"]
                         );
                     return medicationSchedule;
                 }
@@ -50,21 +59,30 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // POST: api/MedicationSchedule/GetMedicationSchedule/
+        /// <summary>
+        /// Create a medication schedule
+        /// POST: api/MedicationSchedule/GetMedicationSchedule/
+        /// </summary>
+        /// <param name="medicationSchedule">A MedicationSchedule object.</param>
+        /// <returns>Id of the medication schedule created.</returns>
         [HttpPost]
         public ActionResult<int> CreateMedicationSchedule([FromBody] MedicationSchedule medicationSchedule)
         {
             //TODO: If the timeframe is week, then repeat on should not be empty
             try
             {
-                var command = new SqlCommand("INSERT INTO MedicationSchedule (MEDICATIONID, STARTDATE, REPEATNUMBER, TIMEFRAME, REPEATON)" +
-                    "VALUES(@MEDICATIONID, @STARTDATE, @REPEATNUMBER, @TIMEFRAME, @REPEATON); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
+                var command = new SqlCommand("INSERT INTO MedicationSchedule (MEDICATIONID, NAME, MEDINFO, EVERY, COUNT, DATE, HOUR, MINUTE, TAKEN) " +
+                    "VALUES(@MEDICATIONID, @NAME, @MEDINFO, @EVERY, @COUNT, @DATE, @HOUR, @MINUTE, @TAKEN); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@MEDICATIONID", medicationSchedule.MedicationId);
-                command.Parameters.AddWithValue("@STARTDATE", medicationSchedule.StartDate);
-                command.Parameters.AddWithValue("@REPEATNUMBER", medicationSchedule.RepeatNumber);
-                command.Parameters.AddWithValue("@TIMEFRAME", medicationSchedule.TimeFrame);
-                command.Parameters.AddWithValue("@REPEATON", medicationSchedule.RepeatOn);
+                command.Parameters.AddWithValue("@NAME", medicationSchedule.Name);
+                command.Parameters.AddWithValue("@MEDINFO", medicationSchedule.MedInfo);
+                command.Parameters.AddWithValue("@EVERY", medicationSchedule.Every);
+                command.Parameters.AddWithValue("@COUNT", medicationSchedule.Count);
+                command.Parameters.AddWithValue("@DATE", medicationSchedule.Date);
+                command.Parameters.AddWithValue("@HOUR", medicationSchedule.Hour);
+                command.Parameters.AddWithValue("@MINUTE", medicationSchedule.Minute);
+                command.Parameters.AddWithValue("@TAKEN", medicationSchedule.Taken);
 
                 Connections.pillboxDatabase.Open();
 
@@ -82,22 +100,31 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // POST: api/MedicationSchedule/EditMedicationSchedule/
+        /// <summary>
+        /// Edit medication schedule
+        /// POST: api/MedicationSchedule/EditMedicationSchedule/
+        /// </summary>
+        /// <param name="medicationSchedule">A MedicationSchedule object.</param>
+        /// <returns>A success or fail message.</returns>
         [HttpPost]
         public ActionResult<string> EditMedicationSchedule([FromBody] MedicationSchedule medicationSchedule)
         {
             try
             {
-                var command = new SqlCommand("UPDATE MedicationSchedule SET MEDICATIONID=@MEDICATIONID, STARTDATE=@STARTDATE, REPEATNUMBER=@REPEATNUMBER " +
-                    ", TIMEFRAME=@TIMEFRAME, REPEATON=@REPEATON" +
+                var command = new SqlCommand("UPDATE MedicationSchedule SET MEDICATIONID=@MEDICATIONID, NAME=@NAME, MEDINFO=@MEDINFO, EVERY=@EVERY " +
+                    ", COUNT=@COUNT, DATE=@DATE, HOUR=@HOUR, MINUTE=@MINUTE, TAKEN=@TAKEN " +
                     "  WHERE ID=@ID", Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@ID", medicationSchedule.Id);
                 command.Parameters.AddWithValue("@MEDICATIONID", medicationSchedule.MedicationId);
-                command.Parameters.AddWithValue("@STARTDATE", medicationSchedule.StartDate);
-                command.Parameters.AddWithValue("@REPEATNUMBER", medicationSchedule.RepeatNumber);
-                command.Parameters.AddWithValue("@TIMEFRAME", medicationSchedule.TimeFrame);
-                command.Parameters.AddWithValue("@REPEATON", medicationSchedule.RepeatOn);
+                command.Parameters.AddWithValue("@NAME", medicationSchedule.Name);
+                command.Parameters.AddWithValue("@MEDINFO", medicationSchedule.MedInfo);
+                command.Parameters.AddWithValue("@EVERY", medicationSchedule.Every);
+                command.Parameters.AddWithValue("@COUNT", medicationSchedule.Count);
+                command.Parameters.AddWithValue("@DATE", medicationSchedule.Date);
+                command.Parameters.AddWithValue("@HOUR", medicationSchedule.Hour);
+                command.Parameters.AddWithValue("@MINUTE", medicationSchedule.Minute);
+                command.Parameters.AddWithValue("@TAKEN", medicationSchedule.Taken);
 
                 Connections.pillboxDatabase.Open();
 
@@ -115,9 +142,14 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // POST: api/MedicationSchedule/DeleteMedicationSchedule/id
+        /// <summary>
+        /// Delete a medication schedule
+        /// POST: api/MedicationSchedule/DeleteMedicationSchedule/id
+        /// </summary>
+        /// <param name="id">A long precision number.</param>
+        /// <returns>A success or fail message.</returns>
         [HttpPost("{id}")]
-        public ActionResult<string> DeleteMedicationSchedule(int id)
+        public ActionResult<string> DeleteMedicationSchedule(long id)
         {
             try
             {
@@ -141,7 +173,12 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // GET: api/MedicationSchedule/GetMedicationScheduleByMedication/medicationId
+        /// <summary>
+        /// Get medication schedules that belong to a specific medication
+        /// GET: api/MedicationSchedule/GetAllMedicatoinScheduleByDay/personId
+        /// </summary>
+        /// <param name="medicationId">A long precision number.</param>
+        /// <returns>A list medication schedule.</returns>       
         [HttpGet("{medicationId}")]
         public ActionResult<List<MedicationSchedule>> GetMedicationScheduleByMedication(int medicationId)
         {
@@ -159,12 +196,16 @@ namespace PillBoxWebAPI.Controllers
                 while (reader.Read())
                 {                    
                     var medicationSchedule = new MedicationSchedule(
-                        (int)reader["ID"],
-                        (int)reader["MEDICATIONID"],
-                        (DateTime)reader["STARTDATE"],
-                        (int)reader["REPEATNUMBER"],
-                        (string)reader["TIMEFRAME"],
-                        (string)reader["REPEATON"]
+                        (long)reader["ID"],
+                        (long)reader["MEDICATIONID"],
+                        (string)reader["NAME"],
+                        (string)reader["MEDINFO"],
+                        (string)reader["EVERY"],
+                        (int)reader["COUNT"],
+                        (DateTime)reader["DATE"],
+                        (int)reader["HOUR"],
+                        (int)reader["MINUTE"],
+                        (bool)reader["TAKEN"]
                         );
                     medSchedules.Add(medicationSchedule);
                 }
@@ -180,8 +221,69 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        //TODO: Not implemented yet
-        // GET: api/MedicationSchedule/PushNotification/
+        /// <summary>
+        /// Get medication schedules that belong to a specific medication
+        /// GET: api/MedicationSchedule/GetAllMedicatoinScheduleByDay/personId
+        /// </summary>
+        /// <param name="personId">A long precision number.</param>
+        /// <param name="personId">A DateTime object.</param>
+        /// <returns>A list medication schedule.</returns>       
+        [HttpGet("{personId}")]
+        public ActionResult<List<MedicationSchedule>> GetAllMedicatoinScheduleByDay(long personId, DateTime? day = null)
+        {
+            if (day == null) day = DateTime.Now;
+
+            try
+            {
+                var command = new SqlCommand("SELECT * " +
+                                        "FROM MedicationSchedule WHERE 1 = 1 " +
+                                        "AND CAST([Date] AS Date) = CAST(@day AS Date) " +
+                                        "AND medicationId IN " +
+                                        "   (SELECT DISTINCT med.id FROM Medication AS med WHERE personId=@personId)", Connections.pillboxDatabase);
+                command.Parameters.AddWithValue("@day", day);
+                command.Parameters.AddWithValue("@personId", personId);
+
+                Connections.pillboxDatabase.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                var medSchedules = new List<MedicationSchedule>();
+
+                while (reader.Read())
+                {
+                    var medicationSchedule = new MedicationSchedule(
+                        (long)reader["ID"],
+                        (long)reader["MEDICATIONID"],
+                        (string)reader["NAME"],
+                        (string)reader["MEDINFO"],
+                        (string)reader["EVERY"],
+                        (int)reader["COUNT"],
+                        (DateTime)reader["DATE"],
+                        (int)reader["HOUR"],
+                        (int)reader["MINUTE"],
+                        (bool)reader["TAKEN"]
+                        ); 
+                    medSchedules.Add(medicationSchedule);
+                }
+                return medSchedules;
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"GetAllMedicatoinScheduleByDay({personId},{day}) method. \n::::\n" + ex.ToString());
+            }
+            finally
+            {
+                Connections.pillboxDatabase.Close();
+            }
+        }
+
+        /// <summary>
+        /// TODO: Not implemented yet 
+        /// GET: api/MedicationSchedule/PushNotification/
+        /// </summary>
+        /// <param name="">A long precision number.</param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult<List<MedicationSchedule>> PushNotification()
         {

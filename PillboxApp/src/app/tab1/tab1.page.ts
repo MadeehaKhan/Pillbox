@@ -5,37 +5,40 @@ import { Observable } from 'rxjs';
 import { MedicationService } from '../services/medication.service';
 import { Storage } from '@ionic/storage';
 import { Person } from '../models/Person';
-import { ToastController } from '@ionic/angular';
+import { ToastController, ActionSheetController } from '@ionic/angular';
 import { MedTrigger } from '../models/MedTrigger';
 import { StorageService } from '../services/storage.service';
-
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
+
 export class Tab1Page {
   today = Date.now();
   isLoggedIn = this.storage.get("isLoggedIn");
   meds: MedTrigger[] = [];
-
   user: Person = new Person();
-  constructor(private router: Router,  public http: HttpClient, private medicationService: MedicationService, 
-    private storage: Storage, private toastController: ToastController, private storageService: StorageService) {
-  
-  }
 
+  constructor(private router: Router,  public http: HttpClient, private medicationService: MedicationService, 
+    private storage: Storage, private toastController: ToastController, private storageService: StorageService,
+    public actionSheetController: ActionSheetController) { 
+      console.log('tab1 ctor');  
+      // this.medicationService.user.subscribe(data => this.user = data);
+      
+      this.storage.get('user').then(val => this.user = val).then(() => {
+        this.populateMedicationLists()
+      }); 
+  }
 
   buttonClick(){
     alert("Details!");
   }
 
   ngOnInit() {
-    this.storage.get('user').then(val => this.user = val).then(() => {
-      this.populateMedicationLists()
-    });
-    
+    console.log('tab1 ngOnInit');
+   
   }
 
   public drugsList: any[];//Medication[];
@@ -50,22 +53,49 @@ export class Tab1Page {
   // ];
  
   public populateMedicationLists(){
-    console.log('My result: ');
-    var user_id: String = this.user.id.toString();
-    this.medicationService.getMedicationsByPerson(user_id).subscribe(
-      res => {
-        console.log(res)
-        this.drugsList = res.map(drug => drug); 
-        this.drugsList.forEach(drug => {
-        drug.isChecked = false;
-        console.log(drug);
-        //call a get for the prescription info
-        console.log("this is the id" + drug["id"]);
-        });
 
-        let arr = new Array(1,2,4)
-        console.log('Type: ', typeof(arr));    
-      });
+    console.log('Med Notifications');
+    var dt = new Date( "2019-03-26T01:01:10" );
+    this.medicationService.getMedNotificationsByPerson(this.user.id, dt).subscribe(
+      response => {
+        console.log(response);
+        this.drugsList = [];
+        this.takenDrugsList = [];
+        this.drugsList = response.map(drug => drug);
+        this.drugsList.forEach(drug => {
+          if (drug.taken){
+            drug.isChecked = true;
+          }else{
+            drug.isChecked = false;
+          }
+          drug.showAlert = false;
+        });
+        
+        this.updateDrugLists();
+        this.checkAlert();
+      }
+    )
+    
+    // medNotifs.forEach(medNotif => {
+    //   console.log('Notif: ' + medNotif.id + ' , ' + medNotif.name);
+    // });
+
+    // console.log('My result: ');
+    // var user_id: String = this.user.id.toString();
+    // this.medicationService.getMedicationsByPerson(user_id).subscribe(
+    //   res => {
+    //     console.log(res)
+    //     this.drugsList = res.map(drug => drug); 
+    //     this.drugsList.forEach(drug => {
+    //     drug.isChecked = false;
+    //     console.log(drug);
+    //     //call a get for the prescription info
+    //     console.log("this is the id" + drug["id"]);
+    //     });
+
+    //     let arr = new Array(1,2,4)
+    //     console.log('Type: ', typeof(arr));    
+    //   });
       
   }
 
@@ -80,15 +110,24 @@ export class Tab1Page {
     var allDrugs = this.takenDrugsList.concat(this.drugsList);
     this.takenDrugsList = allDrugs.filter(drug => drug.isChecked);
     this.drugsList = allDrugs.filter(drug => !drug.isChecked); 
-    
-  }
 
+    this.drugsList.sort((a,b) => {
+      if ((a.hour > b.hour) || (a.hour == b.hour && a.minute > b.minute) ) return 1;
+      else return -1;
+    });
+
+    this.takenDrugsList.sort((a,b) => {
+      if ((a.hour > b.hour) || (a.hour == b.hour && a.minute > b.minute) ) return 1; 
+      else return -1;
+    });       
+  }
+  
   public addMedication() {
     this.router.navigateByUrl('/medication');
   }
 
   public goToMedication(entry) {
-     this.router.navigateByUrl('/med-view/' + entry['id']);
+     this.router.navigateByUrl('/med-view/' + entry['medicationId']);
   }
 
   public testnotifications(){
@@ -121,6 +160,82 @@ export class Tab1Page {
     this.storage.set('user', null);
     this.isLoggedIn = this.storage.get("isLoggedIn");   //for the view
     this.router.navigateByUrl('/register');
+  }
+
+  public checkAlert(){
+    // this.today = Date.now();
+    let now = new Date();
+    let hour = now.getHours();
+    let minute = now.getMinutes(); 
+    console.log('checkAlert()- '+ hour + ':' + minute);
+
+    this.drugsList.forEach((drug)=>{
+      if ((drug.hour < hour ) || (drug.hour == hour && drug.minute < minute)){
+        drug.showAlert = true;
+      }
+    });    
+    //Call itself every 5 seconds
+    setTimeout(()=>{this.checkAlert()}, 30000);
+  }
+
+  async presentActionSheet(entry) {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Albums',
+      buttons: [ {
+        text: 'Take',
+        icon: 'checkmark-circle',
+        handler: () => {
+          console.log('Take clicked');
+          entry.isChecked = true;
+          this.updateDrugLists();
+        }
+      }, {
+        text: 'View Medication',
+        icon: 'eye',
+        handler: () => {
+          console.log('View Medication clicked');
+          this.goToMedication(entry);
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  async presentTakenActionSheet(entry) {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Albums',
+      buttons: [ {
+        text: 'Undo',
+        icon: 'undo',
+        handler: () => {
+          console.log('Undo clicked');
+          entry.isChecked = false;
+          this.updateDrugLists();
+        }
+      }, {
+        text: 'View Medication',
+        icon: 'eye',
+        handler: () => {
+          console.log('View Medication clicked');
+          this.goToMedication(entry);
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
   }
 
 }

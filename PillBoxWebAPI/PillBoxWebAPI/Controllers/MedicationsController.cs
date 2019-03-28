@@ -19,7 +19,12 @@ namespace PillBoxWebAPI.Controllers
     [ApiController]
     public class MedicationsController : ControllerBase
     {
-        // GET: api/Medications/GetMedication/id
+        /// <summary>
+        /// Get a medication
+        /// GET: api/Medications/GetMedication/id
+        /// </summary>
+        /// <param name="id">A long precision number.</param>
+        /// <returns>A medicatino object.</returns>
         [HttpGet("{id}")]
         public ActionResult<Medication> GetMedication(long id)
         {
@@ -35,6 +40,9 @@ namespace PillBoxWebAPI.Controllers
                 if (reader.HasRows)
                 {
                     reader.Read();
+                    var temp = reader["IMAGE"].ToString();
+                    var imageBytes = temp != string.Empty ? (byte[])reader["IMAGE"] : null ;
+                    
                     var medication = new Medication(
                         (long)reader["ID"],
                         (long)reader["DIN"],
@@ -54,6 +62,7 @@ namespace PillBoxWebAPI.Controllers
                         (DateTime)reader["DATEOBTAINED"],
                         (string)reader["SIDEEFFECTS"]
                         );
+                    medication.ImageBytes = imageBytes;
                     return medication;
                 }
 
@@ -69,7 +78,12 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // POST: api/Medications/CreateMedication
+        /// <summary>
+        /// Create a medication
+        /// POST: api/Medications/CreateMedication
+        /// </summary>
+        /// <param name="medication">A Medication object.</param>
+        /// <returns>Id of the medication created.</returns>
         [HttpPost]
         public ActionResult<int> CreateMedication([FromBody] Medication medication)
         {
@@ -112,7 +126,71 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // POST: api/Medications/EditMedication
+        /// <summary>
+        /// Create a medication
+        /// POST: api/Medications/CreateMedicationWithImage
+        /// </summary>
+        /// <param name="medication">A Medication object.</param>
+        /// <returns>Id of the medication created.</returns>
+        [HttpPost]
+        public ActionResult<int> CreateMedicationWithImage([FromForm] Medication medication)
+        {
+            try
+            {
+                var command = new SqlCommand("INSERT INTO Medication (DIN, PERSONID, PRESCRIPTIONID, [NAME]" +
+                    ", DOSAGE, STRENGTH, UNITS, FORMAT, INSTRUCTIONS, NUMREFILLS, REMAININGPILLS, PHARMACYOBTAINED,[IMAGE], TAKEASNEEDED, SIDEEFFECTS, DATEOBTAINED)" +
+                    "VALUES(@DIN, @PERSONID, @PRESCRIPTIONID, @NAME, @DOSAGE, @STRENGTH, @UNITS, @FORMAT, @INSTRUCTIONS, @NUMREFILLS, @REMAININGPILLS, @PHARMACYOBTAINED," +
+                    " @IMAGE, @TAKEASNEEDED, @SIDEEFFECTS, @DATEOBTAINED); SELECT SCOPE_IDENTITY()", Connections.pillboxDatabase);
+
+                byte[] imageBytes;
+
+                using (var ms = new MemoryStream())
+                {
+                    medication.Image.CopyTo(ms);
+                    imageBytes = ms.ToArray();
+                    //string s = Convert.ToBase64String(fileBytes);
+                    // act on the Base64 data
+                }
+
+                command.Parameters.AddWithValue("@DIN", medication.DIN);
+                command.Parameters.AddWithValue("@PERSONID", medication.PersonId);
+                command.Parameters.AddWithValue("@PRESCRIPTIONID", medication.PrescriptionId);
+                command.Parameters.AddWithValue("@NAME", medication.Name);
+                command.Parameters.AddWithValue("@DOSAGE", medication.Dosage);
+                command.Parameters.AddWithValue("@STRENGTH", medication.Strength);
+                command.Parameters.AddWithValue("@UNITS", medication.Units);
+                command.Parameters.AddWithValue("@FORMAT", medication.Format);
+                command.Parameters.AddWithValue("@INSTRUCTIONS", medication.Instructions);
+                command.Parameters.AddWithValue("@NUMREFILLS", medication.NumRefills);
+                command.Parameters.AddWithValue("@REMAININGPILLS", medication.RemainingPills);
+                command.Parameters.AddWithValue("@PHARMACYOBTAINED", medication.PharmacyObtained);
+                command.Parameters.AddWithValue("@TAKEASNEEDED", medication.TakeAsNeeded);
+                command.Parameters.AddWithValue("@IMAGE", medication.Image != null ? imageBytes : null);
+                command.Parameters.AddWithValue("@SIDEEFFECTS", medication.SideEffects);
+                command.Parameters.AddWithValue("@DATEOBTAINED", medication.DateObtained);
+
+                Connections.pillboxDatabase.Open();
+
+                var medicationId = Convert.ToInt32(command.ExecuteScalar());
+
+                return Ok(medicationId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"CreateMedication() error \n {ex.ToString()}");
+            }
+            finally
+            {
+                Connections.pillboxDatabase.Close();
+            }
+        }
+
+        /// <summary>
+        /// Edit a medication
+        /// POST: api/Medications/EditMedication
+        /// </summary>
+        /// <param name="medication">A Medication object.</param>
+        /// <returns>A success or fail message.</returns>
         [HttpPost]
         public ActionResult<string> EditMedication([FromBody] Medication medication)
         {
@@ -156,7 +234,12 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // POST: api/Medications/DeleteMedication/id
+        /// <summary>
+        /// Delete a medication
+        /// POST: api/Medications/DeleteMedication/id
+        /// </summary>
+        /// <param name="id">A long precision number.</param>
+        /// <returns>A success or fail message.</returns>
         [HttpPost("{id}")]
         public ActionResult<string> DeleteMedication(long id)
         {
@@ -182,7 +265,12 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // GET: api/Medications/GetMedicationByPerson/personId
+        /// <summary>
+        /// Get medications that belong to a specific user
+        /// GET: api/Medications/GetMedicationByPerson/personId
+        /// </summary>
+        /// <param name="personId">A long precision number.</param>
+        /// <returns>A list of medication.</returns>
         [HttpGet("{personid}")]
         public ActionResult<List<Medication>> GetMedicationByPerson(long personId)
         {
@@ -233,7 +321,12 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // GET: api/Medications/GetMedicationByPrescriptionId/prescriptionId
+        /// <summary>
+        /// Get medications that belong to a specific prescription
+        /// GET: api/Medications/GetMedicationByPrescriptionId/prescriptionId
+        /// </summary>
+        /// <param name="prescriptionId">A long precision number.</param>
+        /// <returns>A list of medication.</returns>
         [HttpGet("{prescriptionId}")]
         public ActionResult<List<Medication>> GetMedicationByPrescriptionId(long prescriptionId)
         {
@@ -284,7 +377,12 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // GET: api/Medications/GetPrescription/id
+        /// <summary>
+        /// Get a prescription
+        /// GET: api/Medications/GetPrescription/id
+        /// </summary>
+        /// <param name="id">A long precision number.</param>
+        /// <returns>A prescription.</returns>
         [HttpGet("{id}")]
         public ActionResult<Prescription> GetPrescription(long id)
         {
@@ -322,7 +420,12 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // POST: api/Medications/CreatePrescription/
+        /// <summary>
+        /// Create a prescription
+        /// POST: api/Medications/CreatePrescription/
+        /// </summary>
+        /// <param name="prescription">A Prescription object.</param>
+        /// <returns>Id of the prescription created.</returns>
         [HttpPost]
         public ActionResult<int> CreatePrescription([FromBody] Prescription prescription)
         {
@@ -352,7 +455,12 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // POST: api/Medications/EditPrescription/
+        /// <summary>
+        /// Edit a prescription
+        /// POST: api/Medications/EditPrescription/
+        /// </summary>
+        /// <param name="prescription">A Prescription object.</param>
+        /// <returns>A success or fail message.</returns>
         [HttpPost]
         public ActionResult<string> EditPrescription([FromBody] Prescription prescription)
         {
@@ -382,7 +490,12 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // POST: api/Medications/DeletePrescription/id
+        /// <summary>
+        /// Delete a prescription
+        /// POST: api/Medications/DeletePrescription/id
+        /// </summary>
+        /// <param name="id">A long precision number.</param>
+        /// <returns>A success or fail message.</returns>
         [HttpPost("{id}")]
         public ActionResult<string> DeletePrescription(long id)
         {
@@ -408,7 +521,12 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // GET: api/Medications/GetPrescriptionByPerson/personId
+        /// <summary>
+        /// Get prescription that belong to a specific user
+        /// GET: api/Medications/GetPrescriptionByPerson/personId 
+        /// </summary>
+        /// <param name="personId">A long precision number.</param>
+        /// <returns>A list of prescription.</returns>
         [HttpGet("{personid}")]
         public ActionResult<List<Prescription>> GetPrescriptionByPerson(long personId)
         {
@@ -447,8 +565,14 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Get a medication and prescription given a prescription slip image
+        /// GET: api/Medications/GetPrescriptionByPerson/file
+        /// </summary>
+        /// <param name="file">A prescription slip image as a byte array.</param>
+        /// <returns>A medication and prescription object. Along with other response values.</returns>
         [HttpPost]
-        public async Task<ActionResult<JsonResult>> Medicationocr(IFormFile file)
+        public async Task<ActionResult<JsonResult>> MedicationOcr(IFormFile file)
         {
             byte[] imageBytes;
 
@@ -492,6 +616,8 @@ namespace PillBoxWebAPI.Controllers
             return result;
         }
         
+        // Helper function for MedicationOcr
+        // Parses data recieved from the Microsoft Vision API
         private Dictionary<string, object> ProcessImage(JsonValue imageJson)
         {
             var medication = new Medication();
@@ -613,28 +739,7 @@ namespace PillBoxWebAPI.Controllers
             return dict;
         }
 
-        private bool LineContains(JsonValue words, string contains)
-        {
-            var result = false;
-
-            for (int k = 0; k < words.Count; k++)
-            {
-                //if (words[k].ContainsKey("text"))
-                //{
-                    var word = words[k];
-                    var text = words[k]["text"].ToString();
-                    text = text.Replace("\"", " ").Replace("\\", " ").Trim();
-                    if (string.Equals(text, contains, StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        result = true;
-                        break;
-                    }
-                //}
-            }
-
-            return result;
-        }
-
+        // Create a line given a set of words
         private string GetLine(JsonValue words)
         {
             var result = string.Empty;
