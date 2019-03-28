@@ -52,9 +52,8 @@ export class LoginPage implements OnInit {
       if (response == true){
         this.storage.set('isLoggedIn', true);
         this.failedMsg = "";
-        this.getPersonInfo(email, password);
         ngForm.reset();
-        this.router.navigateByUrl('/tabs/tab1');
+        this.getPersonInfo(email, password, true);
       }else{
         this.failedMsg = "Incorrect Email and/or Password. Please try again.";
       }
@@ -69,7 +68,7 @@ export class LoginPage implements OnInit {
     this.router.navigateByUrl('/register');
   }
 
-  getPersonInfo(email: string, password: string){
+  getPersonInfo(email: string, password: string, goToTab1 = false){
     let url = "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/getperson/";
 
     this.http.get<Person>(url, {
@@ -83,11 +82,8 @@ export class LoginPage implements OnInit {
       user = response;
       user.password = password;
       console.log(user);
-
-      this.storage.set('user', user);
-
       this.medicationService.setPerson(user);
-
+      this.storage.set('user', user);
       //How to get the user data
       //let testUser = new Person();
       // this.storage.get('user')
@@ -97,6 +93,12 @@ export class LoginPage implements OnInit {
       //   console.log(testUser.email);
       //   console.log(testUser.givenName + ' ' + testUser.lastName);
       // });
+    }).then(() =>{
+      console.log('After person has been set')
+      if (goToTab1){
+        console.log('Go to tab1');
+        this.router.navigateByUrl('/tabs/tab1');
+      }
     })
   }
 }

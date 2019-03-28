@@ -19,23 +19,25 @@ export class Tab1Page {
   today = Date.now();
   isLoggedIn = this.storage.get("isLoggedIn");
   meds: MedTrigger[] = [];
-
   user: Person = new Person();
-  constructor(private router: Router,  public http: HttpClient, private medicationService: MedicationService, 
-    private storage: Storage, private toastController: ToastController, private storageService: StorageService) {
-  
-  }
 
+  constructor(private router: Router,  public http: HttpClient, private medicationService: MedicationService, 
+    private storage: Storage, private toastController: ToastController, private storageService: StorageService) { 
+      console.log('tab1 ctor');  
+      // this.medicationService.user.subscribe(data => this.user = data);
+      
+      this.storage.get('user').then(val => this.user = val).then(() => {
+        this.populateMedicationLists()
+      }); 
+  }
 
   buttonClick(){
     alert("Details!");
   }
 
   ngOnInit() {
-    this.storage.get('user').then(val => this.user = val).then(() => {
-      this.populateMedicationLists()
-    });
-    
+    console.log('tab1 ngOnInit');
+   
   }
 
   public drugsList: any[];//Medication[];

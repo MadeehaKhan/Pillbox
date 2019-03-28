@@ -80,6 +80,10 @@
     <div id="centerButton">
         <ion-button (click)="toastMedTrig()"> Toast Medication Triggers </ion-button>
     </div>
+
+    <div id="centerButton">
+      <ion-button (click)="populateMedicationLists()"> Refresh </ion-button>
+    </div>
    
     <ion-item *ngFor="let item of meds">
       <ion-label text-wrap>

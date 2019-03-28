@@ -41,5 +41,6 @@ export class MedicationService {
 
   setPerson(person: Person){
     this.userSource.next(person);
+    //console.log('setPerson()' + person);
   }
 }
