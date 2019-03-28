@@ -1,22 +1,22 @@
 <ion-header >
   <ion-toolbar>
-    <ion-title id="myImage_Header">
-    </ion-title>
-    <ion-buttons>
-        <ion-back-button defaultHref="/register" color="primary"  routerDirection="back"></ion-back-button>
-    </ion-buttons>
+	<ion-title id="myImage_Header">
+	</ion-title>
+	<ion-buttons>
+		<ion-back-button defaultHref="/register" color="primary"  routerDirection="back"></ion-back-button>
+	</ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 <ion-grid>
 	<ion-row justify-content-center>
-	    <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-	    	<div text-center>
-	        <h4>Enter the following information for your medication</h4>
+		<ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+			<div text-center>
+			<h4>Enter the following information for your medication</h4>
 
-	      	</div>
-	      	<div padding>
+		  	</div>
+		  	<div padding>
 				<form id="addMed" #form="ngForm" (ngSubmit)="addMed(form)">
 					<ion-item> 
 						<ion-label position="floating"> Name* </ion-label>
@@ -28,16 +28,16 @@
 						<ion-radio-group ngModel name='units'>
 							<ion-item>
 								<ion-label>mg</ion-label>
-			      				<ion-radio slot="start" [(ngModel)]="units" value="mg" name="mg"></ion-radio>
-			      			</ion-item>
-			      			<ion-item>
-			      				<ion-label>IU</ion-label>
-			      				<ion-radio slot="start" [(ngModel)]="units" value="iu" name="iu"></ion-radio>
-			      			</ion-item>
-			      			<ion-item>
+				  				<ion-radio slot="start" [(ngModel)]="units" value="mg" name="mg"></ion-radio>
+				  			</ion-item>
+				  			<ion-item>
+				  				<ion-label>IU</ion-label>
+				  				<ion-radio slot="start" [(ngModel)]="units" value="iu" name="iu"></ion-radio>
+				  			</ion-item>
+				  			<ion-item>
 								<ion-label>mL</ion-label>
-			      				<ion-radio slot="start" [(ngModel)]="units" value="mL" name="mL"></ion-radio>
-			      			</ion-item>
+				  				<ion-radio slot="start" [(ngModel)]="units" value="mL" name="mL"></ion-radio>
+				  			</ion-item>
 						</ion-radio-group>
 					</ion-item>
 					<ion-item>
@@ -88,7 +88,7 @@
 			</div>
 			
 			<ion-footer>
-    			<ion-button expand="full" color="primary" (click)="adding(form)">Done!</ion-button>
+				<ion-button expand="full" color="primary" (click)="adding(form)">Done!</ion-button>
 
 			</ion-footer>
 		</ion-col>

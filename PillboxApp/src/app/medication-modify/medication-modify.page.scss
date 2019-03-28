@@ -1,46 +1,46 @@
 app-signin {
-    
+	
 }
 
 $white-color: #fff;
 $height100: 100%;
 
 ion-grid {
-    width:100%;
-    background: #dfdfdf;
+	width:100%;
+	background: #dfdfdf;
 
 }
 
 ion-row {
-    height: $height100;
-    background: $white-color;
+	height: $height100;
+	background: $white-color;
 
 }
 
 ion-col {
-    background: $white-color;
+	background: $white-color;
 
 }
 
 ion-button {
-    font-weight: 300;
+	font-weight: 300;
 }
 
 #backButton{
-    padding-left: 6px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    display:inline-block;
-    color: #3880FF;
+	padding-left: 6px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	display:inline-block;
+	color: #3880FF;
 }
 
 @media (min-width: 240px) and (max-width: 768px) {
-    ion-grid {
-        background: $white-color;
-    }
-    ion-col {
-        border: none;
-    }
+	ion-grid {
+		background: $white-color;
+	}
+	ion-col {
+		border: none;
+	}
 }
 
 .welcome-card ion-img {
