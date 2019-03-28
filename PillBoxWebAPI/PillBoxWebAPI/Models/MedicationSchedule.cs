@@ -1,93 +1,44 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PillBoxWebAPI.Models
 {
     public class MedicationSchedule
     {
-        private long id;
-        private long medicationId;
-        private string name;
-        private string medInfo;
-        private string every;
-        private int count;
-        private DateTime date;
-        private int hour;
-        private int minute;
-        private bool taken;
+        #region Public Properties
 
-
-        public long Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
+        public long Id { get; set; }
 
         [Required]
-        public long MedicationId
-        {
-            get { return medicationId; }
-            set { medicationId = value; }
-        }
+        public long MedicationId { get; set; }
 
         [Required]
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
+        public string Name { get; set; }
 
         [Required]
-        public string MedInfo
-        {
-            get { return medInfo; }
-            set { medInfo = value; }
-        }
+        public string MedInfo { get; set; }
 
         [Required]
-        public string Every
-        {
-            get { return every; }
-            set { every = value; }
-        }
+        public string Every { get; set; }
 
         [Required]
-        public int Count
-        {
-            get { return count; }
-            set { count = value; }
-        }
+        public int Count { get; set; }
 
         [Required]
-        public DateTime Date
-        {
-            get { return date; }
-            set { date = value; }
-        }
+        public DateTime Date { get; set; }
 
         [Required]
-        public int Hour
-        {
-            get { return hour; }
-            set { hour = value; }
-        }
+        public int Hour { get; set; }
 
         [Required]
-        public int Minute
-        {
-            get { return minute; }
-            set { minute = value; }
-        }
+        public int Minute { get; set; }
 
         [Required]
-        public bool Taken
-        {
-            get { return taken; }
-            set { taken = value; }
-        }
+        public bool Taken { get; set; }
+
+        #endregion
+
+        #region Constructors
 
         public MedicationSchedule()
         {
@@ -107,5 +58,7 @@ namespace PillBoxWebAPI.Models
             Minute = minute;
             Taken = taken;
         }
+        
+        #endregion
     }
 }

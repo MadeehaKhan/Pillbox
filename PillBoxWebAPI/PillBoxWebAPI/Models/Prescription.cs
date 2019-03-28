@@ -1,51 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PillBoxWebAPI.Models
 {
     public class Prescription
     {
-        private Int64 id;
-        private Int64 personId;
-        private Int64 rx;
-        private string doctor = string.Empty;
-        private DateTime dateObtained;
+        #region Public Properties
 
-        public Int64 Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
+        public long Id { get; set; }
 
         [Required]
-        public Int64 PersonId
-        {
-            get { return personId; }
-            set { personId = value; }
-        }
+        public long PersonId { get; set; }
 
         [Required]
-        public Int64 Rx
-        {
-            get { return rx; }
-            set { rx = value; }
-        }
+        public long Rx { get; set; }
 
         [Required]
-        public string Doctor
-        {
-            get { return doctor; }
-            set { doctor = value; }
-        }
+        public string Doctor { get; set; } = string.Empty;
 
-        public DateTime DateObtained
-        {
-            get { return dateObtained; }
-            set { dateObtained = value; }
-        }
+        public DateTime DateObtained { get; set; }
+
+        #endregion
+
+        #region Constructors
 
         public Prescription()
         {
@@ -60,5 +37,7 @@ namespace PillBoxWebAPI.Models
             Doctor = doctor;
             DateObtained = dateObtained;
         }
+
+        #endregion
     }
 }

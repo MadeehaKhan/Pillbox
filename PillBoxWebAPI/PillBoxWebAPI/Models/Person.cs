@@ -6,128 +6,53 @@ namespace PillBoxWebAPI.Models
 {
     public class Person
     {
-        private Int64 id;
-        private string givenName = string.Empty;
-        private string lastName = string.Empty;
-        private DateTime dateOfBirth;
-        private string email = string.Empty;
-        private byte[] password;
-        private string passwordString = string.Empty;
-        private Guid salt;
-        private Int64 phoneNumber;
-        private string emergencyContact1 = string.Empty;
-        private string emergencyContact2 = string.Empty;
-        private string healthConditions = string.Empty;
-        private string primaryPhysician = string.Empty;
-        private List<Medication> medicationList;
-        private List<string> prescriptionList;
-        private bool isCaregiver;
+        #region Public Properties
 
-        public Int64 Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
+        public long Id { get; set; }
 
         [Required]
-        public string GivenName
-        {
-            get { return givenName; }
-            set { givenName = value; }
-        }
+        public string GivenName { get; set; } = string.Empty;
 
         [Required]
-        public string LastName
-        {
-            get { return lastName; }
-            set { lastName = value; }
-        }
+        public string LastName { get; set; } = string.Empty;
 
-        public DateTime DateOfBirth
-        {
-            get { return dateOfBirth; }
-            set { dateOfBirth = value; }
-        }
+        public DateTime DateOfBirth { get; set; }
 
         [Required]
-        public string Email
-        {
-            get { return email; }
-            set { email = value; }
-        }
+        public string Email { get; set; } = string.Empty;
 
-        public byte[] Password
-        {
-            get { return password; }
-            set { password = value; }
-        }
+        public byte[] Password { get; set; }
 
-        public string PasswordString
-        {
-            get { return passwordString; }
-            set { passwordString = value; }
-        }
+        public string PasswordString { get; set; } = string.Empty;
 
-        public Guid Salt
-        {
-            get { return salt; }
-            set { salt = value; }
-        }
+        public Guid Salt { get; set; }
 
-        public Int64 PhoneNumber
-        {
-            get { return phoneNumber; }
-            set { phoneNumber = value; }
-        }
+        public long PhoneNumber { get; set; }
 
-        public string EmergencyContact1
-        {
-            get { return emergencyContact1; }
-            set { emergencyContact1 = value; }
-        }
+        public string EmergencyContact1 { get; set; } = string.Empty;
 
-        public string EmergencyContact2
-        {
-            get { return emergencyContact2; }
-            set { emergencyContact2 = value; }
-        }
+        public string EmergencyContact2 { get; set; } = string.Empty;
 
-        public string HealthConditions
-        {
-            get { return healthConditions; }
-            set { healthConditions = value; }
-        }
+        public string HealthConditions { get; set; } = string.Empty;
 
-        public string PrimaryPhysician
-        {
-            get { return primaryPhysician; }
-            set { primaryPhysician = value; }
-        }
+        public string PrimaryPhysician { get; set; } = string.Empty;
 
-        public List<Medication> MedicationList
-        {
-            get { return medicationList; }
-            set { medicationList = value; }
-        }
+        public List<Medication> MedicationList { get; set; }
 
-        public List<string> PrescriptionList
-        {
-            get { return prescriptionList; }
-            set { prescriptionList = value; }
-        }
+        public List<string> PrescriptionList { get; set; }
 
-        public bool IsCaregiver
-        {
-            get { return isCaregiver; }
-            set { isCaregiver = value; }
-        }
+        public bool IsCaregiver { get; set; }
+
+        #endregion
+
+        #region Constructors
 
         public Person()
         {
 
         }
 
-        public Person(Int64 id, string givenName, string lastName, DateTime dateOfBirth, string email, Int64 phoneNumber
+        public Person(long id, string givenName, string lastName, DateTime dateOfBirth, string email, long phoneNumber
             , string emergencyContact1, string emergencyContact2, string healthConditions, string primaryPhysician, bool isCaregiver)
         {
             Id = id;
@@ -135,16 +60,18 @@ namespace PillBoxWebAPI.Models
             LastName = lastName;
             DateOfBirth = dateOfBirth;
             Email = email;
-            Password = password;
-            Salt = salt;
+            Password = Password;
+            Salt = Salt;
             PhoneNumber = phoneNumber;
             EmergencyContact1 = emergencyContact1;
             EmergencyContact2 = emergencyContact2;
             HealthConditions = healthConditions;
             PrimaryPhysician = primaryPhysician;
-            MedicationList = medicationList;
-            PrescriptionList = prescriptionList;
+            MedicationList = MedicationList;
+            PrescriptionList = PrescriptionList;
             IsCaregiver = isCaregiver;
         }
+
+        #endregion
     }
 }

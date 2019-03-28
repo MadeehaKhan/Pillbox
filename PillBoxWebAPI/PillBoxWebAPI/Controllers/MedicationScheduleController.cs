@@ -11,7 +11,12 @@ namespace PillBoxWebAPI.Controllers
     [ApiController]
     public class MedicationScheduleController : ControllerBase
     {
-        // GET: api/MedicationSchedule/GetMedicationSchedule/
+        /// <summary>
+        /// Get a medication schedule
+        /// GET: api/MedicationSchedule/GetMedicationSchedule/ 
+        /// </summary>
+        /// <param name="id">A long precision number.</param>
+        /// <returns>A medication schedule.</returns>
         [HttpGet("{id}")]
         public ActionResult<MedicationSchedule> GetMedicationSchedule(long id)
         {
@@ -54,7 +59,12 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // POST: api/MedicationSchedule/GetMedicationSchedule/
+        /// <summary>
+        /// Create a medication schedule
+        /// POST: api/MedicationSchedule/GetMedicationSchedule/
+        /// </summary>
+        /// <param name="medicationSchedule">A MedicationSchedule object.</param>
+        /// <returns>Id of the medication schedule created.</returns>
         [HttpPost]
         public ActionResult<int> CreateMedicationSchedule([FromBody] MedicationSchedule medicationSchedule)
         {
@@ -89,7 +99,12 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // POST: api/MedicationSchedule/EditMedicationSchedule/
+        /// <summary>
+        /// Edit medication schedule
+        /// POST: api/MedicationSchedule/EditMedicationSchedule/
+        /// </summary>
+        /// <param name="medicationSchedule">A MedicationSchedule object.</param>
+        /// <returns>A success or fail message.</returns>
         [HttpPost]
         public ActionResult<string> EditMedicationSchedule([FromBody] MedicationSchedule medicationSchedule)
         {
@@ -125,7 +140,12 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // POST: api/MedicationSchedule/DeleteMedicationSchedule/id
+        /// <summary>
+        /// Delete a medication schedule
+        /// POST: api/MedicationSchedule/DeleteMedicationSchedule/id
+        /// </summary>
+        /// <param name="id">A long precision number.</param>
+        /// <returns>A success or fail message.</returns>
         [HttpPost("{id}")]
         public ActionResult<string> DeleteMedicationSchedule(long id)
         {
@@ -151,7 +171,12 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        // GET: api/MedicationSchedule/GetMedicationScheduleByMedication/medicationId
+        /// <summary>
+        /// Get medication schedules that belong to a specific medication
+        /// GET: api/MedicationSchedule/GetAllMedicatoinScheduleByDay/personId
+        /// </summary>
+        /// <param name="medicationId">A long precision number.</param>
+        /// <returns>A list medication schedule.</returns>       
         [HttpGet("{medicationId}")]
         public ActionResult<List<MedicationSchedule>> GetMedicationScheduleByMedication(int medicationId)
         {
@@ -194,6 +219,13 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Get medication schedules that belong to a specific medication
+        /// GET: api/MedicationSchedule/GetAllMedicatoinScheduleByDay/personId
+        /// </summary>
+        /// <param name="personId">A long precision number.</param>
+        /// <param name="personId">A DateTime object.</param>
+        /// <returns>A list medication schedule.</returns>       
         [HttpGet("{personId}")]
         public ActionResult<List<MedicationSchedule>> GetAllMedicatoinScheduleByDay(long personId, DateTime? day = null)
         {
@@ -244,8 +276,12 @@ namespace PillBoxWebAPI.Controllers
             }
         }
 
-        //TODO: Not implemented yet 
-        // GET: api/MedicationSchedule/PushNotification/
+        /// <summary>
+        /// TODO: Not implemented yet 
+        /// GET: api/MedicationSchedule/PushNotification/
+        /// </summary>
+        /// <param name="">A long precision number.</param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult<List<MedicationSchedule>> PushNotification()
         {
