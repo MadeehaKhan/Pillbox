@@ -52,22 +52,44 @@ export class Tab1Page {
   // ];
  
   public populateMedicationLists(){
-    console.log('My result: ');
-    var user_id: String = this.user.id.toString();
-    this.medicationService.getMedicationsByPerson(user_id).subscribe(
-      res => {
-        console.log(res)
-        this.drugsList = res.map(drug => drug); 
-        this.drugsList.forEach(drug => {
-        drug.isChecked = false;
-        console.log(drug);
-        //call a get for the prescription info
-        console.log("this is the id" + drug["id"]);
-        });
 
-        let arr = new Array(1,2,4)
-        console.log('Type: ', typeof(arr));    
-      });
+    console.log('Med Notifications');
+    var dt = new Date( "2019-03-26T01:01:10" );
+    this.medicationService.getMedNotificationsByPerson(this.user.id, dt).subscribe(
+      response => {
+        console.log(response);
+        this.drugsList = response.map(drug => drug);
+        this.drugsList.forEach(drug => {
+          if (drug.taken){
+            drug.isChecked = true;
+          }else{
+            drug.isChecked = false;
+          }
+        });
+        this.updateDrugLists();
+      }
+    )
+    
+    // medNotifs.forEach(medNotif => {
+    //   console.log('Notif: ' + medNotif.id + ' , ' + medNotif.name);
+    // });
+
+    // console.log('My result: ');
+    // var user_id: String = this.user.id.toString();
+    // this.medicationService.getMedicationsByPerson(user_id).subscribe(
+    //   res => {
+    //     console.log(res)
+    //     this.drugsList = res.map(drug => drug); 
+    //     this.drugsList.forEach(drug => {
+    //     drug.isChecked = false;
+    //     console.log(drug);
+    //     //call a get for the prescription info
+    //     console.log("this is the id" + drug["id"]);
+    //     });
+
+    //     let arr = new Array(1,2,4)
+    //     console.log('Type: ', typeof(arr));    
+    //   });
       
   }
 
@@ -82,6 +104,16 @@ export class Tab1Page {
     var allDrugs = this.takenDrugsList.concat(this.drugsList);
     this.takenDrugsList = allDrugs.filter(drug => drug.isChecked);
     this.drugsList = allDrugs.filter(drug => !drug.isChecked); 
+
+    this.drugsList.sort((a,b) => {
+      if ((a.hour > b.hour) || (a.hour == b.hour && a.minute > b.minute) ) return 1;
+      else return -1;
+    });
+
+    this.takenDrugsList.sort((a,b) => {
+      if ((a.hour > b.hour) || (a.hour == b.hour && a.minute > b.minute) ) return 1; 
+      else return -1;
+    });   
     
   }
 
@@ -90,7 +122,7 @@ export class Tab1Page {
   }
 
   public goToMedication(entry) {
-     this.router.navigateByUrl('/med-view/' + entry['id']);
+     this.router.navigateByUrl('/med-view/' + entry['medicationId']);
   }
 
   public testnotifications(){

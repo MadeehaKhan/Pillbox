@@ -71,8 +71,8 @@ namespace PillBoxWebAPI.Controllers
             //TODO: If the timeframe is week, then repeat on should not be empty
             try
             {
-                var command = new SqlCommand("INSERT INTO MedicationSchedule (MEDICATIONID, NAME, MEDINFO, EVERY, COUNT, DATE, HOUR, MINUTE) " +
-                    "VALUES(@MEDICATIONID, @NAME, @MEDINFO, @EVERY, @COUNT, @DATE, @HOUR, @MINUTE); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
+                var command = new SqlCommand("INSERT INTO MedicationSchedule (MEDICATIONID, NAME, MEDINFO, EVERY, COUNT, DATE, HOUR, MINUTE, TAKEN) " +
+                    "VALUES(@MEDICATIONID, @NAME, @MEDINFO, @EVERY, @COUNT, @DATE, @HOUR, @MINUTE, @TAKEN); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@MEDICATIONID", medicationSchedule.MedicationId);
                 command.Parameters.AddWithValue("@NAME", medicationSchedule.Name);
@@ -82,6 +82,7 @@ namespace PillBoxWebAPI.Controllers
                 command.Parameters.AddWithValue("@DATE", medicationSchedule.Date);
                 command.Parameters.AddWithValue("@HOUR", medicationSchedule.Hour);
                 command.Parameters.AddWithValue("@MINUTE", medicationSchedule.Minute);
+                command.Parameters.AddWithValue("@TAKEN", medicationSchedule.Taken);
 
                 Connections.pillboxDatabase.Open();
 
@@ -111,7 +112,7 @@ namespace PillBoxWebAPI.Controllers
             try
             {
                 var command = new SqlCommand("UPDATE MedicationSchedule SET MEDICATIONID=@MEDICATIONID, NAME=@NAME, MEDINFO=@MEDINFO, EVERY=@EVERY " +
-                    ", COUNT=@COUNT, DATE=@DATE, HOUR=@HOUR, MINUTE=@MINUTE " +
+                    ", COUNT=@COUNT, DATE=@DATE, HOUR=@HOUR, MINUTE=@MINUTE, TAKEN=@TAKEN " +
                     "  WHERE ID=@ID", Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@ID", medicationSchedule.Id);
@@ -123,6 +124,7 @@ namespace PillBoxWebAPI.Controllers
                 command.Parameters.AddWithValue("@DATE", medicationSchedule.Date);
                 command.Parameters.AddWithValue("@HOUR", medicationSchedule.Hour);
                 command.Parameters.AddWithValue("@MINUTE", medicationSchedule.Minute);
+                command.Parameters.AddWithValue("@TAKEN", medicationSchedule.Taken);
 
                 Connections.pillboxDatabase.Open();
 

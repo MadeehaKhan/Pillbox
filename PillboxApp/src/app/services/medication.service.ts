@@ -4,6 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators'; 
 import { Person } from '../models/Person';
 import { Storage } from '@ionic/storage';
+import { MedTrigger } from '../models/MedTrigger';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ import { Storage } from '@ionic/storage';
 export class MedicationService {
   urlMedsByPerson = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedicationbyperson/';
   urlEditPerson = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/person/editperson/';
+  urlGetMedNotifications = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/GetAllMedicatoinScheduleByDay/';
 
   private userSource = new Subject<Person>();
   user = this.userSource.asObservable();
@@ -26,6 +28,20 @@ export class MedicationService {
         return results   
         })
       );
+  }
+
+  getMedNotificationsByPerson(id: Number, day: Date): Observable<any> {
+    let medNotifs: any;
+
+    return this.http.get<MedTrigger[]>(this.urlGetMedNotifications + id.toString(),{
+      params: {
+        day: day.toDateString()
+      }
+    }).pipe(
+      map(results => {
+        return results
+      })
+    );
   }
 
   editPerson(person: Person): Observable<any> {
