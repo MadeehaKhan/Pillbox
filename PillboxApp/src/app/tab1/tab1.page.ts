@@ -8,6 +8,7 @@ import { Person } from '../models/Person';
 import { ToastController, ActionSheetController } from '@ionic/angular';
 import { MedTrigger } from '../models/MedTrigger';
 import { StorageService } from '../services/storage.service';
+import { Medication } from '../models/Medication';
 
 @Component({
   selector: 'app-tab1',
@@ -197,6 +198,7 @@ export class Tab1Page {
           console.log('Take clicked');
           entry.isChecked = true;
           this.updateDrugLists();
+          this.takeMedication(entry);
         }
       }, {
         text: 'View Medication',
@@ -235,6 +237,7 @@ export class Tab1Page {
           console.log('Undo clicked');
           entry.isChecked = false;
           this.updateDrugLists();
+          this.takeMedication(entry, true);
         }
       }, {
         text: 'View Medication',
@@ -262,4 +265,33 @@ export class Tab1Page {
     await actionSheet.present();
   }
 
+  async takeMedication(medNotif: MedTrigger, undo = false){
+    let medication = new Medication();
+    this.medicationService.getMedication(medNotif.medicationId)
+    .toPromise()
+    .then(response => {
+      medication = response;
+      if (undo)
+        medication.remainingPills = medication.remainingPills + 1;
+      else 
+        medication.remainingPills = medication.remainingPills - 1;      
+    }).then(()=>{
+      this.medicationService.editMedication(medication)
+      .toPromise()
+      .then(response => {
+        // console.log(response);
+        // console.log('new medication');
+        // console.log(medication);
+      });
+    });
+  }
+
+  async getMedication(medNotif: MedTrigger) {
+    let medication = new Medication();
+    await this.medicationService.getMedication(medNotif.medicationId)
+    .subscribe(response => {
+      medication = response;
+    });
+    return medication;
+  }
 }

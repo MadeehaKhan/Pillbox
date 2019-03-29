@@ -5,11 +5,14 @@ import { map } from 'rxjs/operators';
 import { Person } from '../models/Person';
 import { Storage } from '@ionic/storage';
 import { MedTrigger } from '../models/MedTrigger';
+import { Medication } from '../models/Medication';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MedicationService {
+  urlGetMeds = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/';
+  urlEditMed = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/editmedication/';
   urlMedsByPerson = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedicationbyperson/';
   urlEditPerson = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/person/editperson/';
   urlGetMedNotifications = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/GetAllMedicatoinScheduleByDay/';
@@ -19,6 +22,25 @@ export class MedicationService {
 
   constructor(private http: HttpClient, private storage: Storage) {
     this.storage.get('user').then(val => this.setPerson(val));
+  }
+
+  getMedication(id: number): Observable<Medication> {
+    return this.http.get<Medication>(this.urlGetMeds+ id.toString())
+    .pipe(
+      map(result =>{
+        return result;
+      })
+    );
+  }
+
+  editMedication(medication: Medication): Observable<any> {
+    const options = {responseType: 'text' as 'text'};
+    return this.http.post(this.urlEditMed, medication, options)
+    .pipe(
+      map(result =>{
+        return result;
+      })
+    );
   }
 
   getMedicationsByPerson(id: String): Observable<any> {
