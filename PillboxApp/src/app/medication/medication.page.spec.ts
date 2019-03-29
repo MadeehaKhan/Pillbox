@@ -8,20 +8,20 @@ describe('MedicationPage', () => {
   let fixture: ComponentFixture<MedicationPage>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ MedicationPage ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
+	TestBed.configureTestingModule({
+	  declarations: [ MedicationPage ],
+	  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+	})
+	.compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MedicationPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+	fixture = TestBed.createComponent(MedicationPage);
+	component = fixture.componentInstance;
+	fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+	expect(component).toBeTruthy();
   });
 });

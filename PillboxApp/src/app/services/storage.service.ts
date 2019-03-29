@@ -18,9 +18,8 @@ const ID_COUNTER_KEY = 'notifyCounter';
   providedIn: 'root'
 })
 export class StorageService {
+
   
-
-
   constructor(private storage: Storage, private localNotifications: LocalNotifications, private alerCtrl: AlertController, 
       private plt: Platform) { 
         this.plt.ready().then(() => {
@@ -167,6 +166,7 @@ export class StorageService {
     }).then(()=> {
       console.log('THEN Counter before notif: ' + counter);
       this.showAlert("Counter ID before",  "BEFORE ","counter: " + counter.toString() );
+      //change to number of refills
       for(var i=0; i <= 5; i++){
         //this.showAlert("Inside",  "","");
         // console.log("Inside sending storage!");
