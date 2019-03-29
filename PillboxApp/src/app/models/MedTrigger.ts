@@ -6,7 +6,7 @@ export class MedTrigger{
     date: Date;
     every: string;
     count: number;
-    //refills: number;    //to be deleted?
+    refills: number;    //to be deleted?
     hour: number;
     minute: number;
     taken: boolean;
