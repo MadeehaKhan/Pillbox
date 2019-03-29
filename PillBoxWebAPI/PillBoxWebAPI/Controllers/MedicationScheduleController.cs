@@ -66,7 +66,28 @@ namespace PillBoxWebAPI.Controllers
         /// <param name="medicationSchedule">A MedicationSchedule object.</param>
         /// <returns>Id of the medication schedule created.</returns>
         [HttpPost]
-        public ActionResult<int> CreateMedicationSchedule([FromBody] MedicationSchedule medicationSchedule)
+        public ActionResult<MedicationSchedule> CreateMedicationSchedule([FromBody] MedicationSchedule medicationSchedule)
+        {
+            try
+            {
+                var medSchedule = CreateSingleMedicationSechudle(medicationSchedule);
+                return Ok(medSchedule);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest($"CreateMedicationSchedule() error \n {ex.ToString()}");
+            }
+
+            
+        }
+
+        /// <summary>
+        /// Create a medication schedule
+        /// POST: api/MedicationSchedule/GetMedicationSchedule/
+        /// </summary>
+        /// <param name="medicationSchedule">A MedicationSchedule object.</param>
+        /// <returns>Id of the medication schedule created.</returns>
+        private MedicationSchedule CreateSingleMedicationSechudle( MedicationSchedule medicationSchedule)
         {
             //TODO: If the timeframe is week, then repeat on should not be empty
             try
@@ -87,8 +108,45 @@ namespace PillBoxWebAPI.Controllers
                 Connections.pillboxDatabase.Open();
 
                 var medScheduleId = Convert.ToInt32(command.ExecuteScalar());
+                medicationSchedule.Id = medScheduleId;
+                return medicationSchedule; //ok
+                //return Ok(medScheduleId);
+            }
+            catch (Exception ex)
+            {
+                return null; //bad request
+                //return BadRequest($"CreateMedicationSchedule() error \n {ex.ToString()}");
+            }
+            finally
+            {
+                Connections.pillboxDatabase.Close();
+            }
+        }
 
-                return Ok(medScheduleId);
+        /// <summary>
+        /// Create a medication schedule
+        /// POST: api/MedicationSchedule/GetMedicationSchedule/
+        /// </summary>
+        /// <param name="medicationSchedule">A MedicationSchedule object.</param>
+        /// <returns>Id of the medication schedule created.</returns>
+        [HttpPost]
+        public ActionResult<List<MedicationSchedule>> CreateNotificationSchedule([FromBody] List<MedicationSchedule> medicationSchedules, [FromBody] int repeatNotification)
+        {
+            //TODO: If the timeframe is week, then repeat on should not be empty
+            try
+            {
+                List<MedicationSchedule> notificationSchedule = new List<MedicationSchedule>(); 
+                foreach (var medSchedule in medicationSchedules)
+                {
+                    for(int i = 0; i < repeatNotification; i++)
+                    {
+                        
+                        notificationSchedule.Add(CreateSingleMedicationSechudle(medSchedule));
+                        medSchedule.Date.AddDays(medSchedule.Count); // mult by every?? e.g. * 7 for week
+                    }
+                }
+
+                return notificationSchedule;
             }
             catch (Exception ex)
             {
