@@ -89,6 +89,15 @@
  min-height: 36px;
 }
 
+// Larger Title for action sheets
+.action-sheet-title.sc-ion-action-sheet-md, .action-sheet-title.sc-ion-action-sheet-ios {
+  font-size: 1.5em !important;
+  font-weight: 600;
+}
+
+.action-sheet-title.sc-ion-action-sheet-ios{
+  padding: 15px 0 5px 0;
+}
 
 ion-card-title{
   font-size: 18px;

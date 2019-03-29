@@ -9,7 +9,7 @@
     <div id="date"> {{ today | date:'EEEE, MMMM d'}} </div>
     <ion-card class="welcome-card">
       <ion-card-title text-center padding>Today's Medications</ion-card-title>
-      <ion-list *ngFor="let entry of drugsList" class="list list-ios hydrated">
+      <ion-list *ngFor="let entry of drugsList; last as isLast" class="list list-ios hydrated">
           <!-- <ion-item class="in-list item ion-focusable item-label hydrated" (click)="buttonClick()">
             <h4 id="drug-time">9:30</h4>
             <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated" (click)="buttonClick()">
@@ -19,21 +19,27 @@
           </ion-item>
           -->
           <!-- *ngIf="(entry.dateObtained | date:a)=='AM'" -->
-        <ion-item (click)="presentActionSheet(entry)">
+        <ion-item [attr.lines]="isLast ? 'none' : null" (click)="presentActionSheet(entry)">
             <h3 id="drug-time" >{{entry.hour | number : '2.0-0' }}:{{entry.minute | number : '2.0-0'}}
             </h3>
             <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
-              <h2> {{entry.name}} 
-              </h2>
-              <p>{{ entry.medInfo }}</p>
+              <h2> {{entry.name}} </h2>
+              <p >{{ entry.medInfo }}</p>
             </ion-label>
             <ion-item lines="none" id="checkBoxItem">
-                <ion-chip *ngIf="entry.showAlert" color="danger">
-                    <ion-label>Overdue</ion-label>
-                  </ion-chip>
+              <ion-chip *ngIf="entry.showDanger" color="danger">
+                <ion-icon name="alert"></ion-icon>
+                <ion-label>Overdue</ion-label>
+              </ion-chip>
+              <ion-chip *ngIf="entry.showWarning" color="warning">
+                <ion-icon name="hourglass"></ion-icon>
+                <ion-label>Soon</ion-label>
+              </ion-chip>
+              <ion-chip *ngIf="entry.showTakeNow" color="success">
+                  <ion-label>Now</ion-label>
+                </ion-chip>
                   <!-- <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox> -->
             </ion-item>
-
             <!-- <ion-item *ngIf="drugsList==null || drugsList.length==0">
                 <ion-label>None</ion-label>
               </ion-item>     -->
@@ -59,12 +65,12 @@
 
     <ion-card class="welcome-card">
       <ion-card-title text-center padding>Taken Today</ion-card-title>
-      <ion-list *ngFor="let entry of takenDrugsList" class="list list-ios hydrated">
-          <ion-item (click)="presentTakenActionSheet(entry)" id="lineThrough">
+      <ion-list *ngFor="let entry of takenDrugsList; last as isLast" class="list list-ios hydrated">
+          <ion-item [attr.lines]="isLast ? 'none' : null" (click)="presentTakenActionSheet(entry)" id="lineThrough">
             <h4 id="drug-time" >{{entry.hour}}:{{entry.minute}}</h4> 
               <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
                 <h2> {{entry.name}} </h2>
-                <p> Take 30 min before eating</p>
+                <p> {{ entry.medInfo }}</p>
               </ion-label>
                 <!-- <ion-item lines="none" id="checkBoxItem" (click)="updateDrugLists()">
                   <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>

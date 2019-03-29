@@ -56,8 +56,6 @@ export class Tab1Page {
 
     console.log('Med Notifications');
     var dt = new Date(this.today);
-    
-    console.log('dt: ' + dt);
     this.medicationService.getMedNotificationsByPerson(this.user.id, dt).subscribe(
       response => {
         console.log(response);
@@ -65,12 +63,11 @@ export class Tab1Page {
         this.takenDrugsList = [];
         this.drugsList = response.map(drug => drug);
         this.drugsList.forEach(drug => {
-          if (drug.taken){
-            drug.isChecked = true;
-          }else{
-            drug.isChecked = false;
-          }
-          drug.showAlert = false;
+          if (drug.taken) drug.isChecked = true;
+          else drug.isChecked = false;          
+          drug.showDanger = false;
+          drug.showWarning = false;
+          drug.showTakeNow = false;
         });
         
         this.updateDrugLists();
@@ -165,24 +162,34 @@ export class Tab1Page {
   }
 
   public checkAlert(){
-    // this.today = Date.now();
     let now = new Date();
     let hour = now.getHours();
-    let minute = now.getMinutes(); 
-    console.log('checkAlert()- '+ hour + ':' + minute);
-
+    let minute = now.getMinutes();     
+    let currentMinute = hour*60 + minute;
+    
     this.drugsList.forEach((drug)=>{
-      if ((drug.hour < hour ) || (drug.hour == hour && drug.minute < minute)){
-        drug.showAlert = true;
+      let minuteOfDrug = drug.hour*60 + drug.minute;
+      let diff = currentMinute - minuteOfDrug;
+      if (minuteOfDrug < currentMinute){
+        drug.showDanger = true;
+        drug.showWarning = false;
+        drug.showTakeNow = false;
+      }
+      else if (diff < 0 && diff >= -30){
+        drug.showWarning = true;
+      }else if (drug.hour == hour && drug.minute == minute){
+        drug.showTakeNow = true;
+        drug.showWarning = false;
       }
     });    
-    //Call itself every 5 seconds
-    setTimeout(()=>{this.checkAlert()}, 30000);
+    //Call itself every 15 seconds
+    setTimeout(()=>{this.checkAlert()}, 15000);
   }
 
   async presentActionSheet(entry) {
     const actionSheet = await this.actionSheetController.create({
       header: entry.name,
+      mode: "ios",
       buttons: [ {
         text: 'Take',
         icon: 'checkmark-circle',
@@ -200,6 +207,12 @@ export class Tab1Page {
           this.goToMedication(entry);
         }
       }, {
+        text: 'View Prescription',
+        icon: 'list-box',
+        handler: () => {
+          console.log('View Prescription clicked');
+        }
+      }, {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
@@ -214,6 +227,7 @@ export class Tab1Page {
   async presentTakenActionSheet(entry) {
     const actionSheet = await this.actionSheetController.create({
       header: entry.name,
+      mode: "ios",
       buttons: [ {
         text: 'Undo',
         icon: 'undo',
@@ -229,6 +243,12 @@ export class Tab1Page {
           console.log('View Medication clicked');
           console.log('View Medication: '+ entry.name + ', id: '+ entry.id);
           this.goToMedication(entry);
+        }
+      }, {
+        text: 'View Prescription',
+        icon: 'list-box',
+        handler: () => {
+          console.log('View Prescription clicked');
         }
       }, {
         text: 'Cancel',
