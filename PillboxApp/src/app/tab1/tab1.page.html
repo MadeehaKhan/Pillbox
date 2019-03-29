@@ -52,11 +52,14 @@
               
           </ion-item> -->
       </ion-list>
+      <ion-item *ngIf="drugsList==null || drugsList.length==0">
+          <ion-label>None</ion-label>
+        </ion-item>
     </ion-card>
 
     <ion-card class="welcome-card">
+      <ion-card-title text-center padding>Taken Today</ion-card-title>
       <ion-list *ngFor="let entry of takenDrugsList" class="list list-ios hydrated">
-          <ion-card-title text-center padding>Taken Today</ion-card-title>
           <ion-item (click)="presentTakenActionSheet(entry)" id="lineThrough">
             <h4 id="drug-time" >{{entry.hour}}:{{entry.minute}}</h4> 
               <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
@@ -66,13 +69,11 @@
                 <!-- <ion-item lines="none" id="checkBoxItem" (click)="updateDrugLists()">
                   <ion-checkbox slot="end" [(ngModel)]="entry.isChecked"></ion-checkbox>
                 </ion-item> -->
-          </ion-item>
-  
-          <ion-item *ngIf="takenDrugsList==null || takenDrugsList.length==0">
-            <ion-label>None</ion-label>
-          </ion-item>
-  
+          </ion-item>  
         </ion-list>
+        <ion-item *ngIf="takenDrugsList==null || takenDrugsList.length==0">
+          <ion-label>None</ion-label>
+        </ion-item>
       </ion-card>
 
     <!-- NEED TO ADD A TAKE A NEEDED SECTION -->

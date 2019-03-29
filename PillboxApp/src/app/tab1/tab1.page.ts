@@ -55,7 +55,9 @@ export class Tab1Page {
   public populateMedicationLists(){
 
     console.log('Med Notifications');
-    var dt = new Date( "2019-03-26T01:01:10" );
+    var dt = new Date(this.today);
+    
+    console.log('dt: ' + dt);
     this.medicationService.getMedNotificationsByPerson(this.user.id, dt).subscribe(
       response => {
         console.log(response);
@@ -180,7 +182,7 @@ export class Tab1Page {
 
   async presentActionSheet(entry) {
     const actionSheet = await this.actionSheetController.create({
-      header: 'Albums',
+      header: entry.name,
       buttons: [ {
         text: 'Take',
         icon: 'checkmark-circle',
@@ -194,6 +196,7 @@ export class Tab1Page {
         icon: 'eye',
         handler: () => {
           console.log('View Medication clicked');
+          console.log('View Medication: '+ entry.name + ', id: '+ entry.id);
           this.goToMedication(entry);
         }
       }, {
@@ -210,7 +213,7 @@ export class Tab1Page {
 
   async presentTakenActionSheet(entry) {
     const actionSheet = await this.actionSheetController.create({
-      header: 'Albums',
+      header: entry.name,
       buttons: [ {
         text: 'Undo',
         icon: 'undo',
@@ -224,6 +227,7 @@ export class Tab1Page {
         icon: 'eye',
         handler: () => {
           console.log('View Medication clicked');
+          console.log('View Medication: '+ entry.name + ', id: '+ entry.id);
           this.goToMedication(entry);
         }
       }, {
