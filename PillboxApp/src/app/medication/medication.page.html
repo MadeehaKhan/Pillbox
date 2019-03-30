@@ -13,18 +13,23 @@
 	<ion-row justify-content-center>
 	    <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
 	    	<div text-center>
-	        <h4>Enter the following information for your medication</h4>
-
+	        <h4>Tell us about your medication</h4>
 	      	</div>
-	      	<div padding>
+	      	<div >
 				<form id="addMed" #form="ngForm" (ngSubmit)="addMed(form)">
 					<ion-item> 
 						<ion-label position="floating"> Name* </ion-label>
 						<ion-input type='text' name='name' ngModel required ></ion-input>
 					</ion-item>
 					<ion-item>
+						<ion-label position="floating"> DIN (Drug Identification Number)* </ion-label>
+						<ion-input type="number" name='din' ngModel min='00000000' required ></ion-input>
+					</ion-item>
+					<ion-item>
 						<ion-label position="floating"> Strength* </ion-label>
 						<ion-input type='number' name='strength' ngModel required ></ion-input>
+                    </ion-item>
+                    <ion-item>
 						<ion-radio-group ngModel name='units'>
 							<ion-item>
 								<ion-label>mg</ion-label>
@@ -40,11 +45,6 @@
 			      			</ion-item>
 						</ion-radio-group>
 					</ion-item>
-					<ion-item>
-						<ion-label position="floating"> DIN (Drug Identification Number)* </ion-label>
-						<ion-input type="number" name='din' ngModel min='00000000' required ></ion-input>
-					</ion-item>
-					<hr>
 					<ion-item> 
 						<ion-label position="floating"> Medication remaining* </ion-label>
 						<ion-input type="number" name='medrem' ngModel required step='0.5' min='0' ></ion-input>
@@ -83,6 +83,26 @@
 						</ion-item>
 						<ion-button expand="full" id="addToScript" disabled="true" color="primary" (click)="addToScript()">Add to this prescription</ion-button>
 					</div>
+
+                    <ion-button expand="full" (click)="toggleSched()"> Add a schedule for this medication</ion-button>
+
+                    <div *ngIf=addSched>
+                        <ion-item>
+                            <ion-label position="floating"> Every </ion-label>
+                            <ion-input type="number" name="count"> </ion-input>
+                        </ion-item>
+                        times
+                        <ion-item> 
+                            <ion-select placeholder="Select frequency of medication" name="every">
+                                <ion-select-option value="daily">Daily</ion-select-option>
+                                <ion-select-option value="weekly">Weekly</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label position="floating"> Medication start date and time </ion-label>
+                            <ion-datetime name="takeMed" display-format="DD MM YYYY, HH:mm" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55">  </ion-datetime>
+                        </ion-item>  
+                    </div>   
 
 				</form>
 			</div>

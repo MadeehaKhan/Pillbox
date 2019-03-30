@@ -1,0 +1,46 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-title id="myImage_Header">
+    </ion-title>
+    <ion-buttons>
+        <ion-back-button defaultHref="/tabs/tab1" color="primary"  routerDirection="back"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-grid>
+		<ion-row justify-content-center>
+		    <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+		    	<div text-center>
+		        <h4>Tell us about your medication</h4>
+		      	</div>
+		      	<form #form="ngForm" (ngSubmit)="addSched(form)">
+		      		<ion-item>
+		      			<ion-label position="floating"> Every </ion-label>
+		      			<ion-input type="number" name="count"> </ion-input>
+		      		</ion-item>
+		      		times
+		      		<ion-item> 
+		      			<ion-select placeholder="Select frequency of medication" name="every">
+		      				<ion-select-option value="daily">Daily</ion-select-option>
+		      				<ion-select-option value="weekly">Weekly</ion-select-option>
+		      			</ion-select>
+		      		</ion-item>
+		      		<ion-item>
+		      			<ion-label position="floating"> Medication start date and time </ion-label>
+		      			<ion-datetime name="takeMed" dateFormat="DD MM YYYY, HH:mm">  </ion-datetime>
+		      		</ion-item>
+
+		<!--  id: number; //unique notification id                      										will be generated
+
+	•        medicationid: number; //to match the medication ID        											 will have this
+	•        name: string; //name of drug                               										will have this
+	•        date; Date; // date that the medication needs to be taken											?
+	•        hour: number;																						input
+	•        minute: number;-->																					
+				</form>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

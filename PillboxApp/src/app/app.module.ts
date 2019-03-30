@@ -18,12 +18,16 @@ import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx'
 import { SQLite } from '@ionic-native/sqlite/ngx'
 import { SQLiteObject } from '@ionic-native/sqlite';
 import { HttpModule } from '@angular/http';
+
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //Data base provider?
 
 @NgModule({
   declarations: [AppComponent, MedViewPipe],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot(), HttpClientModule, HttpModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicStorageModule.forRoot(), HttpClientModule, HttpModule,FormsModule,
+    ReactiveFormsModule ],
   providers: [
     StatusBar,
     SplashScreen,
