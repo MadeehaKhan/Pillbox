@@ -37,7 +37,7 @@ namespace PillBoxWebAPI.Controllers
                         (long)reader["MEDICATIONID"],
                         (string)reader["NAME"],
                         (string)reader["MEDINFO"],
-                        (string)reader["EVERY"],                    
+                        (string)reader["EVERY"],
                         (int)reader["COUNT"],
                         (DateTime)reader["DATE"],
                         (int)reader["HOUR"],
@@ -68,11 +68,10 @@ namespace PillBoxWebAPI.Controllers
         [HttpPost]
         public ActionResult<int> CreateMedicationSchedule([FromBody] MedicationSchedule medicationSchedule)
         {
-            //TODO: If the timeframe is week, then repeat on should not be empty
             try
             {
-                var command = new SqlCommand("INSERT INTO MedicationSchedule (MEDICATIONID, NAME, MEDINFO, EVERY, COUNT, DATE, HOUR, MINUTE) " +
-                    "VALUES(@MEDICATIONID, @NAME, @MEDINFO, @EVERY, @COUNT, @DATE, @HOUR, @MINUTE); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
+                var command = new SqlCommand("INSERT INTO MedicationSchedule (MEDICATIONID, NAME, MEDINFO, EVERY, COUNT, DATE, HOUR, MINUTE, TAKEN) " +
+                    "VALUES(@MEDICATIONID, @NAME, @MEDINFO, @EVERY, @COUNT, @DATE, @HOUR, @MINUTE, @TAKEN); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@MEDICATIONID", medicationSchedule.MedicationId);
                 command.Parameters.AddWithValue("@NAME", medicationSchedule.Name);
@@ -82,6 +81,7 @@ namespace PillBoxWebAPI.Controllers
                 command.Parameters.AddWithValue("@DATE", medicationSchedule.Date);
                 command.Parameters.AddWithValue("@HOUR", medicationSchedule.Hour);
                 command.Parameters.AddWithValue("@MINUTE", medicationSchedule.Minute);
+                command.Parameters.AddWithValue("@TAKEN", medicationSchedule.Taken);
 
                 Connections.pillboxDatabase.Open();
 
@@ -100,6 +100,116 @@ namespace PillBoxWebAPI.Controllers
         }
 
         /// <summary>
+        /// Create a medication schedule
+        /// POST: api/MedicationSchedule/GetMedicationSchedule/
+        /// </summary>
+        /// <param name="medicationSchedule">A MedicationSchedule object.</param>
+        /// <returns>Id of the medication schedule created.</returns>
+        private MedicationSchedule CreateSingleMedicationSechudle(MedicationSchedule medicationSchedule)
+        {
+            //TODO: If the timeframe is week, then repeat on should not be empty
+            try
+            {
+                var command = new SqlCommand("INSERT INTO MedicationSchedule (MEDICATIONID, NAME, MEDINFO, EVERY, COUNT, DATE, HOUR, MINUTE, TAKEN) " +
+                    "VALUES(@MEDICATIONID, @NAME, @MEDINFO, @EVERY, @COUNT, @DATE, @HOUR, @MINUTE, @TAKEN); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
+
+                command.Parameters.AddWithValue("@MEDICATIONID", medicationSchedule.MedicationId);
+                command.Parameters.AddWithValue("@NAME", medicationSchedule.Name);
+                command.Parameters.AddWithValue("@MEDINFO", medicationSchedule.MedInfo);
+                command.Parameters.AddWithValue("@EVERY", medicationSchedule.Every);
+                command.Parameters.AddWithValue("@COUNT", medicationSchedule.Count);
+                command.Parameters.AddWithValue("@DATE", medicationSchedule.Date);
+                command.Parameters.AddWithValue("@HOUR", medicationSchedule.Hour);
+                command.Parameters.AddWithValue("@MINUTE", medicationSchedule.Minute);
+                command.Parameters.AddWithValue("@TAKEN", medicationSchedule.Taken);
+
+                Connections.pillboxDatabase.Open();
+
+                var medScheduleId = Convert.ToInt32(command.ExecuteScalar());
+                medicationSchedule.Id = medScheduleId;
+                return medicationSchedule; //ok
+                //return Ok(medScheduleId);
+            }
+            catch (Exception ex)
+            {
+                return null; //bad request
+                //return BadRequest($"CreateMedicationSchedule() error \n {ex.ToString()}");
+            }
+            finally
+            {
+                Connections.pillboxDatabase.Close();
+            }
+        }
+
+        /// <summary>
+        /// Create a medication schedule
+        /// POST: api/MedicationSchedule/GetMedicationSchedule/
+        /// </summary>
+        /// <param name="medicationSchedule">A MedicationSchedule object.</param>
+        /// <returns>Id of the medication schedule created.</returns>
+        [HttpPost]
+        public ActionResult<List<MedicationSchedule>> CreateNotificationSchedule([FromBody] List<MedicationSchedule> medicationSchedules, int repeatNotification)
+        {
+            //TODO: If the timeframe is week, then repeat on should not be empty
+            List<MedicationSchedule> notificationSchedule = new List<MedicationSchedule>();
+            try
+            {
+                foreach (var medSchedule in medicationSchedules)
+                {
+                    var date = new DateTime();
+                    date = medSchedule.Date;
+                    for (int i = 0; i < repeatNotification; i++)
+                    {
+
+                        var temp = new MedicationSchedule();
+
+                        temp.Id = medSchedule.Id;
+                        temp.MedicationId = medSchedule.MedicationId;
+                        temp.Name = medSchedule.Name;
+                        temp.MedInfo = medSchedule.MedInfo;
+                        temp.Every = medSchedule.Every;
+                        temp.Count = medSchedule.Count;
+                        temp.Date = date;
+                        temp.Hour = medSchedule.Hour;
+                        temp.Minute = medSchedule.Minute;
+                        temp.Taken = medSchedule.Taken;
+
+                        var command = new SqlCommand("INSERT INTO MedicationSchedule (MEDICATIONID, NAME, MEDINFO, EVERY, COUNT, DATE, HOUR, MINUTE, TAKEN) " +
+                            "VALUES(@MEDICATIONID, @NAME, @MEDINFO, @EVERY, @COUNT, @DATE, @HOUR, @MINUTE, @TAKEN); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
+
+                        command.Parameters.AddWithValue("@MEDICATIONID", medSchedule.MedicationId);
+                        command.Parameters.AddWithValue("@NAME", medSchedule.Name);
+                        command.Parameters.AddWithValue("@MEDINFO", medSchedule.MedInfo);
+                        command.Parameters.AddWithValue("@EVERY", medSchedule.Every);
+                        command.Parameters.AddWithValue("@COUNT", medSchedule.Count);
+                        command.Parameters.AddWithValue("@DATE", temp.Date);
+                        command.Parameters.AddWithValue("@HOUR", medSchedule.Hour);
+                        command.Parameters.AddWithValue("@MINUTE", medSchedule.Minute);
+                        command.Parameters.AddWithValue("@TAKEN", medSchedule.Taken);
+
+                        Connections.pillboxDatabase.Open();
+
+                        var medScheduleId = Convert.ToInt32(command.ExecuteScalar());
+                        temp.Id = medScheduleId;
+                        notificationSchedule.Add(temp);
+                        date = date.AddDays(temp.Count); // mult by every?? e.g. * 7 for week       
+
+                        Connections.pillboxDatabase.Close();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"CreateMedicationSchedule() error \n {ex.ToString()}");
+            }
+            finally
+            {
+                //Connections.pillboxDatabase.Close();
+            }
+            return notificationSchedule;
+        }
+
+        /// <summary>
         /// Edit medication schedule
         /// POST: api/MedicationSchedule/EditMedicationSchedule/
         /// </summary>
@@ -111,7 +221,7 @@ namespace PillBoxWebAPI.Controllers
             try
             {
                 var command = new SqlCommand("UPDATE MedicationSchedule SET MEDICATIONID=@MEDICATIONID, NAME=@NAME, MEDINFO=@MEDINFO, EVERY=@EVERY " +
-                    ", COUNT=@COUNT, DATE=@DATE, HOUR=@HOUR, MINUTE=@MINUTE " +
+                    ", COUNT=@COUNT, DATE=@DATE, HOUR=@HOUR, MINUTE=@MINUTE, TAKEN=@TAKEN " +
                     "  WHERE ID=@ID", Connections.pillboxDatabase);
 
                 command.Parameters.AddWithValue("@ID", medicationSchedule.Id);
@@ -123,6 +233,7 @@ namespace PillBoxWebAPI.Controllers
                 command.Parameters.AddWithValue("@DATE", medicationSchedule.Date);
                 command.Parameters.AddWithValue("@HOUR", medicationSchedule.Hour);
                 command.Parameters.AddWithValue("@MINUTE", medicationSchedule.Minute);
+                command.Parameters.AddWithValue("@TAKEN", medicationSchedule.Taken);
 
                 Connections.pillboxDatabase.Open();
 
@@ -192,7 +303,7 @@ namespace PillBoxWebAPI.Controllers
                 var medSchedules = new List<MedicationSchedule>();
 
                 while (reader.Read())
-                {                    
+                {
                     var medicationSchedule = new MedicationSchedule(
                         (long)reader["ID"],
                         (long)reader["MEDICATIONID"],
@@ -260,7 +371,7 @@ namespace PillBoxWebAPI.Controllers
                         (int)reader["HOUR"],
                         (int)reader["MINUTE"],
                         (bool)reader["TAKEN"]
-                        ); 
+                        );
                     medSchedules.Add(medicationSchedule);
                 }
                 return medSchedules;

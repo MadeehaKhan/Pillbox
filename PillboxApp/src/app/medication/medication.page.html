@@ -89,18 +89,18 @@
                     <div *ngIf=addSched>
                         <ion-item>
                             <ion-label position="floating"> Every </ion-label>
-                            <ion-input type="number" name="count"> </ion-input>
+                            <ion-input type="number"  ngModel name="count"> </ion-input>
                         </ion-item>
                         times
                         <ion-item> 
                             <ion-select placeholder="Select frequency of medication" name="every">
-                                <ion-select-option value="daily">Daily</ion-select-option>
-                                <ion-select-option value="weekly">Weekly</ion-select-option>
+                                <ion-select-option  [(ngModel)]="every" value="daily">Daily</ion-select-option>
+                                <ion-select-option  [(ngModel)]="every" value="weekly">Weekly</ion-select-option>
                             </ion-select>
                         </ion-item>
                         <ion-item>
                             <ion-label position="floating"> Medication start date and time </ion-label>
-                            <ion-datetime name="takeMed" display-format="DD MM YYYY, HH:mm" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55">  </ion-datetime>
+                            <ion-datetime name="takeMed" display-format="DD MM YYYY, HH:mm" minuteValues="0,10,20,30,40,50">  </ion-datetime>
                         </ion-item>  
                     </div>   
 

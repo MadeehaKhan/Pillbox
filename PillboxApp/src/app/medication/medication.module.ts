@@ -10,21 +10,21 @@ import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: MedicationPage
+	path: '',
+	component: MedicationPage
   },
   {
-    path: 'id',
-    component: ProfileComponent
+	path: 'id',
+	component: ProfileComponent
   }
 ];
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
+	CommonModule,
+	FormsModule,
+	IonicModule,
+	RouterModule.forChild(routes)
   ],
   declarations: [MedicationPage, ProfileComponent]
 })

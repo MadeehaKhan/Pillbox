@@ -2,6 +2,11 @@
   max-height: 35vh;
   overflow: hidden;
 }
+
+.welcome-card {
+  border-radius: 10px;
+  border: 1px solid rgb(185, 185, 185);
+}
 /* id="myImage_Header"
 ionic-header {
   height: 30vh;
@@ -45,9 +50,8 @@ div.toolbar-container{
  min-height: 36px;
 }
 
-
 ion-card-title{
-  font-size: 18px;
+  font-size: 1.3em;
   padding-left: 10px;
 }
 
@@ -60,11 +64,13 @@ ion-card-title{
   margin-top:10px;
   margin-bottom:10px;
   text-align: center;
+  font-weight: 500;
+  font-size: 1.3em;
 }
 
 #drug-time{
-  padding-right: 10px;
-  font-size: 1em;
+  padding-right: 15px;
+  font-size: 1.1em;
 }
 
 .label {
