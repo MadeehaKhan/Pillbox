@@ -20,7 +20,8 @@ const routes: Routes = [
   { path: 'med-view/:id', loadChildren: './med-view/med-view.module#MedViewPageModule' },
   { path: 'testing-local-notifications', loadChildren: './notifications/testing-local-notifications/testing-local-notifications.module#TestingLocalNotificationsPageModule' },
   { path: 'test-crud', loadChildren: './test-crud/test-crud.module#TestCRUDPageModule' },
-  { path: 'medsched', loadChildren: './medsched/medsched.module#MedschedPageModule' }
+  { path: 'medsched', loadChildren: './medsched/medsched.module#MedschedPageModule' },
+  { path: 'medication-enter', loadChildren: './medication-enter/medication-enter.module#MedicationEnterPageModule' }
 
 
 
