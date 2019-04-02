@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, AlertController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Person } from '../models/Person';
@@ -12,25 +12,33 @@ import { Person } from '../models/Person';
 })
 export class SignupPage implements OnInit {
 
-  name:string;
-  password:string;
-  confirmpassword:string;
+  givenname:string = "";
+  lastname:string = "";
+  email:string = "";
+  
+  password:string = "";
+  confirmpassword:string = "";
+  condition: string = "";
+  ppname: string = "";
+  ppnumber: string = "";
+  econtactname: string = "";
+  econtactnumber: string = "";
+  dob: Date;
   failedMsg: string = "";
-
   user: Person;
   
-  pxconds:string[];
+  pxconds:string[] = [];
 	
-  constructor(private loadingController: LoadingController, public http: HttpClient, private router: Router) {}
+  constructor(private loadingController: LoadingController, public http: HttpClient, private router: Router, public alertController: AlertController) {}
 
-  ngOnInit() {
-  	this.name = "   ";
-  	this.pxconds= [];
-  }
+  ngOnInit() {}
 
-  addCond(condition){
+  addCond(condition: string){
     console.log(condition);
-    this.pxconds.unshift(condition);
+    if (condition != "" || condition != undefined || condition != null){
+      this.pxconds.push(condition);
+      this.condition = "";
+    }
     return false;
   }
 
@@ -39,45 +47,96 @@ export class SignupPage implements OnInit {
     this.pxconds.splice(i, 1);
   }
 
-  async signUp(ngForm: NgForm){
-    const loading = await this.loadingController.create({
-      message: "Creating Account..."
-    });
-    await loading.present();
+  async signUp(){
+    // const loading = await this.loadingController.create({
+    //   message: "Creating Account..."
+    // });
+    // await loading.present();
 
-    console.log(ngForm);
+    if (!this.validateForm()) {return;}
+
+    let primaryphysician = "";
+    let emergencycontact1 = "";
+    
+    if (this.ppname != "" && this.ppnumber != ""){
+      primaryphysician = this.ppname + ',' + this.ppnumber;
+    }
+
+    if (this.econtactname != "" && this.econtactnumber != ""){
+      emergencycontact1 = this.econtactname + ',' + this.econtactnumber;
+    }
 
     const data: any = {
-      "givenname": ngForm.form.value.givenname,
-      "lastname": ngForm.form.value.lastname,
-      "email": ngForm.form.value.email,
-      "passwordstring": ngForm.form.value.password,
-      "primaryphysician":  ngForm.form.value.ppname + ',' + ngForm.form.value.ppnumber,
-      "emergencycontact1": ngForm.form.value.econtactname + ',' + ngForm.form.value.econtactnumber,
+      "givenname": this.givenname,
+      "lastname": this.lastname,
+      "email": this.email,
+      "dateOfBirth": new Date(this.dob),
+      "passwordstring": this.password,
+      "primaryphysician":  primaryphysician,
+      "emergencycontact1": emergencycontact1,
       "iscaregiver": false,
     };
 
-    var url = "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/signup/";
+    console.log("data: ");
+    console.log(data);
 
-    this.http.post(url, data)
-    .toPromise()
+    // var url = "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/signup/";
 
-    .then(response => {
-      console.log('Post Success!');
-      console.log('Reponse: ' + response);
-      loading.dismiss();
+    // this.http.post(url, data)
+    // .toPromise()
 
-      if (response > 0){
-        this.failedMsg = "";
-        ngForm.reset();
-        this.router.navigateByUrl('/register');
-      }else{
-        this.failedMsg = "Please fill in all the sections marked with a *";
-      }
-    })
-    .catch(error => {
-      console.log('Post Error!');
-      console.log('Reponse: ' + error);
+    // .then(response => {
+    //   console.log('Post Success!');
+    //   console.log('Reponse: ' + response);
+    //   loading.dismiss();
+
+    //   if (response > 0){
+    //     this.failedMsg = "";
+    //     // ngForm.reset(); reset values;
+    //     this.resetFormValues();
+    //     this.router.navigateByUrl('/register');
+    //   }else{
+    //     this.failedMsg = "Please fill in all the sections marked with a *";
+    //   }
+    // })
+    // .catch(error => {
+    //   console.log('Post Error!');
+    //   console.log('Reponse: ' + error);
+    // });
+  }
+
+  validateForm(){
+    let isValidForm = true;
+    this.failedMsg = "";
+    if (this.password !== this.confirmpassword){
+      isValidForm = false;
+      this.failedMsg += "Password and Confirm Password must match.";
+    }
+    return isValidForm;
+  }
+
+  resetFormValues(){
+    this.givenname = "";
+    this.lastname = "";
+    this.email = "";    
+    this.password = "";
+    this.confirmpassword = "";
+    this.condition = "";
+    this.ppname = "";
+    this.ppnumber = "";
+    this.econtactname = "";
+    this.econtactnumber = "";
+    this.pxconds = [];
+  }
+
+  async presentPasswordAlert() {
+    const alert = await this.alertController.create({
+      header: 'Passwrod',
+      subHeader: 'The password requires:',
+      message: 'At least 1 number <br> At least 1 uppercase letter <br> At least 1 lowercase letter <br> At least 1 special character (!@#$&*)',
+      buttons: ['OK']
     });
+
+    await alert.present();
   }
 }

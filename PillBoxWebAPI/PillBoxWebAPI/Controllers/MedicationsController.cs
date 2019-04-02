@@ -287,6 +287,9 @@ namespace PillBoxWebAPI.Controllers
 
                 while (reader.Read())
                 {
+                    var temp = reader["IMAGE"].ToString();
+                    var imageBytes = temp != string.Empty ? (byte[])reader["IMAGE"] : null;
+
                     var medication = new Medication(
                         (long)reader["ID"],
                         (long)reader["DIN"],
@@ -306,6 +309,7 @@ namespace PillBoxWebAPI.Controllers
                         (DateTime)reader["DATEOBTAINED"],
                         (string)reader["SIDEEFFECTS"]
                         );
+                    medication.ImageBytes = imageBytes;
                     medications.Add(medication);
                 }
 

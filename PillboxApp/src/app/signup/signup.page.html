@@ -1,7 +1,6 @@
 <ion-header >
   <ion-toolbar>
-    <ion-title id="myImage_Header">
-    </ion-title>
+    <ion-title text-center>Sign Up</ion-title>
     <ion-buttons>
         <ion-back-button defaultHref="/register" color="primary" routerDirection="back"></ion-back-button>
     </ion-buttons>
@@ -10,66 +9,75 @@
 
 <ion-content padding>
 
-    <h5 [hidden]="failedMsg === ''" class="isa_error">
-        <!-- <i class="fa fa-times-circle"></i> -->
-        {{failedMsg}}
-    </h5>
-      <form #form="ngForm" (ngSubmit)="signUp(form)">
+    <ion-card [hidden]="failedMsg === ''" class="isa_error">
+        <ion-card-header>
+          <ion-card-title>Failed to submit</ion-card-title>
+        </ion-card-header>      
+        <ion-card-content color="danger">
+            {{failedMsg}}
+        </ion-card-content>
+    </ion-card>
+    <ion-item lines="none">
+      <p style="margin: 0;"><ion-text color="danger">*</ion-text> Required</p>
+    </ion-item>
+      <form #form="ngForm" (ngSubmit)="signUp()">
       	<ion-item>
-          <ion-label position="floating">Given Name *</ion-label>
+          <ion-label position="floating">Given Name <ion-text color="danger">*</ion-text></ion-label>
           <!-- <ion-input type="text" placeholder="Given Name" [(ngModel)]="name" name="givenname"></ion-input> -->
-          <ion-input type="text" ngModel name="givenname" required></ion-input>
+          <ion-input type="text" [(ngModel)]="givenname" name="givenname" required pattern="[a-zA-z\s]+"></ion-input>
         </ion-item>
       	<ion-item>
-            <ion-label position="floating">Last Name *</ion-label>
-            <ion-input type="text" ngModel name="lastname" required></ion-input>
+          <ion-label position="floating">Last Name <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input type="text" [(ngModel)]="lastname" name="lastname" required pattern="[a-zA-z\s]+"></ion-input>
           </ion-item>
         <ion-item>
-            <ion-label position="floating">E-mail Address *</ion-label>
-          <ion-input type="email" ngModel name="email" required></ion-input>
+          <ion-label position="floating">E-mail Address <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input type="email" [(ngModel)]="email" name="email" required pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label position="floating">Password *</ion-label>
-          <ion-input type="password" ngModel name="password" required></ion-input>
+          <ion-label position="floating">Password <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input type="password" [(ngModel)]="password" name="password" required pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$"></ion-input>
+          <ion-button color="light" (click)="presentPasswordAlert()" slot="end"><ion-icon name="information-circle-outline"></ion-icon></ion-button>
         </ion-item>
         <ion-item>
-            <ion-label position="floating">Confirm Password *</ion-label>
-          <ion-input type="password" ngModel name="confirmpassword" required></ion-input>
+          <ion-label position="floating">Confirm Password <ion-text color="danger">*</ion-text></ion-label>
+          <ion-input type="password" [(ngModel)]="confirmpassword" name="confirmpassword" required pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label  position="floating">Date of Birth</ion-label>
-          <ion-datetime ngModel name="dob" display-format="MMM DD, YYYY"></ion-datetime>
-        </ion-item>
-        
+          <ion-datetime [(ngModel)]="dob" name="dob" display-format="MMM DD, YYYY"></ion-datetime>
+        </ion-item>        
         <h5> Medical Information (optional) </h5>
-        <ion-item>
-          <ion-input id="condition" type="text" placeholder="Pre-existing conditions" #condition>
-            <ion-button (click)="addCond(condition.value)">+</ion-button>
-          </ion-input>
+        <ion-item lines="none">
+          <ion-label>Pre-existing Conditions</ion-label>
         </ion-item>
-        <ion-item>
-          <ion-list>
-            <ion-item *ngFor="let condition of pxconds; let i = index">
-            {{condition }} 
-            <ion-button (click)="deleteCond(i)">-</ion-button>
+        <ion-list style="padding-top: 0;" [hidden]="pxconds.length == 0">
+            <ion-item *ngFor="let cond of pxconds; let i = index">
+            {{ cond }} 
+            <ion-button id="trashBtn" slot="end" color="danger" (click)="deleteCond(i)"><ion-icon name="trash"></ion-icon></ion-button>
             </ion-item>
           </ion-list> 
+        <ion-item>
+          <ion-input [(ngModel)]="condition" pattern="[a-zA-z\s]*" name="condition" id="condition" type="text" placeholder="Pre-existing condition" ></ion-input>
         </ion-item>
+        <div id="center" padding style="padding-top: 5px;">
+            <ion-button  [attr.disabled]="condition != '' ? 'false' : 'true'" (click)="addCond(condition.value)"><ion-icon name="add"></ion-icon> Add condition </ion-button>
+        </div>
         <ion-item>
           <ion-label position="floating">Primary Physician Name</ion-label>
-          <ion-input type="text" ngModel name="ppname"></ion-input>
+          <ion-input type="text" [(ngModel)]="ppname" name="ppname" pattern="[a-zA-z\s\.]*"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Primary Physician Number</ion-label>
-          <ion-input type="tel" ngModel name="ppnumber"></ion-input>
+          <ion-input type="tel" [(ngModel)]="ppnumber" name="ppnumber" pattern="[0-9-\s]*"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Emergency Contact Name</ion-label>
-          <ion-input type="text" ngModel name="econtactname"></ion-input>
+          <ion-input type="text" [(ngModel)]="econtactname" name="econtactname" pattern="[a-zA-z\s\.]*"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Emergency Contact Number</ion-label>
-          <ion-input type="tel" ngModel name="econtactnumber"></ion-input>
+          <ion-input type="tel" [(ngModel)]="econtactnumber" name="econtactnumber"  pattern="[0-9-\s]*"></ion-input>
         </ion-item>
         <div padding>
             <ion-button size="large" color="primary" expand="block" type="submit" [disabled]="!form.valid">DONE</ion-button>

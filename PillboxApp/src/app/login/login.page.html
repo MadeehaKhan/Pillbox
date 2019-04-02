@@ -1,22 +1,22 @@
 <ion-header >
     <ion-toolbar>
-      <ion-buttons >
+      <ion-title text-center>Login</ion-title>
+      <ion-buttons>
           <ion-back-button defaultHref="/register" color="primary" routerDirection="back"></ion-back-button>
       </ion-buttons>
-      <!-- <div id="center">
-          <img id="logo" src="/assets/img/pillbox_logo_blue.svg">
-      </div> -->
-      <ion-title id="myImage_Header"></ion-title>
     </ion-toolbar>
   </ion-header>
   
 <ion-content padding>
   <form id="login" #form="ngForm" (ngSubmit)="authenticate(form)">
-    <h2 text-center style="margin: 0;">Login</h2>
-    <h5 [hidden]="failedMsg === ''" class="isa_error">
-        <!-- <i class="fa fa-times-circle"></i> -->
-        {{failedMsg}}
-    </h5>
+    <ion-card [hidden]="failedMsg === ''" class="isa_error">
+        <ion-card-header>
+          <ion-card-title>Unable to login</ion-card-title>
+        </ion-card-header>      
+        <ion-card-content color="danger">
+            {{failedMsg}}
+        </ion-card-content>
+    </ion-card>
     <ion-item>
       <ion-label position="floating">Email</ion-label>
       <ion-input name="email" placeholder="email123@example.com" type="text" ngModel required pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+"></ion-input>
@@ -24,7 +24,9 @@
 
     <ion-item>
       <ion-label position="floating">Password</ion-label>
+      <!-- <ion-input name="password" type="password" ngModel required pattern="^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$"></ion-input> -->
       <ion-input name="password" type="password" ngModel required></ion-input>
+
     </ion-item>
     <!-- <ion-button color="primary" type="submit" [disabled]="!form.valid"></ion-button> -->
   </form>

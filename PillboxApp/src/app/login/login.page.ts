@@ -55,7 +55,7 @@ export class LoginPage implements OnInit {
         ngForm.reset();
         this.getPersonInfo(email, password, true);
       }else{
-        this.failedMsg = "Incorrect Email and/or Password. Please try again.";
+        this.failedMsg = "Incorrect Email and/or Password. \n Please try again.";
       }
     })
     .catch(error => {

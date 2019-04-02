@@ -16,11 +16,37 @@
     width: auto;
 }
 
+#buttons {
+    margin-top: 30%;
+}
+
+// phones on landscape mode
 @media only screen and (min-width: 600px){
     #logo{
-        max-width: 500px;
-    }   
+        max-width: 350px;
+    }
+    #buttons {
+        margin-top: 0;
+    }
 } 
+
+//medium sized screens
+@media only screen and (min-width: 600px) and (min-height: 500px){
+    #logo{
+        max-width: 500px;
+    }
+    #buttons {
+        margin-top: 10%;
+    }
+} 
+
+//large sized screens
+@media only screen and (min-width: 900px) and (min-height: 500px){
+    #buttons {
+        margin-top: 5%;
+    }
+}
+
 
 .hr-text {
     font-size: 20px;

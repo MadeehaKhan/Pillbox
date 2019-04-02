@@ -9,9 +9,9 @@
     text-align: center; 
 }
 
-#login {
-    padding-top: 30px;
-}
+// #login {
+//     padding-top: 30px;
+// }
 
 #logo{
     background: url('/assets/img/pillbox_logo_blue.svg');
@@ -38,13 +38,13 @@
     background-image: none !important;
 }
 
-.isa_info, .isa_success, .isa_warning, .isa_error {
-    margin: 10px 0px;
-    padding:12px;
-    text-align: center;
-}
+// .isa_info, .isa_success, .isa_warning, .isa_error {
+//     margin: 10px 0px;
+//     padding:12px;
+//     text-align: center;
+// }
 
 .isa_error {
-    color: #D8000C;
+    color: rgb(179, 3, 12);
     background-color: #FFD2D2;
 }
