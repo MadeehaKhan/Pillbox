@@ -15,15 +15,25 @@
     </div>
 
     <ion-list >
-        <ion-item *ngFor="let entry of drugsList" (click)="buttonClick(entry)">
-            <ion-label>
-              <h2 slot="start"> {{entry.name}} </h2>
-              <ion-icon slot="end" name="arrow-down" [hidden]="entry.isHidden"></ion-icon>
-              <ion-icon slot="end" name="arrow-forward" [hidden]="!entry.isHidden"></ion-icon>
-              <p [hidden]="entry.isHidden" class="medicationInfo">
-                Date obtained: {{entry.dateObtained}} <br>
+        <ion-item *ngFor="let entry of drugsList" >
+            <ion-label text-wrap>
+              <h1 (click)="buttonClick(entry)"> 
+                <span slot="start" (click)="buttonClick(entry)">{{entry.name}}</span > 
+                <ion-icon  slot="end" mode="ios"  name="arrow-down" [hidden]="entry.isHidden" (click)="buttonClick(entry)"></ion-icon>
+                <ion-icon slot="end" mode="ios"  name="arrow-forward" [hidden]="!entry.isHidden"></ion-icon>
+              </h1>
+              <p [hidden]="entry.isHidden" class="medicationInfo" (click)="buttonClick(entry)">
+                DIN: {{ entry.din}} <br>
+                Dosage: {{ entry.dosage }} <br>
+                Strength: {{ entry.strength}} {{ entry.units}} <br>
+                Instructions: {{ entry.instructions }} <br>
+                Number of Refills: {{ entry.numRefills }}  <br> 
+                Remaining Pills: {{ entry.remainingPills }} <br>
+                Pharmacy Obtained: {{ entry.pharmacyObtained }} <br>
+                Side Effects: {{entry.sideEffects}} <br>
+                Date obtained: {{entry.dateObtained | date:'M/d/yyyy'}} <br>
                 Remaining Pills: {{entry.remainingPills}} <br>
-                Side Effects: {{entry.sideEffects}}
+                <!-- Image, format , not sure what Number of Refills means-->
               </p>
                 <ion-button [hidden]="entry.isHidden" text-center expand="block" size="default" [hidden]="entry.isHidden" (click)="editMedication(entry['id'])">
                     <h6>Edit</h6>
@@ -37,9 +47,7 @@
           Date obtained: {{entry.dateObtained}} <br>
           Remaining Pills: {{entry.remainingPills}} <br>
           Side Effects: {{entry.sideEffects}}
-      </p> -->
-        
-        
+      </p> -->        
     </ion-list>
 
 </ion-content>
