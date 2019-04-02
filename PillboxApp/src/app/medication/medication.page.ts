@@ -21,6 +21,7 @@ export class MedicationPage implements OnInit {
 	pID: number;
 	addToRx: boolean = false;
 	addSched: boolean = false;
+	notifRepeat: number;
 
 
 	constructor(private router: Router,
@@ -54,6 +55,7 @@ export class MedicationPage implements OnInit {
 	addMed(ngForm: NgForm, ngForm2: NgForm){
 		console.log('addMed()');
 
+		this.notifRepeat = ngForm.form.value.count;
 
 //variables to bind 
 		let PersonId: number = this.pID;
@@ -88,7 +90,7 @@ export class MedicationPage implements OnInit {
 
 		var urlscript = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/createprescription/";
 		var urlmed = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/CreateMedication";
-		var urlsched = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/createmedicationschedule/";
+		var urlsched = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/createnotificationschedule/?repeatNotification=" + this.notifRepeat;
 
 
 		const datascript: any = {

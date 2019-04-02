@@ -14,7 +14,7 @@ export class MedicationEnterPage implements OnInit {
   }
 
   public addMedication() {
-    this.router.navigateByUrl('/medication-enter');
+    this.router.navigateByUrl('/medication');
   }
 
 }
