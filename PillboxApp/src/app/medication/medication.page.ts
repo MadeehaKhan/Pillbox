@@ -83,6 +83,7 @@ export class MedicationPage implements OnInit {
     	let startDate: string = ngForm.form.value.takeMed;
     	let hour: string = ngForm.form.value.takeMed.substring(11,13);
     	let minute: string = ngForm.form.value.takeMed.substring(13,15);
+    	let taken: boolean = false;
 
 
 		var urlscript = "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/createprescription/";
@@ -152,7 +153,8 @@ export class MedicationPage implements OnInit {
 			  			"every": every,
 			  			"count": frequency,
 			  			"hour": hour,
-			  			"minute": minute
+			  			"minute": minute,
+			  			"taken" : taken
 					};
 
 			      	this.http.post(urlsched, datasched)
@@ -239,7 +241,8 @@ export class MedicationPage implements OnInit {
 			  			"every": every,
 			  			"count": frequency,
 			  			"hour": hour,
-			  			"minute": minute
+			  			"minute": minute,
+			  			"taken" : taken
 					};
 
 			      	this.http.post(urlsched, datasched)

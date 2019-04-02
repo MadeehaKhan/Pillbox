@@ -123,7 +123,7 @@ export class Tab1Page {
   }
   
   public addMedication() {
-    this.router.navigateByUrl('/medication');
+    this.router.navigateByUrl('/medication-enter');
   }
 
   public goToMedication(entry) {

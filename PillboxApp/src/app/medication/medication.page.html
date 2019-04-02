@@ -85,22 +85,24 @@
 					</div>
 
                     <ion-button expand="full" (click)="toggleSched()"> Add a schedule for this medication</ion-button>
-
                     <div *ngIf=addSched>
                         <ion-item>
-                            <ion-label position="floating"> Every </ion-label>
-                            <ion-input type="number"  ngModel name="count"> </ion-input>
+                            <ion-label position="floating"> Times per day/week </ion-label>
+                            <ion-input type="number" ngModel name="count"> </ion-input>
                         </ion-item>
-                        times
                         <ion-item> 
-                            <ion-select placeholder="Select frequency of medication" name="every">
-                                <ion-select-option  [(ngModel)]="every" value="daily">Daily</ion-select-option>
-                                <ion-select-option  [(ngModel)]="every" value="weekly">Weekly</ion-select-option>
+                            <ion-select placeholder="Select frequency of medication" [(ngModel)]="every" name="every">
+                                <ion-select-option  name="daily"  value="daily">Daily</ion-select-option>
+                                <ion-select-option  name="weekly" value="weekly">Weekly</ion-select-option>
                             </ion-select>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="floating"> Medication start date and time </ion-label>
-                            <ion-datetime name="takeMed" display-format="DD MM YYYY, HH:mm" minuteValues="0,10,20,30,40,50">  </ion-datetime>
+                            <ion-label position="floating"> Medication start date </ion-label>
+                            <ion-datetime name="takeMed" display-format="DD MM YYYY">  </ion-datetime>
+                        </ion-item>  
+                        <ion-item>
+                            <ion-label position="floating"> Timings for medication </ion-label>
+                            <ion-datetime name="takeMed" display-format="HH:mm">  </ion-datetime>
                         </ion-item>  
                     </div>   
 
