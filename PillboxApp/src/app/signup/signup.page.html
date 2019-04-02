@@ -47,6 +47,10 @@
           <ion-label  position="floating">Date of Birth</ion-label>
           <ion-datetime [(ngModel)]="dob" name="dob" display-format="MMM DD, YYYY"></ion-datetime>
         </ion-item>        
+        <ion-item>
+          <ion-label  position="floating">Phone Number</ion-label>
+          <ion-input type="text" [(ngModel)]="phonenumber" name="phonenumber" required pattern="[0-9-\s]+"></ion-input>
+        </ion-item>    
         <h5> Medical Information (optional) </h5>
         <ion-item lines="none">
           <ion-label>Pre-existing Conditions</ion-label>
@@ -61,7 +65,7 @@
           <ion-input [(ngModel)]="condition" pattern="[a-zA-z\s]*" name="condition" id="condition" type="text" placeholder="Pre-existing condition" ></ion-input>
         </ion-item>
         <div id="center" padding style="padding-top: 5px;">
-            <ion-button  [attr.disabled]="condition != '' ? 'false' : 'true'" (click)="addCond(condition.value)"><ion-icon name="add"></ion-icon> Add condition </ion-button>
+            <ion-button  [attr.disabled]="condition != '' ? 'false' : 'true'" (click)="addCond()"><ion-icon name="add"></ion-icon> Add condition </ion-button>
         </div>
         <ion-item>
           <ion-label position="floating">Primary Physician Name</ion-label>

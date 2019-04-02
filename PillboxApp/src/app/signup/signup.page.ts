@@ -24,6 +24,8 @@ export class SignupPage implements OnInit {
   econtactname: string = "";
   econtactnumber: string = "";
   dob: Date;
+  phonenumber: string = "";
+
   failedMsg: string = "";
   user: Person;
   
@@ -33,10 +35,10 @@ export class SignupPage implements OnInit {
 
   ngOnInit() {}
 
-  addCond(condition: string){
-    console.log(condition);
-    if (condition != "" || condition != undefined || condition != null){
-      this.pxconds.push(condition);
+  addCond(){
+    console.log(this.condition);
+    if (this.condition != "" || this.condition != undefined || this.condition != null){
+      this.pxconds.push(this.condition);
       this.condition = "";
     }
     return false;
@@ -48,10 +50,10 @@ export class SignupPage implements OnInit {
   }
 
   async signUp(){
-    // const loading = await this.loadingController.create({
-    //   message: "Creating Account..."
-    // });
-    // await loading.present();
+    const loading = await this.loadingController.create({
+      message: "Creating Account..."
+    });
+    await loading.present();
 
     if (!this.validateForm()) {return;}
 
@@ -74,35 +76,37 @@ export class SignupPage implements OnInit {
       "passwordstring": this.password,
       "primaryphysician":  primaryphysician,
       "emergencycontact1": emergencycontact1,
+      "healthConditions": this.pxconds.join(","),
       "iscaregiver": false,
+      "phonenumber": this.phonenumber,
     };
 
     console.log("data: ");
     console.log(data);
 
-    // var url = "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/signup/";
+    var url = "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/signup/";
 
-    // this.http.post(url, data)
-    // .toPromise()
+    this.http.post(url, data)
+    .toPromise()
 
-    // .then(response => {
-    //   console.log('Post Success!');
-    //   console.log('Reponse: ' + response);
-    //   loading.dismiss();
+    .then(response => {
+      console.log('Post Success!');
+      console.log('Reponse: ' + response);
+      loading.dismiss();
 
-    //   if (response > 0){
-    //     this.failedMsg = "";
-    //     // ngForm.reset(); reset values;
-    //     this.resetFormValues();
-    //     this.router.navigateByUrl('/register');
-    //   }else{
-    //     this.failedMsg = "Please fill in all the sections marked with a *";
-    //   }
-    // })
-    // .catch(error => {
-    //   console.log('Post Error!');
-    //   console.log('Reponse: ' + error);
-    // });
+      if (response > 0){
+        this.failedMsg = "";
+        // ngForm.reset(); reset values;
+        this.resetFormValues();
+        this.router.navigateByUrl('/register');
+      }else{
+        this.failedMsg = "Please fill in all the sections marked with a *";
+      }
+    })
+    .catch(error => {
+      console.log('Post Error!');
+      console.log('Reponse: ' + error);
+    });
   }
 
   validateForm(){
@@ -126,6 +130,8 @@ export class SignupPage implements OnInit {
     this.ppnumber = "";
     this.econtactname = "";
     this.econtactnumber = "";
+    this.phonenumber = "";
+    this.dob = new Date();
     this.pxconds = [];
   }
 
