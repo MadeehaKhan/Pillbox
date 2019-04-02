@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { MedTrigger } from '../models/MedTrigger';
+import { MedSchedule } from '../models/MedSchedule';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 
@@ -11,7 +11,7 @@ import { AlertController, Platform } from '@ionic/angular';
 //   modified: number
 // }
 
-const MEDTRIGGERS_KEY = 'my-triggers';
+const MedScheduleS_KEY = 'my-triggers';
 const ID_COUNTER_KEY = 'notifyCounter';
 
 @Injectable({
@@ -38,46 +38,46 @@ export class StorageService {
       }
 
   // CREATE
-  addItem(item: MedTrigger): Promise<any> {
-    return this.storage.get(MEDTRIGGERS_KEY).then((items: MedTrigger[]) => {
+  addItem(item: MedSchedule): Promise<any> {
+    return this.storage.get(MedScheduleS_KEY).then((items: MedSchedule[]) => {
       if (items) {
         items.push(item);
-        return this.storage.set(MEDTRIGGERS_KEY, items);
+        return this.storage.set(MedScheduleS_KEY, items);
       } else {
-        return this.storage.set(MEDTRIGGERS_KEY, [item]);
+        return this.storage.set(MedScheduleS_KEY, [item]);
       }
     });
   }
 
   // CREATE with Notification
-  addItemWithNotification(item: MedTrigger): Promise<any> {
-    return this.storage.get(MEDTRIGGERS_KEY).then((items: MedTrigger[]) => {
+  addItemWithNotification(item: MedSchedule): Promise<any> {
+    return this.storage.get(MedScheduleS_KEY).then((items: MedSchedule[]) => {
       if (items) {
         items.push(item); 
         console.log("Adding item id: " + item.id + ", Hour = " + item.hour + ", Minute = " + item.minute);
         this.scheduleNotification(item.id, item.name, item.medInfo, item.every, item.count, item.refills, item.hour, item.minute);
-        return this.storage.set(MEDTRIGGERS_KEY, items);
+        return this.storage.set(MedScheduleS_KEY, items);
       } else {
         console.log("Adding item id: " + item.id + ", Hour = " + item.hour + ", Minute = " + item.minute);
         this.scheduleNotification(item.id, item.name, item.medInfo, item.every, item.count, item.refills, item.hour, item.minute);
-        return this.storage.set(MEDTRIGGERS_KEY, [item]);
+        return this.storage.set(MedScheduleS_KEY, [item]);
       }
     });
   }
 
   // READ
-  getItems(): Promise<MedTrigger[]> {
-    return this.storage.get(MEDTRIGGERS_KEY);
+  getItems(): Promise<MedSchedule[]> {
+    return this.storage.get(MedScheduleS_KEY);
   }
    
   // UPDATE
-  updateItem(item: MedTrigger): Promise<any> {
-    return this.storage.get(MEDTRIGGERS_KEY).then((items: MedTrigger[]) => {
+  updateItem(item: MedSchedule): Promise<any> {
+    return this.storage.get(MedScheduleS_KEY).then((items: MedSchedule[]) => {
       if (!items || items.length === 0) {
         return null;
       }
   
-      let newItems: MedTrigger[] = [];
+      let newItems: MedSchedule[] = [];
   
       for (let i of items) {
         if (i.id === item.id) {
@@ -87,24 +87,24 @@ export class StorageService {
         }
       }
   
-      return this.storage.set(MEDTRIGGERS_KEY, newItems);
+      return this.storage.set(MedScheduleS_KEY, newItems);
     });
   }
   
   // DELETE
-  deleteItem(id: number): Promise<MedTrigger> {
-    return this.storage.get(MEDTRIGGERS_KEY).then((items: MedTrigger[]) => {
+  deleteItem(id: number): Promise<MedSchedule> {
+    return this.storage.get(MedScheduleS_KEY).then((items: MedSchedule[]) => {
       if (!items || items.length === 0) {
         return null;
       };
-      let toKeep: MedTrigger[] = [];
+      let toKeep: MedSchedule[] = [];
   
       for (let i of items) {
         if (i.id !== id) {
           toKeep.push(i);
         }
       }
-      return this.storage.set(MEDTRIGGERS_KEY, toKeep);
+      return this.storage.set(MedScheduleS_KEY, toKeep);
     });
   }
 
@@ -202,7 +202,7 @@ export class StorageService {
   }
 
   public cancelNotificationByMedID(medID: number){
-    this.storage.get(MEDTRIGGERS_KEY).then(((items: MedTrigger[]) => {
+    this.storage.get(MedScheduleS_KEY).then(((items: MedSchedule[]) => {
       for (let i of items) {
         if (i.id == medID) {
           this.localNotifications.cancel(i.id);

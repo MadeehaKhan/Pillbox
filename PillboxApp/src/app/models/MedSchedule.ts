@@ -1,4 +1,4 @@
-export class MedTrigger{
+export class MedSchedule{
     id: number; //to match the medication ID
     name: string;
     medicationId: number;

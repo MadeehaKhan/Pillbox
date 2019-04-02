@@ -6,7 +6,7 @@ import { MedicationService } from '../services/medication.service';
 import { Storage } from '@ionic/storage';
 import { Person } from '../models/Person';
 import { ToastController, ActionSheetController } from '@ionic/angular';
-import { MedTrigger } from '../models/MedTrigger';
+import { MedSchedule } from '../models/MedSchedule';
 import { StorageService } from '../services/storage.service';
 import { Medication } from '../models/Medication';
 
@@ -19,7 +19,7 @@ import { Medication } from '../models/Medication';
 export class Tab1Page {
   today = Date.now();
   isLoggedIn = this.storage.get("isLoggedIn");
-  meds: MedTrigger[] = [];
+  meds: MedSchedule[] = [];
   user: Person = new Person();
 
   constructor(private router: Router,  public http: HttpClient, private medicationService: MedicationService, 
@@ -265,7 +265,7 @@ export class Tab1Page {
     await actionSheet.present();
   }
 
-  async takeMedication(medNotif: MedTrigger, undo = false){
+  async takeMedication(medNotif: MedSchedule, undo = false){
     let medication = new Medication();
     this.medicationService.getMedication(medNotif.medicationId)
     .toPromise()
@@ -286,7 +286,7 @@ export class Tab1Page {
     });
   }
 
-  async getMedication(medNotif: MedTrigger) {
+  async getMedication(medNotif: MedSchedule) {
     let medication = new Medication();
     await this.medicationService.getMedication(medNotif.medicationId)
     .subscribe(response => {
