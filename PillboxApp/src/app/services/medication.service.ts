@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators'; 
 import { Person } from '../models/Person';
 import { Storage } from '@ionic/storage';
-import { MedTrigger } from '../models/MedTrigger';
+import { MedSchedule } from '../models/MedSchedule';
 import { Medication } from '../models/Medication';
 
 @Injectable({
@@ -55,7 +55,7 @@ export class MedicationService {
   getMedNotificationsByPerson(id: Number, day: Date): Observable<any> {
     let medNotifs: any;
 
-    return this.http.get<MedTrigger[]>(this.urlGetMedNotifications + id.toString(),{
+    return this.http.get<MedSchedule[]>(this.urlGetMedNotifications + id.toString(),{
       params: {
         day: day.toDateString()
       }

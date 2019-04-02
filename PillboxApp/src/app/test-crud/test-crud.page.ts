@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { StorageService } from '../services/storage.service';
 import { Platform, ToastController, IonList } from '@ionic/angular';
-import { MedTrigger } from '../models/MedTrigger';
+import { MedSchedule } from '../models/MedSchedule';
 
 @Component({
   selector: 'app-test-crud',
@@ -10,9 +10,9 @@ import { MedTrigger } from '../models/MedTrigger';
   styleUrls: ['./test-crud.page.scss'],
 })
 export class TestCRUDPage implements OnInit {
-  items: MedTrigger[] = [];
+  items: MedSchedule[] = [];
  
-  newItem: MedTrigger = <MedTrigger>{};
+  newItem: MedSchedule = <MedSchedule>{};
   @ViewChild('my-list')mylist: IonList;
 
   constructor(private router: Router,private storageService: StorageService, private plt: Platform, private toastController: ToastController ) {
@@ -34,7 +34,7 @@ export class TestCRUDPage implements OnInit {
     //this.newItem.id = Date.now();
     this.storageService.addItemWithNotification(this.newItem).then(item => {
     //this.storageService.addItem(this.newItem).then(item => {
-      this.newItem = <MedTrigger>{};
+      this.newItem = <MedSchedule>{};
       this.showToast('Item added!')
       this.loadItems(); // Or add it to the array directly
     });
@@ -48,7 +48,7 @@ export class TestCRUDPage implements OnInit {
   }
   
   // UPDATE
-  updateItem(item: MedTrigger) {
+  updateItem(item: MedSchedule) {
     item.hour = 0;
     item.minute = Date.now();
   
@@ -60,7 +60,7 @@ export class TestCRUDPage implements OnInit {
   }
   
   // DELETE
-  deleteItem(item: MedTrigger) {
+  deleteItem(item: MedSchedule) {
     this.storageService.deleteItem(item.id).then(item => {
       this.showToast('Item removed!');
       this.mylist.closeSlidingItems(); // Fix or sliding is stuck afterwards
