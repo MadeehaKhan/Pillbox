@@ -294,4 +294,14 @@ export class Tab1Page {
     });
     return medication;
   }
+
+  async doRefresh(event) {
+    console.log('Begin async operation');
+    await this.populateMedicationLists();
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
 }
