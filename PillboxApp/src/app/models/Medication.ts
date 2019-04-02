@@ -17,4 +17,5 @@ export class Medication {
     sideEffects: string;
     dateObtained: Date;
     isChecked: boolean;
+    imageBytes: any;
 }

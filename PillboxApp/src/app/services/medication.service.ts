@@ -14,6 +14,7 @@ export class MedicationService {
   urlGetMeds = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/';
   urlEditMed = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/editmedication/';
   urlMedsByPerson = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedicationbyperson/';
+  urlPrescByPerson = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getprescriptionbyperson/';
   urlEditPerson = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/person/editperson/';
   urlGetMedNotifications = 'https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/GetAllMedicatoinScheduleByDay/';
 
@@ -44,9 +45,9 @@ export class MedicationService {
   }
 
   getMedicationsByPerson(id: String): Observable<any> {
-    return this.http.get(this.urlMedsByPerson +id).pipe(
+    return this.http.get(this.urlMedsByPerson +id).pipe( 
       map(results => {
-        console.log('RAW ', results)
+        console.log('RAW Medication', results)
         return results   
         })
       );
@@ -66,12 +67,21 @@ export class MedicationService {
     );
   }
 
+  getPrescriptionsByPerson(id: String): Observable<any> {
+    return this.http.get(this.urlPrescByPerson +id).pipe(
+      map(results => {
+        console.log('RAW Prescriptions: ', results)
+        return results   
+        })
+      );
+  }
+
   editPerson(person: Person): Observable<any> {
     const options = {responseType: 'text' as 'text'};
     this.setPerson(person);
     return this.http.post(this.urlEditPerson, person, options).pipe(
       map(results => {
-        console.log('RAW ', results)
+        console.log('RAW', results)
         return results
         })
       );

@@ -52,6 +52,10 @@ export class Tab3Page {
     this.router.navigateByUrl('/view-all-medications');
   }
 
+  navToChangeViewAllPrescriptions(){
+    this.router.navigateByUrl('/view-all-prescriptions');
+  }
+
   public logout(){
     console.log('logout()');
     this.storage.set('isLoggedIn', false);

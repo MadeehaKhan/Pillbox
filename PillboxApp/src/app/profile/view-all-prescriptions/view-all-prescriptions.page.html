@@ -1,0 +1,47 @@
+<ion-header >
+    <ion-toolbar>
+      <ion-title id="myImage_Header">
+      </ion-title>
+      <ion-buttons>
+          <ion-back-button defaultHref="/register" color="primary" routerDirection="back"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+      
+      <div id='center'>
+          <h4>View All Prescriptions</h4>
+      </div>
+  
+      <ion-list >
+          <ion-item *ngFor="let entry of prescriptionList" >
+              <ion-label text-wrap>
+                <h1 (click)="buttonClick(entry)"> 
+                  <span slot="start"> RX: {{entry.rx}}</span > 
+                  <ion-icon  slot="end" mode="ios"  name="arrow-down" [hidden]="entry.isHidden"></ion-icon>
+                  <ion-icon slot="end" mode="ios"  name="arrow-forward" [hidden]="!entry.isHidden"></ion-icon>
+                </h1>
+                <p id="info" [hidden]="entry.isHidden" class="medicationInfo" (click)="buttonClick(entry)">
+                  <span *ngFor="let med of medicationList">
+                    <div *ngIf="med.prescriptionId == entry.id"> 
+                      <p id="info">Medcation: {{ med.name}} </p>
+                      <span *ngIf="med.imageBytes != null">
+                          <p id="info">{{ med.name}} Prescription:</p>
+                          <ion-img [src]="'data:image/JPEG;base64,' + med.imageBytes"></ion-img>
+                      </span>
+                      
+                    </div>    
+                  </span>
+                  Doctor: {{ entry.doctor }}  <br>
+                  Date obtained: {{entry.dateObtained | date:'M/d/yyyy'}}
+                </p>
+                  <ion-button [hidden]="entry.isHidden" text-center expand="block" size="default" [hidden]="entry.isHidden" (click)="editMedication(entry['id'])">
+                      <h6>Edit</h6>
+                  </ion-button>
+              </ion-label>
+          </ion-item>      
+      </ion-list>
+  
+  </ion-content>
+  

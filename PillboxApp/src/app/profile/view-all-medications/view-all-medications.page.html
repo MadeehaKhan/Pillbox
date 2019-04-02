@@ -18,11 +18,11 @@
         <ion-item *ngFor="let entry of drugsList" >
             <ion-label text-wrap>
               <h1 (click)="buttonClick(entry)"> 
-                <span slot="start" (click)="buttonClick(entry)">{{entry.name}}</span > 
-                <ion-icon  slot="end" mode="ios"  name="arrow-down" [hidden]="entry.isHidden" (click)="buttonClick(entry)"></ion-icon>
+                <span slot="start">{{entry.name}}</span > 
+                <ion-icon  slot="end" mode="ios"  name="arrow-down" [hidden]="entry.isHidden"></ion-icon>
                 <ion-icon slot="end" mode="ios"  name="arrow-forward" [hidden]="!entry.isHidden"></ion-icon>
               </h1>
-              <p [hidden]="entry.isHidden" class="medicationInfo" (click)="buttonClick(entry)">
+              <p id="medInfo" [hidden]="entry.isHidden" class="medicationInfo" (click)="buttonClick(entry)">
                 DIN: {{ entry.din}} <br>
                 Dosage: {{ entry.dosage }} <br>
                 Strength: {{ entry.strength}} {{ entry.units}} <br>
