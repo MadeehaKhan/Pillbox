@@ -396,6 +396,45 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "api/medicationschedule/createnotificationschedule/?repeatNotification=5",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n\t{\n\t    \"medicationId\": 2,\n\t    \"name\": \"Agalsitosine Ergopatch\",\n\t    \"medInfo\": \"some extra info\",\n\t    \"every\": \"day\",\n\t    \"count\": 1,\n\t    \"date\": \"2019-03-26T00:00:00\",\n\t    \"hour\": 16,\n\t    \"minute\": 30,\n\t    \"taken\": false\n\t},\n\t{\n\t    \"medicationId\": 2,\n\t    \"name\": \"Agalsitosine Ergopatch\",\n\t    \"medInfo\": \"some extra info\",\n\t    \"every\": \"day\",\n\t    \"count\": 1,\n\t    \"date\": \"2019-03-26T00:00:00\",\n\t    \"hour\": 9,\n\t    \"minute\": 0,\n\t    \"taken\": false\n\t}\n]"
+						},
+						"url": {
+							"raw": "https://localhost:44322/api/medicationschedule/createnotificationschedule/?repeatNotification=5",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44322",
+							"path": [
+								"api",
+								"medicationschedule",
+								"createnotificationschedule",
+								""
+							],
+							"query": [
+								{
+									"key": "repeatNotification",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -415,7 +454,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/15",
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/getmedication/2",
 									"protocol": "https",
 									"host": [
 										"pillboxwebapi20190129085319",
@@ -426,7 +465,7 @@
 										"api",
 										"medications",
 										"getmedication",
-										"15"
+										"2"
 									]
 								}
 							},
@@ -576,6 +615,116 @@
 										"medications",
 										"getmedicationbyprescriptionid",
 										"20"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "api/medications/createmedicationwithimage/",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "din",
+											"value": "212",
+											"type": "text"
+										},
+										{
+											"key": "personid",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "new medication test",
+											"type": "text"
+										},
+										{
+											"key": "dosage ",
+											"value": "1 Tablet",
+											"type": "text"
+										},
+										{
+											"key": "strength",
+											"value": "2.0",
+											"type": "text"
+										},
+										{
+											"key": "units",
+											"value": "mg",
+											"type": "text"
+										},
+										{
+											"key": "format",
+											"value": "solid",
+											"type": "text"
+										},
+										{
+											"key": "instructions",
+											"value": "take once daily",
+											"type": "text"
+										},
+										{
+											"key": "numrefills",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "remainingpills",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "pharmacyobtained",
+											"value": "pharmacy 10",
+											"type": "text"
+										},
+										{
+											"key": "takeasneeded",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "dateobtained",
+											"value": "2019-02-25T00:00:00",
+											"type": "text"
+										},
+										{
+											"key": "sideeffects",
+											"value": "none",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": ""
+										}
+									]
+								},
+								"url": {
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/createmedicationwithimage/",
+									"protocol": "https",
+									"host": [
+										"pillboxwebapi20190129085319",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"api",
+										"medications",
+										"createmedicationwithimage",
+										""
 									]
 								}
 							},
@@ -755,7 +904,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/getmedicationschedule/1",
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/getmedicationschedule/7",
 									"protocol": "https",
 									"host": [
 										"pillboxwebapi20190129085319",
@@ -766,7 +915,7 @@
 										"api",
 										"medicationschedule",
 										"getmedicationschedule",
-										"1"
+										"7"
 									]
 								}
 							},
@@ -786,7 +935,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"medicationid\": 1,\n\t\"name\": \"Advil\",\n\t\"medinfo\": \"some extra info\",\n\t\"every\": \"day\",\n\t\"count\": 20,\n\t\"date\": \"2019-03-26T00:00:00\",\n\t\"hour\": 10,\n\t\"minute\": 30,\n\t\"taken\": true\n}"
+									"raw": "{\n\t\"medicationid\": 1,\n\t\"name\": \"Advil\",\n\t\"medinfo\": \"some extra info\",\n\t\"every\": \"day\",\n\t\"count\": 20,\n\t\"date\": \"2019-03-26T00:00:00\",\n\t\"hour\": 16,\n\t\"minute\": 30,\n\t\"taken\": true\n}"
 								},
 								"url": {
 									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/createmedicationschedule/",
@@ -877,7 +1026,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/getmedicationschedulebymedication/1",
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/getmedicationschedulebymedication/2",
 									"protocol": "https",
 									"host": [
 										"pillboxwebapi20190129085319",
@@ -888,7 +1037,7 @@
 										"api",
 										"medicationschedule",
 										"getmedicationschedulebymedication",
-										"1"
+										"2"
 									]
 								}
 							},
@@ -904,7 +1053,7 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/GetAllMedicatoinScheduleByDay/1?day=2019-03-26T01:01:10",
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/GetAllMedicatoinScheduleByDay/1?day=2019-03-28T01:01:10",
 									"protocol": "https",
 									"host": [
 										"pillboxwebapi20190129085319",
@@ -925,7 +1074,47 @@
 										},
 										{
 											"key": "day",
-											"value": "2019-03-26T01:01:10"
+											"value": "2019-03-28T01:01:10"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "api/medicationschedule/createnotificationschedule/",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[\n\t{\n\t    \"medicationId\": 2,\n\t    \"name\": \"Agalsitosine Ergopatch\",\n\t    \"medInfo\": \"some extra info\",\n\t    \"every\": \"day\",\n\t    \"count\": 1,\n\t    \"date\": \"2019-03-26T00:00:00\",\n\t    \"hour\": 16,\n\t    \"minute\": 30,\n\t    \"taken\": false\n\t},\n\t{\n\t    \"medicationId\": 2,\n\t    \"name\": \"Agalsitosine Ergopatch\",\n\t    \"medInfo\": \"some extra info\",\n\t    \"every\": \"day\",\n\t    \"count\": 1,\n\t    \"date\": \"2019-03-26T00:00:00\",\n\t    \"hour\": 9,\n\t    \"minute\": 0,\n\t    \"taken\": false\n\t}\n]"
+								},
+								"url": {
+									"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medicationschedule/createnotificationschedule/?repeatNotification=5",
+									"protocol": "https",
+									"host": [
+										"pillboxwebapi20190129085319",
+										"azurewebsites",
+										"net"
+									],
+									"path": [
+										"api",
+										"medicationschedule",
+										"createnotificationschedule",
+										""
+									],
+									"query": [
+										{
+											"key": "repeatNotification",
+											"value": "5"
 										}
 									]
 								}
@@ -1164,29 +1353,22 @@
 					"response": []
 				},
 				{
-					"name": "api/test/PostImage",
+					"name": "/api/medications/medicationocr",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/x-www-form-urlencoded",
-								"type": "text"
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "",
+									"key": "file",
 									"type": "file",
 									"src": ""
 								}
 							]
 						},
 						"url": {
-							"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/test/PostImage",
+							"raw": "https://pillboxwebapi20190129085319.azurewebsites.net/api/medications/Medicationocr",
 							"protocol": "https",
 							"host": [
 								"pillboxwebapi20190129085319",
@@ -1195,8 +1377,8 @@
 							],
 							"path": [
 								"api",
-								"test",
-								"PostImage"
+								"medications",
+								"Medicationocr"
 							]
 						}
 					},
