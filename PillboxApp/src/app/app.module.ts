@@ -18,7 +18,7 @@ import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx'
 import { SQLite } from '@ionic-native/sqlite/ngx'
 import { SQLiteObject } from '@ionic-native/sqlite';
 import { HttpModule } from '@angular/http';
-
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //Data base provider?
@@ -34,7 +34,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     LocalNotifications,
     SQLite,
-    SQLitePorter
+    SQLitePorter,
+    ImagePicker,
   ],
   bootstrap: [AppComponent]
 })

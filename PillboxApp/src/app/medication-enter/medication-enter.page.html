@@ -15,9 +15,15 @@
 	</ion-button>
 
 
-	<ion-button expand="full"> 
+	<ion-button expand="full" (click)="getImage()"> 
 		<ion-icon name="image"> </ion-icon> Upload an image
 	</ion-button>
+
+	<div [hidden]="imageResponse.length == 0" class="one-image" *ngFor="let img of imageResponse">
+		<!-- <img src="{{img}}" alt="" srcset=""> -->
+		<ion-img [src]="img"></ion-img>
+		<!-- <ion-img [src]="'data:image/JPEG;base64,' + med.imageBytes"></ion-img> -->
+	</div>
 
 	<hr>
 
