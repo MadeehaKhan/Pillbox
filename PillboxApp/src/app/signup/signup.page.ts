@@ -50,11 +50,6 @@ export class SignupPage implements OnInit {
   }
 
   async signUp(){
-    const loading = await this.loadingController.create({
-      message: "Creating Account..."
-    });
-    await loading.present();
-
     if (!this.validateForm()) {return;}
 
     let primaryphysician = "";
@@ -83,7 +78,13 @@ export class SignupPage implements OnInit {
 
     console.log("data: ");
     console.log(data);
-
+    const loading = await this.loadingController.create({
+      message: "Creating Account...",
+      animated: true,
+      keyboardClose: true,
+    });
+    
+    await loading.present();
     var url = "https://pillboxwebapi20190129085319.azurewebsites.net/api/person/signup/";
 
     this.http.post(url, data)
