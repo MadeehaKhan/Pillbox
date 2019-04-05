@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using PillBoxWebAPI.Models;
 using PillBoxWebAPI.Utility;
@@ -152,27 +154,60 @@ namespace PillBoxWebAPI.Controllers
         {
             //TODO: If the timeframe is week, then repeat on should not be empty
             List<MedicationSchedule> notificationSchedule = new List<MedicationSchedule>();
+            
             try
             {
-                foreach (var medSchedule in medicationSchedules)
-                {
-                    var date = new DateTime();
-                    date = medSchedule.Date;
-                    for (int i = 0; i < repeatNotification; i++)
+                if (medicationSchedules.Count <= 0) return BadRequest("No medication schedules given");
+
+                medicationSchedules = medicationSchedules.OrderBy(x=> x.Date).ThenBy(x => x.Hour).ThenBy(x => x.Minute).ToList();
+                var date = new DateTime();
+                date = medicationSchedules.First().Date;
+                var count = medicationSchedules.First().Count;
+                var r = repeatNotification / Convert.ToDouble(medicationSchedules.Count);
+                var daysWithNotification = Convert.ToInt32(Math.Ceiling(repeatNotification / Convert.ToDouble(medicationSchedules.Count)));
+                var refillReminderSet = false;
+
+                while (repeatNotification > 0)
+                {                   
+                    foreach (var medSchedule in medicationSchedules)
                     {
+                        var temp = new MedicationSchedule
+                        {
+                            Id = medSchedule.Id,
+                            MedicationId = medSchedule.MedicationId,
+                            Name = medSchedule.Name,
+                            MedInfo = medSchedule.MedInfo,
+                            Every = medSchedule.Every,
+                            Count = medSchedule.Count,
+                            Date = date,
+                            Hour = medSchedule.Hour,
+                            Minute = medSchedule.Minute,
+                            Taken = medSchedule.Taken
+                        };
 
-                        var temp = new MedicationSchedule();
+                        if (daysWithNotification <= 7 && !refillReminderSet)
+                        {
+                            //var refillCommand = new SqlCommand("INSERT INTO MedicationSchedule (MEDICATIONID, NAME, MEDINFO, EVERY, COUNT, DATE, HOUR, MINUTE, TAKEN) " +
+                            //                "VALUES(@MEDICATIONID, @NAME, @MEDINFO, @EVERY, @COUNT, @DATE, @HOUR, @MINUTE, @TAKEN); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
 
-                        temp.Id = medSchedule.Id;
-                        temp.MedicationId = medSchedule.MedicationId;
-                        temp.Name = medSchedule.Name;
-                        temp.MedInfo = medSchedule.MedInfo;
-                        temp.Every = medSchedule.Every;
-                        temp.Count = medSchedule.Count;
-                        temp.Date = date;
-                        temp.Hour = medSchedule.Hour;
-                        temp.Minute = medSchedule.Minute;
-                        temp.Taken = medSchedule.Taken;
+                            //refillCommand.Parameters.AddWithValue("@MEDICATIONID", medSchedule.MedicationId);
+                            //refillCommand.Parameters.AddWithValue("@NAME", $"Pills for {medSchedule.Name} running low.");
+                            //refillCommand.Parameters.AddWithValue("@MEDINFO", $"Only {daysWithNotification} remaining.");
+                            //refillCommand.Parameters.AddWithValue("@EVERY", "day");
+                            //refillCommand.Parameters.AddWithValue("@COUNT", 1);
+                            //refillCommand.Parameters.AddWithValue("@DATE", temp.Date);
+                            //refillCommand.Parameters.AddWithValue("@HOUR", medSchedule.Hour);
+                            //refillCommand.Parameters.AddWithValue("@MINUTE", medSchedule.Minute);
+                            //refillCommand.Parameters.AddWithValue("@TAKEN", medSchedule.Taken);
+
+                            //Connections.pillboxDatabase.Open();
+                            //var refillId = Convert.ToInt32(refillCommand.ExecuteScalar());
+                            //temp.Id = refillId;
+                            //notificationSchedule.Add(temp);
+                            //Connections.pillboxDatabase.Close();
+
+                            //refillReminderSet = true;
+                        }
 
                         var command = new SqlCommand("INSERT INTO MedicationSchedule (MEDICATIONID, NAME, MEDINFO, EVERY, COUNT, DATE, HOUR, MINUTE, TAKEN) " +
                             "VALUES(@MEDICATIONID, @NAME, @MEDINFO, @EVERY, @COUNT, @DATE, @HOUR, @MINUTE, @TAKEN); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
@@ -192,10 +227,14 @@ namespace PillBoxWebAPI.Controllers
                         var medScheduleId = Convert.ToInt32(command.ExecuteScalar());
                         temp.Id = medScheduleId;
                         notificationSchedule.Add(temp);
-                        date = date.AddDays(temp.Count); // mult by every?? e.g. * 7 for week       
 
                         Connections.pillboxDatabase.Close();
+
+                        repeatNotification--;
+                        if (repeatNotification == 0) break;                        
                     }
+                    daysWithNotification--;
+                    date = date.AddDays(count); // mult by every?? e.g. * 7 for week       
                 }
             }
             catch (Exception ex)
@@ -204,8 +243,69 @@ namespace PillBoxWebAPI.Controllers
             }
             finally
             {
-                //Connections.pillboxDatabase.Close();
+                if (Connections.pillboxDatabase != null && Connections.pillboxDatabase.State == ConnectionState.Closed)
+                {
+                    Connections.pillboxDatabase.Close();
+                }
             }
+
+            //try
+            //{
+            //    foreach (var medSchedule in medicationSchedules)
+            //    {
+            //        var date = new DateTime();
+            //        date = medSchedule.Date;
+            //        for (int i = 0; i < repeatNotification; i++)
+            //        {
+
+            //            var temp = new MedicationSchedule();
+
+            //            temp.Id = medSchedule.Id;
+            //            temp.MedicationId = medSchedule.MedicationId;
+            //            temp.Name = medSchedule.Name;
+            //            temp.MedInfo = medSchedule.MedInfo;
+            //            temp.Every = medSchedule.Every;
+            //            temp.Count = medSchedule.Count;
+            //            temp.Date = date;
+            //            temp.Hour = medSchedule.Hour;
+            //            temp.Minute = medSchedule.Minute;
+            //            temp.Taken = medSchedule.Taken;
+
+            //            var command = new SqlCommand("INSERT INTO MedicationSchedule (MEDICATIONID, NAME, MEDINFO, EVERY, COUNT, DATE, HOUR, MINUTE, TAKEN) " +
+            //                "VALUES(@MEDICATIONID, @NAME, @MEDINFO, @EVERY, @COUNT, @DATE, @HOUR, @MINUTE, @TAKEN); SELECT SCOPE_IDENTITY();", Connections.pillboxDatabase);
+
+            //            command.Parameters.AddWithValue("@MEDICATIONID", medSchedule.MedicationId);
+            //            command.Parameters.AddWithValue("@NAME", medSchedule.Name);
+            //            command.Parameters.AddWithValue("@MEDINFO", medSchedule.MedInfo);
+            //            command.Parameters.AddWithValue("@EVERY", medSchedule.Every);
+            //            command.Parameters.AddWithValue("@COUNT", medSchedule.Count);
+            //            command.Parameters.AddWithValue("@DATE", temp.Date);
+            //            command.Parameters.AddWithValue("@HOUR", medSchedule.Hour);
+            //            command.Parameters.AddWithValue("@MINUTE", medSchedule.Minute);
+            //            command.Parameters.AddWithValue("@TAKEN", medSchedule.Taken);
+
+            //            Connections.pillboxDatabase.Open();
+
+            //            var medScheduleId = Convert.ToInt32(command.ExecuteScalar());
+            //            temp.Id = medScheduleId;
+            //            notificationSchedule.Add(temp);
+            //            date = date.AddDays(temp.Count); // mult by every?? e.g. * 7 for week       
+
+            //            Connections.pillboxDatabase.Close();
+            //        }
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    return BadRequest($"CreateMedicationSchedule() error \n {ex.ToString()}");
+            //}
+            //finally
+            //{
+            //    if (Connections.pillboxDatabase != null && Connections.pillboxDatabase.State == ConnectionState.Closed)
+            //    {
+            //        Connections.pillboxDatabase.Close();
+            //    }
+            //}
             return notificationSchedule;
         }
 
