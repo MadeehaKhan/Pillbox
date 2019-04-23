@@ -19,6 +19,10 @@ import { SQLite } from '@ionic-native/sqlite/ngx'
 import { SQLiteObject } from '@ionic-native/sqlite';
 import { HttpModule } from '@angular/http';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { FilePath } from '@ionic-native/file-path/ngx';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //Data base provider?
@@ -36,6 +40,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SQLite,
     SQLitePorter,
     ImagePicker,
+    Camera,
+    FileTransfer,
+    FileTransferObject,
+    File,
+    FilePath,
   ],
   bootstrap: [AppComponent]
 })

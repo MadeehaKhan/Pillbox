@@ -3,33 +3,32 @@
     <ion-title id="myImage_Header">
     </ion-title>
     <ion-buttons>
-        <ion-back-button defaultHref="/register" color="primary"  routerDirection="back"></ion-back-button>
+        <ion-back-button defaultHref="/tabs/tab1" color="primary"  routerDirection="back"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
-	<ion-button expand="full"> 
-		<ion-icon name="camera"> </ion-icon> Take a photo 
+	<ion-button id="btn-padding" size="large" [hidden]="imagePicked" (click)="takeImage()" expand="block"> 
+		<ion-icon name="camera"></ion-icon> Take a photo 
 	</ion-button>
-
-
-	<ion-button expand="full" (click)="getImage()"> 
+	<ion-button id="btn-padding" size="large" [hidden]="imagePicked" expand="block" (click)="getImage()"> 
 		<ion-icon name="image"> </ion-icon> Upload an image
 	</ion-button>
-
-	<div [hidden]="imageResponse.length == 0" class="one-image" *ngFor="let img of imageResponse">
-		<!-- <img src="{{img}}" alt="" srcset=""> -->
-		<ion-img [src]="img"></ion-img>
-		<!-- <ion-img [src]="'data:image/JPEG;base64,' + med.imageBytes"></ion-img> -->
+	<div [hidden]="!imagePicked" style="width: 80%; margin: auto;" class="one-image" *ngFor="let img of images">
+		<ion-img [src]="images[0]"></ion-img>
 	</div>
-
-	<hr>
-
-	<ion-button expand="full" (click)="addMedication()"> 
+	<hr class="hr-text" [hidden]="imagePicked" data-content="OR">
+	<ion-button size="large" [hidden]="imagePicked" expand="block" (click)="addMedication()">
 		Enter manually
 	</ion-button>
 
+	<ion-button size="large" expand="block" id="btn-padding" [hidden]="!imagePicked" (click)="continue()">
+		Continue
+	</ion-button>
+	<ion-button size="large" expand="block" color="medium" id="btn-padding" [hidden]="!imagePicked" (click)="cancel()">
+		Cancel
+	</ion-button>
 
+	<p>{{testMsg}}</p>
 </ion-content>

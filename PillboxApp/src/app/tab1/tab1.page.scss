@@ -50,6 +50,14 @@ div.toolbar-container{
  min-height: 36px;
 }
 
+ion-button {
+  font-weight: 400;
+}
+
+ion-button ion-icon {
+  padding: 2px 8px 4px 4px;
+}
+
 ion-card-title{
   font-size: 1.3em;
   padding-left: 10px;

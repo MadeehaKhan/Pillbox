@@ -137,12 +137,15 @@ namespace PillBoxWebAPI.Controllers
         {
             try
             {
-                var command = new SqlCommand("INSERT INTO Medication (DIN, PERSONID, PRESCRIPTIONID, [NAME]" +
-                    ", DOSAGE, STRENGTH, UNITS, FORMAT, INSTRUCTIONS, NUMREFILLS, REMAININGPILLS, PHARMACYOBTAINED,[IMAGE], TAKEASNEEDED, SIDEEFFECTS, DATEOBTAINED)" +
+                if (medication.Image == null) return BadRequest("Image was null");
+
+
+                var command = new SqlCommand(@"INSERT INTO Medication (DIN, PERSONID, PRESCRIPTIONID, [NAME]" +
+                    ", DOSAGE, STRENGTH, UNITS, FORMAT, INSTRUCTIONS, NUMREFILLS, REMAININGPILLS, PHARMACYOBTAINED, [IMAGE], TAKEASNEEDED, SIDEEFFECTS, DATEOBTAINED)" +
                     "VALUES(@DIN, @PERSONID, @PRESCRIPTIONID, @NAME, @DOSAGE, @STRENGTH, @UNITS, @FORMAT, @INSTRUCTIONS, @NUMREFILLS, @REMAININGPILLS, @PHARMACYOBTAINED," +
                     " @IMAGE, @TAKEASNEEDED, @SIDEEFFECTS, @DATEOBTAINED); SELECT SCOPE_IDENTITY()", Connections.pillboxDatabase);
 
-                byte[] imageBytes;
+                byte[] imageBytes = new byte[1];
 
                 using (var ms = new MemoryStream())
                 {
@@ -151,6 +154,8 @@ namespace PillBoxWebAPI.Controllers
                     //string s = Convert.ToBase64String(fileBytes);
                     // act on the Base64 data
                 }
+                
+
 
                 command.Parameters.AddWithValue("@DIN", medication.DIN);
                 command.Parameters.AddWithValue("@PERSONID", medication.PersonId);
@@ -183,6 +188,12 @@ namespace PillBoxWebAPI.Controllers
             {
                 Connections.pillboxDatabase.Close();
             }
+        }
+
+        [HttpPost]
+        public ActionResult<string> PostTest([FromForm] IFormFile file)
+        {
+            return Ok("post success :)");
         }
 
         /// <summary>
@@ -580,13 +591,18 @@ namespace PillBoxWebAPI.Controllers
         {
             byte[] imageBytes;
 
+            if (file == null) return BadRequest("File was empty");
+
             using (var ms = new MemoryStream())
             {
+                
                 file.CopyTo(ms);
                 imageBytes = ms.ToArray();
                 //string s = Convert.ToBase64String(fileBytes);
                 // act on the Base64 data
             }
+
+            if (imageBytes.Length == 0) return BadRequest("Image Bytes Empty");
 
             var client = new HttpClient();
             var queryString = HttpUtility.ParseQueryString(string.Empty);

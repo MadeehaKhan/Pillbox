@@ -89,7 +89,6 @@ export class SignupPage implements OnInit {
 
     this.http.post(url, data)
     .toPromise()
-
     .then(response => {
       console.log('Post Success!');
       console.log('Reponse: ' + response);

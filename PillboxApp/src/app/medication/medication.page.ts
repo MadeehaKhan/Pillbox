@@ -4,8 +4,8 @@ import { NgForm, ReactiveFormsModule, FormsModule, FormGroup } from '@angular/fo
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
 import { Person } from '../models/Person';
-
-
+import { Medication } from '../models/Medication';
+import { Prescription } from '../models/Prescription';
 
 @Component({
   selector: 'app-medication',
@@ -25,13 +25,32 @@ export class MedicationPage implements OnInit {
 	timeList: any[] = [];
 	dataschedules: any[] = [];
 
+	filledMedication: Medication = null;
+	filledPrescription: Prescription = null;
 
 	constructor(private router: Router,
      public http: HttpClient, 
      private storage: Storage,) {
+			console.log("ctor /medication page");
 	}
 
 	ngOnInit() {
+		console.log("ngOnInit /medication page");
+		this.storage.get("FilledMedication").then(val => {
+			this.filledMedication = val as Medication;						
+			console.log("get filledMedication");
+			console.log(this.filledMedication);
+			if (this.filledMedication != null){
+				alert("FilledMedication not null");
+				alert("Med name:" + this.filledMedication.name);
+				alert("Med dosage:" + this.filledMedication.dosage);
+				this.storage.set("FilledMedication", null);
+				this.storage.set("FilledPrescription", null);
+			}else if (this.filledMedication == null){
+				alert("FilledMedication is null");
+			}
+		});
+
 		let testUser = new Person();
         this.storage.get('user')
        .then(val => testUser = val)

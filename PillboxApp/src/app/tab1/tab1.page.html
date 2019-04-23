@@ -93,17 +93,17 @@
 
     <!-- NEED TO ADD A TAKE A NEEDED SECTION -->
 
-    <div id="centerButton">
-        <ion-button (click)="addMedication()">+ Add Medication </ion-button>
+    <div id="centerButton" padding>
+        <ion-button size="large" expand="block" (click)="addMedication()"><ion-icon name="add"></ion-icon> Add Medication </ion-button>
     </div>
 
     <div id="centerButton">
         <ion-button (click)="toastMedTrig()"> Toast Medication Triggers </ion-button>
     </div>
 
-    <div id="centerButton">
+    <!-- <div id="centerButton">
       <ion-button (click)="populateMedicationLists()"> Refresh </ion-button>
-    </div>
+    </div> -->
   
     <ion-item *ngFor="let item of meds">
       <ion-label text-wrap>
