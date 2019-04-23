@@ -1,14 +1,14 @@
-<ion-header >
+<ion-header>
   <ion-toolbar>
-    <ion-title text-center>Sign Up</ion-title>
+    <ion-title id="myImage_Header"></ion-title>
     <ion-buttons>
-        <ion-back-button defaultHref="/register" color="primary" routerDirection="back"></ion-back-button>
+      <ion-back-button style="top: 0px;" defaultHref="/register" color="primary" routerDirection="back"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
+  <h2 text-center>Register</h2>
     <ion-card [hidden]="failedMsg === ''" class="isa_error">
         <ion-card-header>
           <ion-card-title>Failed to submit</ion-card-title>
@@ -83,8 +83,8 @@
           <ion-label position="floating">Emergency Contact Number</ion-label>
           <ion-input type="tel" [(ngModel)]="econtactnumber" name="econtactnumber"  pattern="[0-9-\s]*"></ion-input>
         </ion-item>
-        <div padding>
-            <ion-button size="large" color="primary" expand="block" type="submit" [disabled]="!form.valid">Done</ion-button>
-          </div>
+        <div padding style="margin-top: 25px;">
+          <ion-button size="large" color="primary" expand="block" type="submit" [disabled]="!form.valid">Done</ion-button>
+        </div>
       </form>
 </ion-content>

@@ -10,7 +10,9 @@
 </ion-header>
       
 <ion-content onload="">
-    <h2 id="name"> {{ user.givenName + ' ' + user.lastName }} </h2>
+    <div padding>
+        <h2 id="name"><strong>{{ user.givenName + ' ' + user.lastName }}</strong></h2>
+    </div>
     <ion-list class="list list-ios hydrated">
         <h6>PROFILE</h6>
         <ion-item class="in-list item ion-focusable item-label hydrated" (click)="navToChangeName()" detail>

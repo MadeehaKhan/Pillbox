@@ -5,6 +5,7 @@ export class Person {
     givenName: String;
     lastName: String;
     age: Number;    
+    dateOfBirth: Date;
     phoneNumber: Number;
     emergencyContact1: String;
     emergencyContact2: String;

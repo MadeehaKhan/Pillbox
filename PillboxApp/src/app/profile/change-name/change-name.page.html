@@ -1,47 +1,34 @@
 <ion-header >
   <ion-toolbar>
-    <ion-title id="myImage_Header">
-    </ion-title>
+    <ion-title id="myImage_Header"></ion-title>
     <ion-buttons>
-        <ion-back-button defaultHref="/register" color="primary" routerDirection="back"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/tab3" color="primary" routerDirection="back" (click)="back()"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-   
+<ion-content padding>   
     <div id='center'>
         <h4>Profile</h4>
     </div>
 
     <form id="login" #form="ngForm" (ngSubmit)="authenticate(form)">
-        <h5 [hidden]="failedMsg === ''" class="isa_error">
-            <!-- <i class="fa fa-times-circle"></i> -->
-            {{failedMsg}}
-        </h5>
-        <ion-item>
-          <ion-label position="stacked">First Name</ion-label>
-          <ion-input name="givenName" type="text" ngModel="{{user.givenName}}"></ion-input>
-        </ion-item>
-    
-        <ion-item>
-          <ion-label position="stacked">Last Name</ion-label>
-          <ion-input name="lastName" type="text" ngModel="{{user.lastName}}"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label position="stacked">Age</ion-label>
-          <ion-input name="age" type="number" ngModel="{{user.age}}"></ion-input>
-        </ion-item>
-        <div id="center">
-            <ion-button color="primary" type="submit" [disabled]="!form.valid">Update</ion-button>
-        </div>
-      </form>
-
+      <h5 [hidden]="failedMsg === ''" class="isa_error">{{failedMsg}}</h5>
+      <ion-item>
+        <ion-label position="stacked">First Name</ion-label>
+        <ion-input name="givenName" type="text" ngModel="{{user.givenName}}"></ion-input>
+      </ion-item>  
+      <ion-item>
+        <ion-label position="stacked">Last Name</ion-label>
+        <ion-input name="lastName" type="text" ngModel="{{user.lastName}}"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Age</ion-label>
+        <!-- <ion-input name="age" type="date" ngModel="{{user.dateOfBirth}}"></ion-input> -->
+        <ion-datetime [(ngModel)]="user.dateOfBirth" name="dateOfBirth" display-format="MMM DD, YYYY"></ion-datetime>
+      </ion-item>
+      <div id="center" style="margin: 20px;">
+          <ion-button size="large" color="primary" type="submit" [disabled]="!form.valid">Update</ion-button>
+      </div>
+    </form>
 </ion-content>
-
-<!-- <ion-footer>
-  <div class="toBottom">
-      <ion-button expand="full" color="primary" (click)="authenticate(form)" [disabled]="!form.valid">Update</ion-button>
-  </div>
-</ion-footer> -->

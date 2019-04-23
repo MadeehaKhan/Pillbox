@@ -81,12 +81,19 @@
   overflow: hidden;
 }
 
-
 #myImage_Header{
  background: url('/assets/img/pillbox_logo_blue.svg');
  background-size: 100% 100%;
  min-width: 58px;
  min-height: 36px;
+}
+
+.sc-ion-buttons-md-h, .sc-ion-buttons-md-s{
+  position: absolute;
+}
+
+.sc-ion-back-button-md {
+  position: absolute; top: -10px;
 }
 
 // Larger Title for action sheets
@@ -103,5 +110,3 @@ ion-card-title{
   font-size: 18px;
   padding-left: 10px;
 }
-
-

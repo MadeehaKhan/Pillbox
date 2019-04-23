@@ -1,31 +1,26 @@
 <ion-header >
   <ion-toolbar>
-    <ion-title id="myImage_Header">
-    </ion-title>
+    <ion-title id="myImage_Header"></ion-title>
     <ion-buttons>
-        <ion-back-button defaultHref="/register" color="primary" routerDirection="back"></ion-back-button>
+      <ion-back-button defaultHref="/tabs/tab3" color="primary" routerDirection="back" (click)="back()"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-   
+<ion-content padding>   
     <div id='center'>
-        <h4>Update Email</h4>
+      <h4>Update Email</h4>
     </div>
 
     <form id="login" #form="ngForm" (ngSubmit)="authenticateEmail(form)">
-        <h5 [hidden]="failedMsg === ''" class="isa_error">
-            <!-- <i class="fa fa-times-circle"></i> -->
-            {{failedMsg}}
-        </h5>
+        <h5 [hidden]="failedMsg === ''" class="isa_error">{{failedMsg}}</h5>
         <ion-item>
           <ion-label position="stacked">Email</ion-label>
           <ion-input name="email" type="email" ngModel="{{user.email}}"></ion-input>
         </ion-item>
     
-        <div id="center">
-            <ion-button color="primary" type="submit" [disabled]="!form.valid">Update</ion-button>
+        <div id="center" style="margin: 20px;">
+            <ion-button size="large" color="primary" type="submit" [disabled]="!form.valid">Update</ion-button>
         </div>
       </form>
 

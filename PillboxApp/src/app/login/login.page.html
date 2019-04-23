@@ -1,13 +1,14 @@
-<ion-header >
-    <ion-toolbar>
-      <ion-title text-center>Login</ion-title>
-      <ion-buttons>
-          <ion-back-button defaultHref="/register" color="primary" routerDirection="back"></ion-back-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
+<ion-header>
+  <ion-toolbar>
+    <ion-title id="myImage_Header"></ion-title>
+    <ion-buttons>
+      <ion-back-button defaultHref="/register" color="primary" routerDirection="back"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content padding>
+  <h2 text-center>Login</h2>
   <form id="login" #form="ngForm" (ngSubmit)="authenticate(form)">
     <ion-card [hidden]="failedMsg === ''" class="isa_error">
         <ion-card-header>
@@ -34,6 +35,6 @@
 
 <ion-footer>
     <div class="toBottom">
-        <ion-button expand="full" color="primary" (click)="authenticate(form)" [disabled]="!form.valid">Login</ion-button>
+        <ion-button expand="block" size="large" color="primary" (click)="authenticate(form)" [disabled]="!form.valid">Login</ion-button>
     </div>
 </ion-footer>

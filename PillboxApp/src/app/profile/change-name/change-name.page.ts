@@ -14,7 +14,10 @@ export class ChangeNamePage implements OnInit {
 
   user: Person = new Person();
   constructor(private router: Router, private storage: Storage, private medicationService: MedicationService, private loadingController: LoadingController) {
-    this.storage.get('user').then(val => this.user = val);
+    this.storage.get('user').then(val => {
+      this.user = val;
+      console.log(this.user);
+    });    
   }
 
   ngOnInit() {
@@ -30,7 +33,7 @@ export class ChangeNamePage implements OnInit {
     
     this.user.givenName = ngForm.form.value.givenName;
     this.user.lastName = ngForm.form.value.lastName;
-    this.user.age = ngForm.form.value.age;
+    this.user.dateOfBirth = ngForm.form.value.dateOfBirth;
 
     const loading = await this.loadingController.create({
       message: "Please wait..."

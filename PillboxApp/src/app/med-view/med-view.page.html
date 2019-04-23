@@ -3,13 +3,13 @@
     <ion-title id="myImage_Header">
     </ion-title>
     <ion-buttons>
-        <ion-back-button defaultHref="/register" color="primary" routerDirection="back"></ion-back-button>
+        <ion-back-button defaultHref="/tabs/tab1" color="primary" routerDirection="back"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
+ 
 <ion-content padding>
-    <h1 > {{information.name}} {{information.strength}} {{information.units}} ({{information.din}}) </h1>
+    <h1> {{information.name}} {{information.strength}} {{information.units}} ({{information.din}}) </h1>
     <div *ngIf=isRx class= "vii">
         <ion-item>
             <h2> Dosage: {{information.dosage}} </h2> 
@@ -40,8 +40,5 @@
         </ion-item>
     </div>
 
-
-    <ion-button expand="full" color="primary" (click)="editMed()"> Edit </ion-button>    
-
-
+    <ion-button expand="block" size="large" color="primary" (click)="editMed()"> Edit </ion-button>    
 </ion-content>

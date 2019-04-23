@@ -28,6 +28,9 @@ export class MedicationPage implements OnInit {
 	filledMedication: Medication = null;
 	filledPrescription: Prescription = null;
 
+	takeAsNeeded = false;
+	units = "mg";
+
 	constructor(private router: Router,
      public http: HttpClient, 
      private storage: Storage,) {
@@ -52,11 +55,11 @@ export class MedicationPage implements OnInit {
 		});
 
 		let testUser = new Person();
-        this.storage.get('user')
-       .then(val => testUser = val)
-       .then(() => {
-       	 this.pID= testUser.id as number; 
-       });
+		this.storage.get('user')
+		.then(val => testUser = val)
+		.then(() => {
+			this.pID= testUser.id as number; 
+		});
 	}
 
 //function that determines whether we are adding to a preexisting prescription or not
@@ -84,10 +87,10 @@ export class MedicationPage implements OnInit {
     	let strength: number = ngForm.form.value.strength;
     	let remainingMed: number = ngForm.form.value.medrem;
     	let pharmObtained: string = ngForm.form.value.pharm;
-    	let takeAsNeeded: boolean = false;
+    	// let takeAsNeeded: boolean = ngForm.form.value.takeAsNeeded;
     	let dateObtained: string = ngForm.form.value.dobt;
     	let sideEffects: string = "none";											
-    	let units: string = ngForm.form.value.units;
+    	let units: string = this.units;
     	
     	let doctor: string = ngForm.form.value.doc;											
 
@@ -131,7 +134,7 @@ export class MedicationPage implements OnInit {
 			"Strength": strength,
 			"RemainingPills": remainingMed,
 			"PharmacyObtained": pharmObtained,
-			"TakeAsNeeded": takeAsNeeded,
+			"TakeAsNeeded": this.takeAsNeeded,
 			"SideEffects": sideEffects,
 			"DateObtained": dateObtained,
 			"PersonID": PersonId,
@@ -140,8 +143,10 @@ export class MedicationPage implements OnInit {
 			"Instructions": instr,
 
 			"Dosage": dosage,
-			"Units" : units
+			"Units" : this.units
 		}
+
+		console.log('datamed: \n' + JSON.stringify(datamed));
 
 		//for prescription medications
 		if(this.isRX) {

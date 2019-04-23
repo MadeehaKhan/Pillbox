@@ -18,67 +18,67 @@
 	      	<div >
 				<form id="addMed" #form="ngForm" (ngSubmit)="addMed(form)">
 					<ion-item> 
-						<ion-label position="floating"> Name* </ion-label>
+						<ion-label position="floating"> Name<ion-text color="danger">*</ion-text></ion-label>
 						<ion-input type='text' name='name' ngModel required ></ion-input>
 					</ion-item>
 					<ion-item>
-						<ion-label position="floating"> DIN (Drug Identification Number)* </ion-label>
+						<ion-label position="floating"> DIN (Drug Identification Number)<ion-text color="danger">*</ion-text> </ion-label>
 						<ion-input type="number" name='din' ngModel min='00000000' required ></ion-input>
 					</ion-item>
 					<ion-item>
-						<ion-label position="floating"> Strength* </ion-label>
+						<ion-label position="floating"> Strength<ion-text color="danger">*</ion-text> </ion-label>
 						<ion-input type='number' name='strength' ngModel required ></ion-input>
                     </ion-item>
                     <ion-item>
-						<ion-radio-group ngModel name='units'>
+						<ion-radio-group name="units" [(ngModel)]="units">
 							<ion-item>
 								<ion-label>mg</ion-label>
-			      				<ion-radio slot="start" [(ngModel)]="units" value="mg" name="mg"></ion-radio>
+			      				<ion-radio slot="start" value="mg" checked></ion-radio>
 			      			</ion-item>
 			      			<ion-item>
 			      				<ion-label>IU</ion-label>
-			      				<ion-radio slot="start" [(ngModel)]="units" value="iu" name="iu"></ion-radio>
+			      				<ion-radio slot="start" value="iu"></ion-radio>
 			      			</ion-item>
 			      			<ion-item>
 								<ion-label>mL</ion-label>
-			      				<ion-radio slot="start" [(ngModel)]="units" value="mL" name="mL"></ion-radio>
+			      				<ion-radio slot="start" value="mL"></ion-radio>
 			      			</ion-item>
 						</ion-radio-group>
 					</ion-item>
 					<ion-item> 
-						<ion-label position="floating"> Medication remaining* </ion-label>
+						<ion-label position="floating"> Medication remaining<ion-text color="danger">*</ion-text> </ion-label>
 						<ion-input type="number" name='medrem' ngModel required step='0.5' min='0' ></ion-input>
 					</ion-item>
 					<ion-item>
-						<ion-label position="floating"> Pharmacy Obtained At* </ion-label>
+						<ion-label position="floating"> Pharmacy Obtained At<ion-text color="danger">*</ion-text> </ion-label>
 						<ion-input type="text" name='pharm' ngModel required ></ion-input>
 					</ion-item>
 					<ion-item>
-						<ion-label for="dobt">Date Obtained*</ion-label>
+						<ion-label for="dobt">Date Obtained<ion-text color="danger">*</ion-text></ion-label>
 						<ion-datetime ngModel name="dobt" display-format="MMM DD, YYYY"></ion-datetime>
 					</ion-item>
 					<ion-item>
-						<ion-label for='takeAsNeeded'>Take as needed*</ion-label>
-						<ion-checkbox name='takeAsNeeded' ngModel></ion-checkbox>
+						<ion-label>Take as needed<ion-text color="danger">*</ion-text></ion-label>
+						<ion-toggle name="takeAsNeeded" [(ngModel)]='takeAsNeeded' color="success"></ion-toggle>
 					</ion-item>
 					<ion-button expand="full" (click)="toggleRX()">This is a prescription medication</ion-button>
 
 					<div *ngIf=isRX>
 						<h4>Prescription Information</h4>
 						<ion-item>
-							<ion-label position="floating"> Prescribing Doctor* </ion-label>
+							<ion-label position="floating"> Prescribing Doctor<ion-text color="danger">*</ion-text> </ion-label>
 							<ion-input type="text" name='doc' ngModel ></ion-input>
 						</ion-item>
 						<ion-item>
-							<ion-label position="floating"> Dosage* </ion-label>
+							<ion-label position="floating"> Dosage<ion-text color="danger">*</ion-text> </ion-label>
 							<ion-input type="number" name='dosage' ngModel required step="0.1" min='0' ></ion-input>
 						</ion-item>
 						<ion-item>
-							<ion-label position="floating"> Instructions* </ion-label>
+							<ion-label position="floating"> Instructions<ion-text color="danger">*</ion-text> </ion-label>
 							<ion-input type="text" name='instr' ngModel></ion-input>
 						</ion-item>
 						<ion-item>
-							<ion-label position="floating"> Number of Refills* </ion-label>
+							<ion-label position="floating"> Number of Refills<ion-text color="danger">*</ion-text> </ion-label>
 							<ion-input type="number" name='numrefills' ngModel min='0' ></ion-input>
 						</ion-item>
 						<ion-button expand="full" id="addToScript" disabled="true" color="primary" (click)="addToScript()">Add to this prescription</ion-button>

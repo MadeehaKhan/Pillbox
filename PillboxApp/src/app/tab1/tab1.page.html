@@ -1,7 +1,6 @@
 <ion-header >
   <ion-toolbar>
-    <ion-title id="myImage_Header">
-    </ion-title>
+    <ion-title id="myImage_Header"></ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,7 +14,7 @@
         <!-- refreshingText="Refreshing..." -->
       </ion-refresher-content>
     </ion-refresher>
-    <div id="date"> {{ today | date:'EEEE, MMMM d'}} </div>
+    <div id="date" style="margin: 10px;"> {{ today | date:'EEEE, MMMM d'}} </div>
     <ion-card class="welcome-card">
       <ion-card-title text-center padding>Today's Medications</ion-card-title>
       <ion-list *ngFor="let entry of drugsList; last as isLast" class="list list-ios hydrated">
@@ -94,7 +93,7 @@
     <!-- NEED TO ADD A TAKE A NEEDED SECTION -->
 
     <div id="centerButton" padding>
-        <ion-button size="large" expand="block" (click)="addMedication()"><ion-icon name="add"></ion-icon> Add Medication </ion-button>
+      <ion-button size="large" expand="block" (click)="addMedication()"><ion-icon name="add"></ion-icon> Add Medication </ion-button>
     </div>
 
     <div id="centerButton">
