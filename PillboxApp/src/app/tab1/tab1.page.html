@@ -33,7 +33,7 @@
             </h3>
             <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s hydrated">
               <h2> {{entry.name}} </h2>
-              <p >{{ entry.medInfo }}</p>
+              <p *ngIf="entry.medInfo!='none'">{{ entry.medInfo }}</p>
             </ion-label>
             <ion-item lines="none" id="checkBoxItem">
               <ion-chip *ngIf="entry.showDanger" color="danger">

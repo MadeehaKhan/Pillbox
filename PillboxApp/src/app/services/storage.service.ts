@@ -4,6 +4,7 @@ import { MedSchedule } from '../models/MedSchedule';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 
+
 // export interface Item{
 //   id: number,
 //   title: string,
@@ -49,17 +50,28 @@ export class StorageService {
     });
   }
 
+  addMedScheduleNotifications(schedule: MedSchedule[]){
+    console.log("Adding Schedule!!!...")
+    schedule.forEach(item => {
+      this.addItemWithNotification(item);
+    });
+
+    console.log("Completed setting schedule");
+  }
+
   // CREATE with Notification
   addItemWithNotification(item: MedSchedule): Promise<any> {
     return this.storage.get(MedScheduleS_KEY).then((items: MedSchedule[]) => {
       if (items) {
         items.push(item); 
-        console.log("Adding item id: " + item.id + ", Hour = " + item.hour + ", Minute = " + item.minute);
-        this.scheduleNotification(item.id, item.name, item.medInfo, item.every, item.count, item.refills, item.hour, item.minute);
+        console.log("Adding item: ");
+        console.log(item)
+        this.scheduleNotification(item);
         return this.storage.set(MedScheduleS_KEY, items);
       } else {
-        console.log("Adding item id: " + item.id + ", Hour = " + item.hour + ", Minute = " + item.minute);
-        this.scheduleNotification(item.id, item.name, item.medInfo, item.every, item.count, item.refills, item.hour, item.minute);
+        console.log("Adding item: ");
+        console.log(item)
+        this.scheduleNotification(item);
         return this.storage.set(MedScheduleS_KEY, [item]);
       }
     });
@@ -110,12 +122,12 @@ export class StorageService {
 
   //Notification Functions
   //schedule single notification
-  public scheduleNotification(medID: number, medName: string, medInfo: string, tevery: string, tcount:number, medRefills:Number, tHour: Number, tMinute: Number){
-    console.log("Setting notification. Every: " + tevery);
+  public scheduleNotification(sched: MedSchedule){
+    console.log("Setting notification. Every: " + sched.every);
     
-    if(tevery == 'day'){ //valid count numbers are 1-6
-      console.log("Sending daily notifications");
-      this.scheduleDailyNotification(medID, medName, medInfo, tevery, tcount, medRefills,tHour, tMinute);
+    if(sched.every == 'daily'){ //valid count numbers are 1-6
+      console.log("Sending daily notification");
+      this.scheduleDaily(sched);
     }
     // var x = ELocalNotificationTriggerUnit.SECOND;
     // var now = Date.now();
@@ -143,6 +155,33 @@ export class StorageService {
     //   every: 'day'
     //   //every: {hour: parseInt(tHour.toString()), minute: parseInt(tMinute.toString()) }
     // });
+  }
+
+  public async scheduleDaily(medSched: MedSchedule){
+      console.log("Medsched date: " + medSched.date)
+      var date = new Date(medSched.date);
+      date.setMinutes(parseInt(medSched.minute.toString()));
+      date.setHours(parseInt(medSched.hour.toString()));
+      this.showAlert("Time",  "Date: "+ date.getMonth() + "/" + date.getDate() ,"time: " + date.toLocaleTimeString());
+      console.log("Time Right now: "+ date.getMonth() + "/" + ", time: " + date.toLocaleTimeString());
+
+      console.log("Shcedule Daily!!!")
+        this.localNotifications.schedule({
+          id: medSched.id,
+          title: 'Pillbox App',
+          text: medSched.name,
+          data: { mydata: medSched.medInfo},
+          actions: [
+            {id: 'take', title: 'Take'},
+            {id: 'dismiss', title: 'Dismiss'}
+          ],
+          smallIcon: 'file://assets/img/avatar-finn', //icons not working
+          color: '#4286f4',
+          trigger: {at: new Date(date)}, 
+        });
+
+        console.log("id:" + date.toString() + "Tomorow's date: "+ date.toString() + ", time:" + date.toLocaleTimeString());
+        //this.showAlert("Tomorrow",  "Date: "+ medSched.date.getMonth() + "/" + medSched.date.getDate() ,"time: " + medSched.date.toLocaleTimeString());
   }
 
   public async scheduleDailyNotification(medID: number, medName: string, medInfo: string, tevery: string, tcount:number, medRefills:Number, tHour: Number, tMinute: Number){
