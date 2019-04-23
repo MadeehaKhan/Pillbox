@@ -105,7 +105,7 @@
                             <ion-datetime name="takeMed" display-format="HH:mm"  #takeMed required ngModel> </ion-datetime>
                         </ion-item>  
 
-                            <ion-button (click)="addTime(takeMed.value)">+</ion-button>
+                            <ion-button (click)="addTime(takeMed.value)">Add time</ion-button>
                         <ion-item>
 						  <ion-list>
 							<ion-item *ngFor="let timing of timeList; let i = index">

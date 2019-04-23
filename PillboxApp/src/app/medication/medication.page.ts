@@ -6,6 +6,9 @@ import { Storage } from '@ionic/storage';
 import { Person } from '../models/Person';
 import { Medication } from '../models/Medication';
 import { Prescription } from '../models/Prescription';
+import { StorageService } from '../services/storage.service';
+import { MedSchedule } from '../models/MedSchedule';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-medication',
@@ -33,8 +36,9 @@ export class MedicationPage implements OnInit {
 
 	constructor(private router: Router,
      public http: HttpClient, 
-     private storage: Storage,) {
-			console.log("ctor /medication page");
+		 private storage: Storage,
+		 private storageService: StorageService,
+		 private loadingController: LoadingController ) {
 	}
 
 	ngOnInit() {
@@ -63,7 +67,7 @@ export class MedicationPage implements OnInit {
 	}
 
 //function that determines whether we are adding to a preexisting prescription or not
-	adding(ngForm: NgForm) {
+async adding(ngForm: NgForm) {
 		if (this.addToRx) {
 			this.addRxMed(ngForm);
 		}
@@ -72,7 +76,7 @@ export class MedicationPage implements OnInit {
 	}
 
 //creates a new Medication object (and Prescription object if that is the case)
-	addMed(ngForm: NgForm){
+async addMed(ngForm: NgForm){
 		console.log('addMed()');
 		console.log(ngForm);
 
@@ -106,13 +110,16 @@ export class MedicationPage implements OnInit {
     	let hourList: string[] = [];
     	let minuteList: string[] = [];
     	console.log("adding times");
-    	console.log(this.timeList);
+			console.log(this.timeList);
+			console.log(this.timeList.length);
     	for (var i = 0; i < this.timeList.length; i++) {
     		hourList.push(this.timeList[i].substring(0,2));
     		console.log("hour:" + hourList[i]);
     		minuteList.push(this.timeList[i].substring(3));
     		console.log("minute:" + minuteList[i]);
-    	}
+			}
+			console.log("After adding times");
+    	console.log("hours:");
     	let taken: boolean = false;
 
 
@@ -130,7 +137,7 @@ export class MedicationPage implements OnInit {
 
 		const datamed: any = {
 			"Din": din,
-			"Name": name,
+			"Name": name, 
 			"Strength": strength,
 			"RemainingPills": remainingMed,
 			"PharmacyObtained": pharmObtained,
@@ -187,35 +194,39 @@ export class MedicationPage implements OnInit {
 			  			"minute": Number(minuteList[i]),
 			  			"taken" : taken
 					};
-					this.dataschedules.push(datasched);
+						this.dataschedules.push(datasched);
 				    }
 					
-
+							console.log("2 Raw dataschedues: " + this.dataschedules);
 			      	this.http.post(urlsched, this.dataschedules)
 			    	 .toPromise()
 			    	 .then(response => {
 			      	 console.log('Post Success!');
-			      	 console.log('Reponse: ' + response);
+			      	 console.log('RAW reponse: ' + response);
 
-
+							 this.storageService.addMedScheduleNotifications(response as MedSchedule[]);
+							 this.router.navigateByUrl('')
 
 					//reset the form so the user can add more medications
 			      	var doc = <HTMLFormElement>document.getElementById("addMed");
 			      	doc.reset();
 			    	})
 			    	 .catch(error => {
+								console.log("2 Raw dataschedues: " + this.dataschedules);
 			      		console.log('Post Error!');
 			      		console.log('Reponse: ' + error);
 			    })
 
 			
 			    	.catch(error => {
+							console.log("3 Raw dataschedues: " + this.dataschedules);
 			      	console.log('Post Error!');
 			      	console.log('Reponse: ' + error);
 			    	});
 			    })
 
 			    .catch(error => {
+						console.log("4 Raw dataschedues: " + this.dataschedules);
 			      console.log('Post Error!');
 			      console.log('Reponse: ' + error);
 			    });
@@ -242,6 +253,9 @@ export class MedicationPage implements OnInit {
 			    	.then(response => {
 			      	console.log('Post Success!');
 			      	console.log('Reponse: ' + response);
+
+							this.storageService.addMedScheduleNotifications(response as MedSchedule[]);
+							this.router.navigateByUrl('')
 
 					//reset the form so the user can add more medications
 			      	var doc = <HTMLFormElement>document.getElementById("addMed");
@@ -270,14 +284,15 @@ export class MedicationPage implements OnInit {
 	    	if (this.addSched){
 	    		this.http.post(urlmed, datamed)
 		    	.toPromise()
-		    	.then(response => {
+		    	.then(async response => {
 		      	console.log('Post Success!');
 		      	console.log('Reponse: ' + response);
 
 		      	this.medId = response;
  
 				    console.log("med id is " + this.medId);
-
+						console.log("timeslist: " + this.timeList);
+						console.log("timeslist length: " + this.timeList.length);
 	    		 for (var i=0; i < this.timeList.length; i++) {
 				    	const datasched: any = {
 			  			"Name": name,
@@ -289,22 +304,34 @@ export class MedicationPage implements OnInit {
 			  			"hour": Number(hourList[i]),
 			  			"minute": Number(minuteList[i]),
 			  			"taken" : taken
-					};
-					this.dataschedules.push(datasched);
-					console.log(this.dataschedules);
-				    }
-					
+							};
+							this.dataschedules.push(datasched);
+							console.log("Data sched: " + this.dataschedules);
+						}
+
+							 const loading = await this.loadingController.create({
+							 	message: "Please wait..."
+							 });
+							await loading.present();
 
 			      	this.http.post(urlsched, this.dataschedules)
 			    	 .toPromise()
 			    	 .then(response => {
+							 console.log("5 Raw dataschedues: " + this.dataschedules);
 			      	 console.log('Post Success!');
-			      	 console.log('Reponse: ' + response);
+							 console.log('Reponse: ' + response);
+							 
+							 loading.dismiss();
+							this.storageService.addMedScheduleNotifications(response as MedSchedule[]);
+							
+							this.router.navigateByUrl('')
 
-			      	var doc = <HTMLFormElement>document.getElementById("addMed");
-			      	doc.reset();
-			    	})
+			      	//var doc = <HTMLFormElement>document.getElementById("addMed");
+			      	//doc.reset();
+						})
 			    	 .catch(error => {
+								loading.dismiss();
+								console.log("6 Raw dataschedues: " + this.dataschedules);
 			      		console.log('Post Error!');
 			      		console.log('Reponse: ' + error);
 			    });
@@ -322,6 +349,7 @@ export class MedicationPage implements OnInit {
 			    doc.reset();
 		    	})
 		    	.catch(error => {
+						console.log("7 Raw dataschedues: " + this.dataschedules);
 		      	console.log('Post Error!');
 		      	console.log('Reponse: ' + error);
 		    	});
