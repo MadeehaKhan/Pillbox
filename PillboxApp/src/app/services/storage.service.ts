@@ -128,6 +128,9 @@ export class StorageService {
     if(sched.every == 'daily'){ //valid count numbers are 1-6
       console.log("Sending daily notification");
       this.scheduleDaily(sched);
+    }else{
+      console.log("Sending other notification");
+      this.scheduleDaily(sched);
     }
     // var x = ELocalNotificationTriggerUnit.SECOND;
     // var now = Date.now();
