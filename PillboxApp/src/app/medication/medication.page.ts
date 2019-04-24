@@ -29,7 +29,7 @@ export class MedicationPage implements OnInit {
 	dataschedules: any[] = [];
 
 	filledMedication: Medication = null;
-	filledPrescription: Prescription = null;
+	FilledPrescription: Prescription = null;
 
 	takeAsNeeded = false;
 	units = "mg";
@@ -52,9 +52,7 @@ export class MedicationPage implements OnInit {
 			console.log("get filledMedication");
 			console.log(this.filledMedication);
 			if (this.filledMedication != null){
-				alert("FilledMedication not null");
-				alert("Med name:" + this.filledMedication.name);
-				alert("Med dosage:" + this.filledMedication.dosage);
+				alert("Med: \n" + JSON.stringify(this.filledMedication));
 				this.storage.set("FilledMedication", null);
 				this.storage.set("FilledPrescription", null);
 			}else if (this.filledMedication == null){
@@ -62,6 +60,19 @@ export class MedicationPage implements OnInit {
 			}
 		});
 
+		this.storage.get("FilledPrescription").then(val => {
+			this.FilledPrescription = val as Prescription;						
+			console.log("get FilledPrescription");
+			console.log(this.FilledPrescription);
+			if (this.FilledPrescription != null){
+				alert("Prescription: \n" + JSON.stringify(this.FilledPrescription));
+				this.storage.set("FilledMedication", null);
+				this.storage.set("FilledPrescription", null);
+			}else if (this.FilledPrescription == null){
+				alert("FilledPrescription is null");
+			}
+		});
+		
 		let testUser = new Person();
 		this.storage.get('user')
 		.then(val => testUser = val)
