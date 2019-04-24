@@ -51,6 +51,13 @@ p{
     max-height: 60vh; 
 }
 
+.myImage3{
+    min-width: 60vw;
+    min-height: 60vh;
+    max-width: 60vw;
+    max-height: 60vh; 
+}
+
 #myImage_1{
     background: url('/assets/img/smartphone.svg');
     background-size: 100% 100%;
@@ -62,8 +69,9 @@ p{
 }
 
 #myImage_3{
-    background: url('/assets/img/medical-history.svg');
+    background: url('/assets/img/notification.svg');
     background-size: 100% 100%;
+    margin-top: -15px;
 }
 
 .step-one {
@@ -79,4 +87,8 @@ p{
 .step-three {
     background: #F49D37;
     color: #FFFFFF;
+}
+
+.reminder {
+    margin-top:-15px;
 }
