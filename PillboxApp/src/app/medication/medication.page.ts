@@ -33,6 +33,9 @@ export class MedicationPage implements OnInit {
 
 	takeAsNeeded = false;
 	units = "mg";
+	startDate: string;
+
+	timing: string = "";
 
 	constructor(private router: Router,
      public http: HttpClient, 
@@ -42,6 +45,7 @@ export class MedicationPage implements OnInit {
 	}
 
 	ngOnInit() {
+		this.startDate = new Date(Date.now()).toISOString();
 		console.log("ngOnInit /medication page");
 		this.storage.get("FilledMedication").then(val => {
 			this.filledMedication = val as Medication;						
@@ -105,7 +109,7 @@ async addMed(ngForm: NgForm){
 
     	let every: string = ngForm.form.value.every;
     	let frequency: number = ngForm.form.value.count;
-    	let startDate: any = ngForm.form.value.startDate;
+    	let startDate: any = this.startDate;
     	console.log("date: " + startDate);
     	let hourList: string[] = [];
     	let minuteList: string[] = [];
@@ -415,13 +419,15 @@ async addMed(ngForm: NgForm){
 		}
 	}
 
-  	addTime(time){
-  		console.log(time);
-    this.timeList.unshift(time);
-    return false;
-  	}
+	addTime(time){
+		console.log(time);
+		this.timeList.push(time);
+		this.timeList = this.timeList.sort((a,b) => a > b ? 1 : -1);
+		this.timing = "";
+		return false;
+	}
 
-  	deleteTime(i){
+  deleteTime(i){
     this.timeList.splice(i, 1);
 	}
 

@@ -18,15 +18,15 @@
 	      	<div >
 				<form id="addMed" #form="ngForm" (ngSubmit)="addMed(form)">
 					<ion-item> 
-						<ion-label position="floating"> Name<ion-text color="danger">*</ion-text></ion-label>
+						<ion-label position="floating"> Name <ion-text color="danger">*</ion-text></ion-label>
 						<ion-input type='text' name='name' ngModel required ></ion-input>
 					</ion-item>
 					<ion-item>
-						<ion-label position="floating"> DIN (Drug Identification Number)<ion-text color="danger">*</ion-text> </ion-label>
+						<ion-label position="floating"> DIN (Drug Identification Number) <ion-text color="danger">*</ion-text> </ion-label>
 						<ion-input type="number" name='din' ngModel min='00000000' required ></ion-input>
 					</ion-item>
 					<ion-item>
-						<ion-label position="floating"> Strength<ion-text color="danger">*</ion-text> </ion-label>
+						<ion-label position="floating"> Strength <ion-text color="danger">*</ion-text> </ion-label>
 						<ion-input type='number' name='strength' ngModel required ></ion-input>
                     </ion-item>
                     <ion-item>
@@ -46,46 +46,48 @@
 						</ion-radio-group>
 					</ion-item>
 					<ion-item> 
-						<ion-label position="floating"> Medication remaining<ion-text color="danger">*</ion-text> </ion-label>
+						<ion-label position="floating"> Medication remaining <ion-text color="danger">*</ion-text> </ion-label>
 						<ion-input type="number" name='medrem' ngModel required step='0.5' min='0' ></ion-input>
 					</ion-item>
 					<ion-item>
-						<ion-label position="floating"> Pharmacy Obtained At<ion-text color="danger">*</ion-text> </ion-label>
+						<ion-label position="floating"> Pharmacy Obtained At <ion-text color="danger">*</ion-text> </ion-label>
 						<ion-input type="text" name='pharm' ngModel required ></ion-input>
 					</ion-item>
 					<ion-item>
-						<ion-label for="dobt">Date Obtained<ion-text color="danger">*</ion-text></ion-label>
+						<ion-label for="dobt">Date Obtained <ion-text color="danger">*</ion-text></ion-label>
 						<ion-datetime ngModel name="dobt" display-format="MMM DD, YYYY"></ion-datetime>
 					</ion-item>
 					<ion-item>
-						<ion-label>Take as needed<ion-text color="danger">*</ion-text></ion-label>
+						<ion-label>Take as needed <ion-text color="danger">*</ion-text></ion-label>
 						<ion-toggle name="takeAsNeeded" [(ngModel)]='takeAsNeeded' color="success"></ion-toggle>
 					</ion-item>
-					<ion-button expand="full" (click)="toggleRX()">This is a prescription medication</ion-button>
+					<ion-button expand="full" (click)="toggleRX()" class="btn" color="medium">This is a prescription medication</ion-button>
 
 					<div *ngIf=isRX>
 						<h4>Prescription Information</h4>
 						<ion-item>
-							<ion-label position="floating"> Prescribing Doctor<ion-text color="danger">*</ion-text> </ion-label>
+							<ion-label position="floating"> Prescribing Doctor <ion-text color="danger">*</ion-text> </ion-label>
 							<ion-input type="text" name='doc' ngModel ></ion-input>
 						</ion-item>
 						<ion-item>
-							<ion-label position="floating"> Dosage<ion-text color="danger">*</ion-text> </ion-label>
+							<ion-label position="floating"> Dosage <ion-text color="danger">*</ion-text> </ion-label>
 							<ion-input type="number" name='dosage' ngModel required step="0.1" min='0' ></ion-input>
 						</ion-item>
 						<ion-item>
-							<ion-label position="floating"> Instructions<ion-text color="danger">*</ion-text> </ion-label>
+							<ion-label position="floating"> Instructions <ion-text color="danger">*</ion-text> </ion-label>
 							<ion-input type="text" name='instr' ngModel></ion-input>
 						</ion-item>
 						<ion-item>
-							<ion-label position="floating"> Number of Refills<ion-text color="danger">*</ion-text> </ion-label>
+							<ion-label position="floating"> Number of Refills <ion-text color="danger">*</ion-text> </ion-label>
 							<ion-input type="number" name='numrefills' ngModel min='0' ></ion-input>
 						</ion-item>
-						<ion-button expand="full" id="addToScript" disabled="true" color="primary" (click)="addToScript()">Add to this prescription</ion-button>
+						<!-- not being used -->
+						<!-- <ion-button expand="full" id="addToScript" disabled="true" color="primary" (click)="addToScript()">Add to this prescription</ion-button> -->
 					</div>
 
-                    <ion-button expand="full" (click)="toggleSched()"> Add a schedule for this medication</ion-button>
+                    <ion-button expand="full" (click)="toggleSched()" color="medium" class="btn"> Add a schedule for this medication</ion-button>
                     <div *ngIf=addSched>
+						<h4>Medication Schedule Information</h4>
                         <ion-item>
                             <ion-label position="floating"> Times per day/week </ion-label>
                             <ion-input type="number" ngModel name="count"> </ion-input>
@@ -97,31 +99,33 @@
                             </ion-select>
                         </ion-item>
                         <ion-item>
-                            <ion-label position="floating"> Medication start date </ion-label>
-                            <ion-datetime name="startDate" ngModel>  </ion-datetime>
-                        </ion-item>  
-                        <ion-item>
-                            <ion-label position="floating"> Timings for medication </ion-label>
-                            <ion-datetime name="takeMed" display-format="HH:mm"  #takeMed required ngModel> </ion-datetime>
+                            <ion-label position="floating"> Starting on day </ion-label>
+                            <ion-datetime name="startDate" [(ngModel)]="startDate" value="startDate.toISOString()"></ion-datetime>
                         </ion-item>  
 
-                            <ion-button (click)="addTime(takeMed.value)">Add time</ion-button>
-                        <ion-item>
-						  <ion-list>
-							<ion-item *ngFor="let timing of timeList; let i = index">
-							{{timing }} 
-							<ion-button (click)="deleteTime(i)">-</ion-button>
-							</ion-item>
-						  </ion-list> 
+						<ion-item lines="none">
+							<ion-label position="floating"> Timings for medication </ion-label>
 						</ion-item>
-                    </div>   
+						<ion-list style="padding-top: 0;" [hidden]="timeList.length == 0">
+							<ion-item *ngFor="let timing of timeList; let i = index">
+								{{ timing }} 
+								<ion-button id="trashBtn" slot="end" color="danger" (click)="deleteTime(i)"><ion-icon name="trash"></ion-icon></ion-button>
+							</ion-item>
+						</ion-list>
+						<ion-item>
+							<ion-label position="floating"> Time (Hour:Minute)</ion-label>
+                            <ion-datetime name="timing" placeholder="Select a time to take your medication" display-format="HH:mm" [(ngModel)]="timing"> </ion-datetime>
+						</ion-item>  
+						<div id='center'>
+							<ion-button [attr.disabled]="timing != '' ? 'false' : 'true'" (click)="addTime(timing)">Add time</ion-button>
+						</div> 
 
+                    </div>    
 				</form>
 			</div>
 			
 			<ion-footer>
-    			<ion-button expand="full" color="primary" (click)="adding(form)">Done!</ion-button>
-
+    			<ion-button size="large" color="primary" expand="block" (click)="adding(form)" class="btn">Done!</ion-button>
 			</ion-footer>
 		</ion-col>
 	</ion-row>
