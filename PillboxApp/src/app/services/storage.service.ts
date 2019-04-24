@@ -162,7 +162,7 @@ export class StorageService {
       var date = new Date(medSched.date);
       date.setMinutes(parseInt(medSched.minute.toString()));
       date.setHours(parseInt(medSched.hour.toString()));
-      this.showAlert("Time",  "Date: "+ date.getMonth() + "/" + date.getDate() ,"time: " + date.toLocaleTimeString());
+      //this.showAlert("Time",  "Date: "+ date.getMonth() + "/" + date.getDate() ,"time: " + date.toLocaleTimeString());
       console.log("Time Right now: "+ date.getMonth() + "/" + ", time: " + date.toLocaleTimeString());
 
       console.log("Shcedule Daily!!!")
