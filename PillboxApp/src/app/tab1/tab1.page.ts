@@ -178,7 +178,8 @@ export class Tab1Page {
       }
       else if (diff < 0 && diff >= -30){
         drug.showWarning = true;
-      }else if (drug.hour == hour && drug.minute == minute){
+      }
+      else if (drug.hour == hour && drug.minute == minute){
         drug.showTakeNow = true;
         drug.showWarning = false;
       }
@@ -208,13 +209,15 @@ export class Tab1Page {
           console.log('View Medication: '+ entry.name + ', id: '+ entry.id);
           this.goToMedication(entry);
         }
-      }, {
-        text: 'View Prescription',
-        icon: 'list-box',
-        handler: () => {
-          console.log('View Prescription clicked');
-        }
-      }, {
+      }, 
+      // {
+      //   text: 'View Prescription',
+      //   icon: 'list-box',
+      //   handler: () => {
+      //     console.log('View Prescription clicked');
+      //   }
+      // },
+       {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',
@@ -247,13 +250,15 @@ export class Tab1Page {
           console.log('View Medication: '+ entry.name + ', id: '+ entry.id);
           this.goToMedication(entry);
         }
-      }, {
-        text: 'View Prescription',
-        icon: 'list-box',
-        handler: () => {
-          console.log('View Prescription clicked');
-        }
-      }, {
+      }, 
+      // {
+      //   text: 'View Prescription',
+      //   icon: 'list-box',
+      //   handler: () => {
+      //     console.log('View Prescription clicked');
+      //   }
+      // }, 
+      {
         text: 'Cancel',
         icon: 'close',
         role: 'cancel',

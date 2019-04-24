@@ -11,32 +11,8 @@ h1 {
     margin-bottom: 20px;
 }
 
-div {
-    border: 3px solid #42b0f4;
-    box-shadow: 8px 8px 5px #3ba2e2;
-    text-decoration: none; 
-    padding-bottom: 20px;
-    margin: auto;
-    margin-bottom: 30px;
-}
-
-.basicInfo {
-    
-    max-width: 300px;
-}
-
-.medData {
-    
-    max-width: 300px;
-}
-
-.rxInfo {
-    
-    max-width: 400px;    
-}
-
-.vii {
-    
-    max-width: 400px;
+.welcome-card {
+    border-radius: 10px;
+    border: 1px solid rgb(185, 185, 185);
 }
 

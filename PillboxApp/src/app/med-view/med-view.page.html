@@ -9,26 +9,26 @@
 </ion-header>
  
 <ion-content padding>
-    <h1> {{information.name}} {{information.strength}} {{information.units}} ({{information.din}}) </h1>
-    <div *ngIf=isRx class= "vii">
+    <h1 text-center> {{information.name}} {{information.strength}} {{information.units}} ({{information.din}}) </h1>
+    <ion-card *ngIf=isRx class= "vii welcome-card">
         <ion-item>
             <h2> Dosage: {{information.dosage}} </h2> 
         </ion-item>
         <ion-item>
             <h3> Instructions: {{information.instructions}} </h3>
         </ion-item>
-    </div>
+    </ion-card>
 
-    <div class="medData">
+    <ion-card class="medData welcome-card">
         <ion-item> 
             <h2> Medication remaining: {{information.remainingPills}}</h2>
         </ion-item>
         <ion-item>
             <h3> Date Obtained: {{date}} </h3>
         </ion-item>
-    </div>
+    </ion-card>
 
-    <div *ngIf=isRx class="rxInfo">
+    <ion-card *ngIf=isRx class="rxInfo welcome-card">
         <ion-item>
             <h2> Prescribing Doctor: {{rxInfo.doctor}} </h2>
         </ion-item>
@@ -38,7 +38,7 @@
         <ion-item>
             <h2> Number of Refills: {{information.numRefills}} </h2>
         </ion-item>
-    </div>
+    </ion-card>
 
-    <ion-button expand="block" size="large" color="primary" (click)="editMed()"> Edit </ion-button>    
+    <ion-button style="margin-top: 25px;" expand="block" size="large" color="primary" (click)="editMed()"> Edit </ion-button>    
 </ion-content>

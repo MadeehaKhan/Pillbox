@@ -13,8 +13,15 @@ import { LoadingController } from '@ionic/angular';
 export class ChangeHealthconditionsPage implements OnInit {
 
   user: Person = new Person();
+  conditions: any[] = [];
+  condition: string = "";
+
   constructor(private router: Router, private storage: Storage, private medicationService: MedicationService, private loadingController: LoadingController) {
-    this.storage.get('user').then(val => this.user = val);
+    this.storage.get('user').then(val => {
+      this.user = val;
+      console.log(this.user);
+      this.conditions = this.user.healthConditions.split(',');
+    });
   }
 
   ngOnInit() {
@@ -28,7 +35,7 @@ export class ChangeHealthconditionsPage implements OnInit {
     console.log(ngForm);
     // TODO: authenticate form
     
-    this.user.healthConditions = ngForm.form.value.healthconditions;
+    this.user.healthConditions = this.conditions.join();
 
     const loading = await this.loadingController.create({
       message: "Please wait..."
@@ -42,6 +49,20 @@ export class ChangeHealthconditionsPage implements OnInit {
         loading.dismiss();
         this.router.navigateByUrl('/tabs/tab3');
       })
+  }
+
+  addCond(){
+    console.log(this.condition);
+    if (this.condition != "" || this.condition != undefined || this.condition != null){
+      this.conditions.push(this.condition);
+      this.condition = "";
+    }
+    return false;
+  }
+
+  deleteCond(i){
+  	console.log(i);
+    this.conditions.splice(i, 1);
   }
 
 }

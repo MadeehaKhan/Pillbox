@@ -8,21 +8,27 @@
 </ion-header>
 
 <ion-content padding>
-  
+    <h5 [hidden]="failedMsg === ''" class="isa_error">
+        {{failedMsg}}
+    </h5>
   <div id='center'>
       <h4>Health Conditions</h4>
   </div>
 
-
   <form id="login" #form="ngForm" (ngSubmit)="authenticate(form)">
-    <h5 [hidden]="failedMsg === ''" class="isa_error">
-        <!-- <i class="fa fa-times-circle"></i> -->
-        {{failedMsg}}
-    </h5>
-
+    <ion-list style="padding-top: 0;" [hidden]="conditions.length == 0">
+        <ion-item *ngFor="let cond of conditions; let i = index">
+        {{ cond }} 
+        <ion-button id="trashBtn" slot="end" color="danger" (click)="deleteCond(i)"><ion-icon name="trash"></ion-icon></ion-button>
+        </ion-item>
+      </ion-list> 
     <ion-item>
-      <ion-textarea name="healthconditions" rows="6" cols="20" placeholder="Enter more information here..." ngModel="{{user.healthConditions}}"></ion-textarea>
+      <ion-input [(ngModel)]="condition" pattern="[a-zA-z\s]*" name="condition" id="condition" type="text" placeholder="Condition" ></ion-input>
     </ion-item>
+    <div id="center" padding style="padding-top: 5px;">
+        <ion-button  [attr.disabled]="condition != '' ? 'false' : 'true'" (click)="addCond()"><ion-icon name="add"></ion-icon> Add condition </ion-button>
+    </div>
+
     <div id="center" style="margin: 20px;">
         <ion-button size="large" color="primary" type="submit" [disabled]="!form.valid">Update</ion-button>
     </div>

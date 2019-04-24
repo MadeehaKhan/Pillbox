@@ -21,6 +21,8 @@ export class MedicationModifyPage implements OnInit {
 	pId: number;
 	date: string;
 
+	sideEffect: string = "";
+
   constructor(private router: Router, public http: HttpClient, 
      private storage: Storage, private route: ActivatedRoute) {
  	this.medId = this.route.snapshot.paramMap.get('id');
@@ -204,7 +206,7 @@ export class MedicationModifyPage implements OnInit {
    addSFX(sfx){
 
     //console.log(sfx);
-    this.sidefx.unshift(sfx);
+    this.sidefx.push(sfx);
     return false;
 
   }

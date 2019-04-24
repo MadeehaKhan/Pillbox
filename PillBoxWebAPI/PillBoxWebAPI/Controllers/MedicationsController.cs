@@ -663,12 +663,21 @@ namespace PillBoxWebAPI.Controllers
 
                         //PRESCRIPTION
                         //Date Obtained
-                        Match match = Regex.Match(strLine, @"[0-9]{2}-[a-zA-Z]{3}-[0-9]{4}");
+                        Match match = Regex.Match(strLine, @"([0-9]{2})-([a-zA-Z]{3})-([0-9]{4})\s*(\d{2}:\d{2})");
                         if (match.Success)
                         {
-                            //TODO: Parse strLine to make a datetime object
-                            prescription.DateObtained = new DateTime();
-                            medication.DateObtained = new DateTime();
+                            var dateObtained = new DateTime();
+                            try
+                            {
+                                dateObtained = Convert.ToDateTime(match.Groups[0].Value);
+                                prescription.DateObtained = dateObtained;
+                                medication.DateObtained = dateObtained;
+                            }
+                            catch (Exception)
+                            {
+                                prescription.DateObtained = new DateTime();
+                                medication.DateObtained = new DateTime();
+                            }                        
                             continue;
                         }
 

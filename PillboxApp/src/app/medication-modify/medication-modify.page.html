@@ -3,95 +3,102 @@
 	<ion-title id="myImage_Header">
 	</ion-title>
 	<ion-buttons>
-		<ion-back-button defaultHref="/register" color="primary"  routerDirection="back"></ion-back-button>
+		<ion-back-button defaultHref="/tabs/tab1" color="primary"  routerDirection="back"></ion-back-button>
 	</ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-	
-	<ion-grid>
-	<ion-row justify-content-center>
-		<ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-			<div text-center>
-				<h4>Edit the information for {{information.name}}</h4>
-		  	</div>
-			<form id="editMed" #form="ngForm" (ngSubmit)="editMed(form)">
+	<div text-center>
+		<h4>Edit the information for {{information.name}}</h4>
+		</div>
+	<form id="editMed" #form="ngForm" (ngSubmit)="editMed(form)">
 
-				<ion-item>
-					<ion-label for="name">Name:</ion-label>
-					<ion-input type="text" required [(ngModel)]="information.name" name='name'></ion-input>
+		<ion-item>
+			<ion-label for="name">Name:</ion-label>
+			<ion-input type="text" required [(ngModel)]="information.name" name='name'></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label for="strength">Strength:</ion-label>
+			<ion-input type="number" required [(ngModel)]="information.strength" name='strength'></ion-input>
+			
+		</ion-item>
+
+		<ion-item>
+			<ion-label for="din">DIN:</ion-label>
+			<ion-input type="number" name='din' required [(ngModel)]="information.din"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label for="pharmObt">Pharmacy:</ion-label>
+			<ion-input type="text" required [(ngModel)]="information.pharmacyObtained" name='pharmObt'></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label for="remMed">Medication Remaining:</ion-label>
+			<ion-input type="number" required [(ngModel)]="information.remainingPills" name='remMed'></ion-input>
+		</ion-item>
+
+		<ion-item lines="none">
+			<ion-label for="sfx">Side Effects:</ion-label>
+		</ion-item>
+		<ion-list style="padding-top: 0;" [hidden]="sidefx.length == 0">
+			<ion-item *ngFor="let sfx of sidefx; let i = index">
+				{{ sfx }} 
+				<ion-button id="trashBtn" slot="end" color="danger" (click)="deleteSFX(i)"><ion-icon name="trash"></ion-icon></ion-button>
+			</ion-item>
+		</ion-list> 
+		<ion-item>
+				<ion-input [(ngModel)]="sideEffect" pattern="[a-zA-z\s]*" name="sfx" id="sideEffect" type="text" placeholder="Side Effect" ></ion-input>
+			</ion-item>
+		<div id="center" padding style="padding-top: 5px;">
+				<ion-button  [attr.disabled]="sideEffect != '' ? 'false' : 'true'" (click)="addSFX(sideEffect)"><ion-icon name="add"></ion-icon>Add Side Effect</ion-button>
+		</div>
+
+		<!-- <ion-list style="padding-top: 0;" [hidden]="pxconds.length == 0">
+				<ion-item *ngFor="let cond of pxconds; let i = index">
+				{{ cond }} 
+				<ion-button id="trashBtn" slot="end" color="danger" (click)="deleteCond(i)"><ion-icon name="trash"></ion-icon></ion-button>
 				</ion-item>
+			</ion-list> 
+		<ion-item>
+			<ion-input [(ngModel)]="condition" pattern="[a-zA-z\s]*" name="condition" id="condition" type="text" placeholder="Pre-existing condition" ></ion-input>
+		</ion-item>
+		<div id="center" padding style="padding-top: 5px;">
+				<ion-button  [attr.disabled]="condition != '' ? 'false' : 'true'" (click)="addCond()"><ion-icon name="add"></ion-icon> Add condition </ion-button>
+		</div> -->
 
-				<ion-item>
-					<ion-label for="strength">Strength:</ion-label>
-					<ion-input type="number" required [(ngModel)]="information.strength" name='strength'></ion-input>
-					
-				</ion-item>
+		<ion-item>
+			<ion-label for="dobt">Date Obtained:</ion-label>
+			<ion-input type="date" required name="dobt" [(ngModel)]="this.date"></ion-input>
+		</ion-item>
 
-				<ion-item>
-					<ion-label for="din">DIN:</ion-label>
-					<ion-input type="number" name='din' required [(ngModel)]="information.din"></ion-input>
-				</ion-item>
+		<div *ngIf=isRx>
+			<ion-item>
+				<ion-label for="doc">Doctor:</ion-label>
+				<ion-input type="text" required [(ngModel)]="rxInfo.doctor" name='doc'></ion-input>
+			</ion-item>
 
-				<ion-item>
-					<ion-label for="pharmObt">Pharmacy:</ion-label>
-					<ion-input type="text" required [(ngModel)]="information.pharmacyObtained" name='pharmObt'></ion-input>
-				</ion-item>
+			<ion-item>
+				<ion-label for="dosage">Dosage:</ion-label>
+				<ion-input type="text" [(ngModel)]="information.dosage" name='dosage' required ></ion-input>
+			</ion-item>
 
-				<ion-item>
-					<ion-label for="remMed">Medication Remaining:</ion-label>
-					<ion-input type="number" required [(ngModel)]="information.remainingPills" name='remMed'></ion-input>
-				</ion-item>
-
-				<ion-item>
-					<ion-label for="sfx">Side Effects:</ion-label>
-					<ion-input type="text" #sfx required ngModel name='sfx'><ion-button (click)="addSFX(sfx.value)">+</ion-button>
-				  </ion-input>
-				</ion-item>
-				<ion-item>
-				  <ion-list>
-					<ion-item *ngFor="let sfx of sidefx; let i = index">
-					{{sfx }} 
-					<ion-button (click)="deleteSFX(i)">-</ion-button>
-					</ion-item>
-				  </ion-list> 
-				</ion-item>
-
-				<ion-item>
-					<ion-label for="dobt">Date Obtained</ion-label>
-					<ion-input type="date" required name="dobt" [(ngModel)]="this.date"></ion-input>
-				</ion-item>
-
-				<div *ngIf=isRx>
-					<ion-item>
-						<ion-label for="doc">Doctor:</ion-label>
-						<ion-input type="text" required [(ngModel)]="rxInfo.doctor" name='doc'></ion-input>
-					</ion-item>
-
-					<ion-item>
-						<ion-label for="dosage">Dosage:</ion-label>
-						<ion-input type="text" [(ngModel)]="information.dosage" name='dosage' required ></ion-input>
-					</ion-item>
-
-					<ion-item>
-						<ion-label for="instr">Instructions:</ion-label>
-						<ion-input type="text" name='instr' required [(ngModel)]="information.instructions"></ion-input>  <!-- **** -->
-					</ion-item>
-					
-					<ion-item>
-						<ion-label for="numrefills">Number of Refills:</ion-label>
-						<ion-input type="number" name='numrefills' min='0' required [(ngModel)]="information.numRefills"></ion-input>
-					</ion-item>
-				</div>
-			</form>
-			<ion-footer>
-				<ion-button expand="full" color="primary" (click)="editMed(form)">Done!</ion-button>
-				<br>
-				<br>
-				<ion-button expand="full" color="danger" (click)="deleteMed()">Delete this Medication</ion-button>
-			</ion-footer>
-		</ion-col>
-	</ion-row>
-</ion-grid>
+			<ion-item>
+				<ion-label for="instr">Instructions:</ion-label>
+				<ion-input type="text" name='instr' required [(ngModel)]="information.instructions"></ion-input>  <!-- **** -->
+			</ion-item>
+			
+			<ion-item>
+				<ion-label for="numrefills">Number of Refills:</ion-label>
+				<ion-input type="number" name='numrefills' min='0' required [(ngModel)]="information.numRefills"></ion-input>
+			</ion-item>
+		</div>
+	</form>
+	<ion-footer style="margin-top: 20px;">
+		<ion-button expand="block" size="large" color="primary" (click)="editMed(form)">Update!</ion-button>
+		<br>
+		<ion-button expand="block" size="large" color="danger" (click)="deleteMed()">Delete this Medication</ion-button>
+	</ion-footer>
 </ion-content>
