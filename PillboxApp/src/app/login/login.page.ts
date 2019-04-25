@@ -83,7 +83,13 @@ export class LoginPage implements OnInit {
       user.password = password;
       console.log(user);
       this.medicationService.setPerson(user);
-      this.storage.set('user', user);
+      this.storage.set('user', user).then( () => {
+        console.log('After person has been set')
+        if (goToTab1){
+          console.log('Go to tab1');
+          this.router.navigateByUrl('/tabs/tab1');
+        }
+      });
       //How to get the user data
       //let testUser = new Person();
       // this.storage.get('user')
@@ -93,12 +99,6 @@ export class LoginPage implements OnInit {
       //   console.log(testUser.email);
       //   console.log(testUser.givenName + ' ' + testUser.lastName);
       // });
-    }).then(() =>{
-      console.log('After person has been set')
-      if (goToTab1){
-        console.log('Go to tab1');
-        this.router.navigateByUrl('/tabs/tab1');
-      }
     })
   }
 }

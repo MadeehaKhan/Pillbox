@@ -128,6 +128,9 @@ export class StorageService {
     if(sched.every == 'daily'){ //valid count numbers are 1-6
       console.log("Sending daily notification");
       this.scheduleDaily(sched);
+    }else{
+      console.log("Sending other notification");
+      this.scheduleDaily(sched);
     }
     // var x = ELocalNotificationTriggerUnit.SECOND;
     // var now = Date.now();
@@ -162,7 +165,7 @@ export class StorageService {
       var date = new Date(medSched.date);
       date.setMinutes(parseInt(medSched.minute.toString()));
       date.setHours(parseInt(medSched.hour.toString()));
-      this.showAlert("Time",  "Date: "+ date.getMonth() + "/" + date.getDate() ,"time: " + date.toLocaleTimeString());
+      //this.showAlert("Time",  "Date: "+ date.getMonth() + "/" + date.getDate() ,"time: " + date.toLocaleTimeString());
       console.log("Time Right now: "+ date.getMonth() + "/" + ", time: " + date.toLocaleTimeString());
 
       console.log("Shcedule Daily!!!")
