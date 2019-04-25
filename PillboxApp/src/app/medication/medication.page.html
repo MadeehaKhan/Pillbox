@@ -19,15 +19,15 @@
 				<form id="addMed" #form="ngForm" (ngSubmit)="addMed(form)">
 					<ion-item> 
 						<ion-label position="floating"> Name <ion-text color="danger">*</ion-text></ion-label>
-						<ion-input type='text' name='name' ngModel required ></ion-input>
+						<ion-input type='text' name='name' [(ngModel)]="name" required ></ion-input>
 					</ion-item>
 					<ion-item>
 						<ion-label position="floating"> DIN (Drug Identification Number) <ion-text color="danger">*</ion-text> </ion-label>
-						<ion-input type="number" name='din' ngModel min='00000000' required ></ion-input>
+						<ion-input type="number" [(ngModel)]="din" name='din' ngModel min='00000000' required ></ion-input>
 					</ion-item>
 					<ion-item>
 						<ion-label position="floating"> Strength <ion-text color="danger">*</ion-text> </ion-label>
-						<ion-input type='number' name='strength' ngModel required ></ion-input>
+						<ion-input type='number' [(ngModel)]="strength" name='strength' ngModel required ></ion-input>
                     </ion-item>
                     <ion-item>
 						<ion-radio-group name="units" [(ngModel)]="units">
@@ -47,15 +47,15 @@
 					</ion-item>
 					<ion-item> 
 						<ion-label position="floating"> Medication remaining <ion-text color="danger">*</ion-text> </ion-label>
-						<ion-input type="number" name='medrem' ngModel required step='0.5' min='0' ></ion-input>
+						<ion-input type="number" name='medrem' [(ngModel)]="medrem" required step='0.5' min='0' ></ion-input>
 					</ion-item>
 					<ion-item>
 						<ion-label position="floating"> Pharmacy Obtained At <ion-text color="danger">*</ion-text> </ion-label>
-						<ion-input type="text" name='pharm' ngModel required ></ion-input>
+						<ion-input type="text" name='pharm' [(ngModel)]="pharm" required ></ion-input>
 					</ion-item>
 					<ion-item>
 						<ion-label for="dobt">Date Obtained <ion-text color="danger">*</ion-text></ion-label>
-						<ion-datetime ngModel name="dobt" display-format="MMM DD, YYYY"></ion-datetime>
+						<ion-datetime ngModel name="dobt" [(ngModel)]="dobt" display-format="MMM DD, YYYY"></ion-datetime>
 					</ion-item>
 					<ion-item>
 						<ion-label>Take as needed <ion-text color="danger">*</ion-text></ion-label>
@@ -66,20 +66,24 @@
 					<div *ngIf=isRX>
 						<h4>Prescription Information</h4>
 						<ion-item>
+								<ion-label position="floating"> Rx <ion-text color="danger">*</ion-text> </ion-label>
+								<ion-input type="text" name='rx' [(ngModel)]="rx" ></ion-input>
+							</ion-item>
+						<ion-item>
 							<ion-label position="floating"> Prescribing Doctor <ion-text color="danger">*</ion-text> </ion-label>
-							<ion-input type="text" name='doc' ngModel ></ion-input>
+							<ion-input type="text" name='doc' [(ngModel)]="doc" ></ion-input>
 						</ion-item>
 						<ion-item>
 							<ion-label position="floating"> Dosage <ion-text color="danger">*</ion-text> </ion-label>
-							<ion-input type="number" name='dosage' ngModel required step="0.1" min='0' ></ion-input>
+							<ion-input type="number" name='dosage' [(ngModel)]="dosage" required step="0.1" min='0' ></ion-input>
 						</ion-item>
 						<ion-item>
 							<ion-label position="floating"> Instructions <ion-text color="danger">*</ion-text> </ion-label>
-							<ion-input type="text" name='instr' ngModel></ion-input>
+							<ion-input type="text" name='instr' [(ngModel)]="instr"></ion-input>
 						</ion-item>
 						<ion-item>
 							<ion-label position="floating"> Number of Refills <ion-text color="danger">*</ion-text> </ion-label>
-							<ion-input type="number" name='numrefills' ngModel min='0' ></ion-input>
+							<ion-input type="number" name='numrefills' [(ngModel)]="numrefills" min='0' ></ion-input>
 						</ion-item>
 						<!-- not being used -->
 						<!-- <ion-button expand="full" id="addToScript" disabled="true" color="primary" (click)="addToScript()">Add to this prescription</ion-button> -->
@@ -90,7 +94,7 @@
 						<h4>Medication Schedule Information</h4>
                         <ion-item>
                             <ion-label position="floating"> Times per day/week </ion-label>
-                            <ion-input type="number" ngModel name="count"> </ion-input>
+                            <ion-input type="number" [(ngModel)]="count" name="count"> </ion-input>
                         </ion-item>
                         <ion-item> 
                             <ion-select placeholder="Select frequency of medication" [(ngModel)]="every" name="every">

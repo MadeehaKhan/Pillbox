@@ -72,7 +72,7 @@ export class MedicationEnterPage implements OnInit {
         // alert(this.imageFileUri);
      }, (err) => {
       // Handle error
-      alert("Error taking image")
+      // alert("Error taking image")
      });
   }
 
@@ -103,42 +103,20 @@ export class MedicationEnterPage implements OnInit {
           this.images.push(res)); 
         
         this.file.copyFile(this.imageFilePath, this.fileName, this.file.dataDirectory, this.fileName).then((success) => {
-          alert("stored file localy");
+          // alert("stored file localy");
           this.imageFileUri = this.file.dataDirectory + this.fileName;
-          alert('fileURI: '+ this.imageFileUri);
+          // alert('fileURI: '+ this.imageFileUri);
         });
-          alert(imagePath);
-
+          // alert(imagePath);
       }).catch(error => {
-        alert('getting image error');
+        // alert('getting image error');
       });
         
 
     }, (err) => {
       // Handle error
-      alert("Error taking image");
+      // alert("Error taking image");
     });
-
-    // let options = {
-    //   maximumImagesCount: 1,
-    //   quality: 50,
-    //   outputType: 1,
-    //   // width: 300,
-    // }
-
-    // this.images = [];
-    // this.imagePicker.getPictures(options)
-    // .then((results) => {
-    //   for (var i = 0; i < results.length; i++) {
-    //     this.imagePicked = true;
-    //     this.images.push('data:image/jpeg;base64,' + results[i]);        
-    //     this.imageFileUri = results[i];
-    //   }
-    // }, (error) => {
-    //   this.imagePicked = false;
-    //   this.images = [];
-    //   alert(error);
-    // })
   }
 
   public async continue(){
